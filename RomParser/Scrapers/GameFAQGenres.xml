@@ -1,0 +1,135 @@
+<ArrayOfTag>
+	<Tag name="Action" genre="Genre"/>
+	<Tag name="2D" genre="Perspective"/>
+	<Tag name="3D" genre="Perspective"/>
+	<Tag name="Action" genre="Genre"/>
+	<Tag name="Action Adventure" genre="Genre"/>
+	<Tag name="Action RPG" genre="Gameplay"/>
+	<Tag name="Adventure" genre="Gameplay"/>
+	<Tag name="Alternative" genre="Gameplay"/>
+	<Tag name="Arcade" genre="Gameplay"/>
+	<Tag name="Baseball" genre="Sport"/>
+	<Tag name="Basketball" genre="Sport"/>
+	<Tag name="Beat-'Em-Up" genre="Gameplay"/>
+	<Tag name="Biking" genre="Sport"/>
+	<Tag name="Billiards" genre="Sport"/>
+	<Tag name="Board Games" genre="Gameplay"/>
+	<Tag name="Bowling" genre="Sport"/>
+	<Tag name="Boxing" genre="Sport"/>
+	<Tag name="Breeding/Constructing" genre="Gameplay"/>
+	<Tag name="Car Combat" genre="Gameplay"/>
+	<Tag name="Card Battle" genre="Gameplay"/>
+	<Tag name="City Building" genre="Gameplay"/>
+	<Tag name="Civilian Plane" genre="Vehicle"/>
+	<Tag name="Compilation" genre="Genre"/>
+	<Tag name="Console" genre="Hardware"/>
+	<Tag name="Console-style RPG" genre="Gameplay"/>
+	<Tag name="Cricket" genre="Sport"/>
+	<Tag name="Dancing" genre="Gameplay"/>
+	<Tag name="Demo Disc" genre="Genre"/>
+	<Tag name="Demolition Derby" genre="Gameplay"/>
+	<Tag name="Drag" genre="Vehicle"/>
+	<Tag name="Driving" genre="Genre"/>
+	<Tag name="Edutainment" genre="Gameplay"/>
+	<Tag name="Exercise / Fitness" genre="Gameplay"/>
+	<Tag name="Fantasy" genre="Theme"/>
+	<Tag name="Fighting" genre="Gameplay"/>
+	<Tag name="First-Person" genre="Perspective"/>
+	<Tag name="Fishing" genre="Sport"/>
+	<Tag name="Flight" genre="Gameplay"/>
+	<Tag name="Football" genre="Sport"/>
+	<Tag name="Formula One" genre="Sport"/>
+	<Tag name="Futuristic" genre="Theme"/>
+	<Tag name="Futuristic Jet" genre="Vehicle"/>
+	<Tag name="Futuristic Sub" genre="Vehicle"/>
+	<Tag name="Gambling" genre="Gameplay"/>
+	<Tag name="General" genre="Hardware"/>
+	<Tag name="Golf" genre="Sport"/>
+	<Tag name="GT / Street" genre="Vehicle"/>
+	<Tag name="Hardware" genre="Genre"/>
+	<Tag name="Helicopter" genre="Vehicle"/>
+	<Tag name="Hidden Object" genre="Gameplay"/>
+	<Tag name="Historic" genre="Theme"/>
+	<Tag name="Horror" genre="Theme"/>
+	<Tag name="Horse Racing" genre="Sport"/>
+	<Tag name="Hunting" genre="Sport"/>
+	<Tag name="Ice Hockey" genre="Sport"/>
+	<Tag name="Interactive Movie" genre="Gameplay"/>
+	<Tag name="Kart" genre="Vehicle"/>
+	<Tag name="Large Spaceship" genre="Vehicle"/>
+	<Tag name="Light Gun" genre="Gameplay"/>
+	<Tag name="Logic" genre="Gameplay"/>
+	<Tag name="Management" genre="Gameplay"/>
+	<Tag name="Massively Multiplayer Online" genre="Gameplay"/>
+	<Tag name="Matching" genre="Gameplay"/>
+	<Tag name="Mech" genre="Vehicle"/>
+	<Tag name="Military" genre="Theme"/>
+	<Tag name="Miscellaneous" genre="Genre"/>
+	<Tag name="Mission-based" genre="Gameplay"/>
+	<Tag name="MOBA" genre="Gameplay"/>
+	<Tag name="Modern" genre="Theme"/>
+	<Tag name="Modern Jet" genre="Vehicle"/>
+	<Tag name="Motocross" genre="Sport"/>
+	<Tag name="Motorcycle" genre="Vehicle"/>
+	<Tag name="Music" genre="Gameplay"/>
+	<Tag name="Music Maker" genre="Gameplay"/>
+	<Tag name="Nature" genre="Theme"/>
+	<Tag name="Old Jet" genre="Vehicle"/>
+	<Tag name="Olympic Sports" genre="Sport"/>
+	<Tag name="On-foot" genre="Vehicle"/>
+	<Tag name="Other" genre="Gameplay"/>
+	<Tag name="Parlor" genre="Gameplay"/>
+	<Tag name="Party" genre="Gameplay"/>
+	<Tag name="PC-style RPG" genre="Gameplay"/>
+	<Tag name="Pinball" genre="Gameplay"/>
+	<Tag name="Platformer" genre="Gameplay"/>
+	<Tag name="Puzzle" genre="Genre"/>
+	<Tag name="Racing" genre="Gameplay"/>
+	<Tag name="Rail" genre="Gameplay"/>
+	<Tag name="Rally / Offroad" genre="Gameplay"/>
+	<Tag name="Real-Time" genre="Gameplay"/>
+	<Tag name="Rhythm" genre="Gameplay"/>
+	<Tag name="Role-Playing" genre="Genre"/>
+	<Tag name="Rugby" genre="Sport"/>
+	<Tag name="Sci-Fi" genre="Theme"/>
+	<Tag name="Scrolling" genre="Gameplay"/>
+	<Tag name="Ship" genre="Vehicle"/>
+	<Tag name="Shooter" genre="Gameplay"/>
+	<Tag name="Sim" genre="Gameplay"/>
+	<Tag name="Simulation" genre="Genre"/>
+	<Tag name="Skateboarding" genre="Sport"/>
+	<Tag name="Skating" genre="Sport"/>
+	<Tag name="Skiing" genre="Sport"/>
+	<Tag name="Small Spaceship" genre="Vehicle"/>
+	<Tag name="Snow / Water" genre="Gameplay"/>
+	<Tag name="Snowboarding" genre="Sport"/>
+	<Tag name="Soccer" genre="Sport"/>
+	<Tag name="Sports" genre="Genre"/>
+	<Tag name="Stacking" genre="Gameplay"/>
+	<Tag name="Static" genre="Gameplay"/>
+	<Tag name="Stock Car" genre="Vehicle"/>
+	<Tag name="Strategy" genre="Genre"/>
+	<Tag name="Street" genre="Sport"/>
+	<Tag name="Submarine" genre="Vehicle"/>
+	<Tag name="Surfing" genre="Sport"/>
+	<Tag name="Tactical" genre="Gameplay"/>
+	<Tag name="Tank" genre="Vehicle"/>
+	<Tag name="Tennis" genre="Sport"/>
+	<Tag name="Text" genre="Gameplay"/>
+	<Tag name="Third-Person" genre="Perspective"/>
+	<Tag name="Traditional" genre="Gameplay"/>
+	<Tag name="Train" genre="Vehicle"/>
+	<Tag name="Trivia / Game Show" genre="Gameplay"/>
+	<Tag name="Truck" genre="Vehicle"/>
+	<Tag name="Turn-Based" genre="Gameplay"/>
+	<Tag name="Tycoon" genre="Gameplay"/>
+	<Tag name="Videos" genre="Gameplay"/>
+	<Tag name="Virtual Life" genre="Gameplay"/>
+	<Tag name="Volleyball" genre="Sport"/>
+	<Tag name="Wakeboarding" genre="Sport"/>
+	<Tag name="Wargame" genre="Gameplay"/>
+	<Tag name="Web Browser" genre="Gameplay"/>
+	<Tag name="Wrestling" genre="Sport"/>
+	<Tag name="WWI" genre="Theme"/>
+	<Tag name="WWII" genre="Theme"/>
+</ArrayOfTag>
