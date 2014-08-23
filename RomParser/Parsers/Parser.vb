@@ -2,12 +2,12 @@
 Imports System.ComponentModel
 Imports System.Xml.Serialization
 
-Public MustInherit Class Parser
+Public MustInherit Class FileParser
     Public Event ItemAdded(strLabel As String, intId As Integer, intCount As Integer)
     Sub New()
 
     End Sub
-    Public MustOverride Sub ParsePath(dir As DirectoryInfo, ByRef list As List(Of ParserSoftware))
+    Public MustOverride Sub ParsePath(dir As DirectoryInfo, ByRef ds As Parser)
     Protected Sub OnItemAdded(strLabel As String, intId As Integer, intCount As Integer)
         RaiseEvent ItemAdded(strLabel, intId, intCount)
     End Sub

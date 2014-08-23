@@ -132,8 +132,14 @@
     <Compile Include="Parsers\NoIntro.vb" />
     <Compile Include="Parsers\Parser.vb" />
     <Compile Include="Parsers\TOSEC.vb" />
+    <Compile Include="PredicateWrapper.vb" />
     <Compile Include="Scrapers\GameFAQScraper.vb" />
     <Compile Include="Scrapers\Scraper.vb" />
+    <Compile Include="Serializer\ParserSerializer.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ParserSerializer.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Serializer\ParserSerializer.vb" />
     <Compile Include="Serializer\ScraperSerializer.vb" />
   </ItemGroup>
@@ -159,6 +165,17 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="Serializer\ParserSerializer.xsc">
+      <DependentUpon>ParserSerializer.xsd</DependentUpon>
+    </None>
+    <None Include="Serializer\ParserSerializer.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ParserSerializer.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Serializer\ParserSerializer.xss">
+      <DependentUpon>ParserSerializer.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scrapers\GameFAQGenres.xml">

@@ -22,6 +22,7 @@ Partial Class frmMain
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.txtPath = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -38,6 +39,18 @@ Partial Class frmMain
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Button6 = New System.Windows.Forms.Button()
         Me.tcTabs = New System.Windows.Forms.TabControl()
+        Me.tbParser = New System.Windows.Forms.TabPage()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.dgvFiles = New System.Windows.Forms.DataGridView()
+        Me.txtSoftwareType = New System.Windows.Forms.TextBox()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.txtSoftwarePlatform = New System.Windows.Forms.TextBox()
+        Me.Label11 = New System.Windows.Forms.Label()
+        Me.txtSoftwareManufacturer = New System.Windows.Forms.TextBox()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.txtSoftwareTitle = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.tvSoftwares = New System.Windows.Forms.TreeView()
         Me.tbScraper = New System.Windows.Forms.TabPage()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
@@ -55,24 +68,21 @@ Partial Class frmMain
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtTitle = New System.Windows.Forms.TextBox()
         Me.tvGames = New System.Windows.Forms.TreeView()
-        Me.tbParser = New System.Windows.Forms.TabPage()
-        Me.tvSoftwares = New System.Windows.Forms.TreeView()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.txtSoftwareTitle = New System.Windows.Forms.TextBox()
-        Me.txtSoftwareManufacturer = New System.Windows.Forms.TextBox()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.txtSoftwarePlatform = New System.Windows.Forms.TextBox()
-        Me.Label11 = New System.Windows.Forms.Label()
-        Me.txtSoftwareType = New System.Windows.Forms.TextBox()
-        Me.Label12 = New System.Windows.Forms.Label()
-        Me.dgvFiles = New System.Windows.Forms.DataGridView()
-        Me.Label13 = New System.Windows.Forms.Label()
+        Me.Parser1 = New RomParser.Parser()
+        Me.SoftwaresBindingSource = New System.Windows.Forms.BindingSource(Me.components)
+        Me.SoftwareIdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SoftwareNameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ManufacturerIdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.SystemIdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.TypeIdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.StatusStrip1.SuspendLayout()
         Me.tcTabs.SuspendLayout()
-        Me.tbScraper.SuspendLayout()
-        CType(Me.dgvReleases, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tbParser.SuspendLayout()
         CType(Me.dgvFiles, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.tbScraper.SuspendLayout()
+        CType(Me.dgvReleases, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Parser1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.SoftwaresBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtPath
@@ -192,13 +202,125 @@ Partial Class frmMain
         '
         'tcTabs
         '
-        Me.tcTabs.Controls.Add(Me.tbScraper)
         Me.tcTabs.Controls.Add(Me.tbParser)
+        Me.tcTabs.Controls.Add(Me.tbScraper)
         Me.tcTabs.Location = New System.Drawing.Point(0, 53)
         Me.tcTabs.Name = "tcTabs"
         Me.tcTabs.SelectedIndex = 0
         Me.tcTabs.Size = New System.Drawing.Size(1226, 584)
         Me.tcTabs.TabIndex = 30
+        '
+        'tbParser
+        '
+        Me.tbParser.Controls.Add(Me.Label13)
+        Me.tbParser.Controls.Add(Me.dgvFiles)
+        Me.tbParser.Controls.Add(Me.txtSoftwareType)
+        Me.tbParser.Controls.Add(Me.Label12)
+        Me.tbParser.Controls.Add(Me.txtSoftwarePlatform)
+        Me.tbParser.Controls.Add(Me.Label11)
+        Me.tbParser.Controls.Add(Me.txtSoftwareManufacturer)
+        Me.tbParser.Controls.Add(Me.Label10)
+        Me.tbParser.Controls.Add(Me.txtSoftwareTitle)
+        Me.tbParser.Controls.Add(Me.Label1)
+        Me.tbParser.Controls.Add(Me.tvSoftwares)
+        Me.tbParser.Location = New System.Drawing.Point(4, 22)
+        Me.tbParser.Name = "tbParser"
+        Me.tbParser.Padding = New System.Windows.Forms.Padding(3)
+        Me.tbParser.Size = New System.Drawing.Size(1218, 558)
+        Me.tbParser.TabIndex = 1
+        Me.tbParser.Text = "Parser"
+        Me.tbParser.UseVisualStyleBackColor = True
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Location = New System.Drawing.Point(211, 145)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(28, 13)
+        Me.Label13.TabIndex = 10
+        Me.Label13.Text = "Files"
+        '
+        'dgvFiles
+        '
+        Me.dgvFiles.AutoGenerateColumns = False
+        Me.dgvFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvFiles.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.SoftwareIdDataGridViewTextBoxColumn, Me.SoftwareNameDataGridViewTextBoxColumn, Me.ManufacturerIdDataGridViewTextBoxColumn, Me.SystemIdDataGridViewTextBoxColumn, Me.TypeIdDataGridViewTextBoxColumn})
+        Me.dgvFiles.DataSource = Me.SoftwaresBindingSource
+        Me.dgvFiles.Location = New System.Drawing.Point(287, 145)
+        Me.dgvFiles.Name = "dgvFiles"
+        Me.dgvFiles.Size = New System.Drawing.Size(911, 150)
+        Me.dgvFiles.TabIndex = 9
+        '
+        'txtSoftwareType
+        '
+        Me.txtSoftwareType.Location = New System.Drawing.Point(287, 81)
+        Me.txtSoftwareType.Name = "txtSoftwareType"
+        Me.txtSoftwareType.Size = New System.Drawing.Size(186, 20)
+        Me.txtSoftwareType.TabIndex = 8
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(211, 84)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(31, 13)
+        Me.Label12.TabIndex = 7
+        Me.Label12.Text = "Type"
+        '
+        'txtSoftwarePlatform
+        '
+        Me.txtSoftwarePlatform.Location = New System.Drawing.Point(287, 55)
+        Me.txtSoftwarePlatform.Name = "txtSoftwarePlatform"
+        Me.txtSoftwarePlatform.Size = New System.Drawing.Size(186, 20)
+        Me.txtSoftwarePlatform.TabIndex = 6
+        '
+        'Label11
+        '
+        Me.Label11.AutoSize = True
+        Me.Label11.Location = New System.Drawing.Point(211, 58)
+        Me.Label11.Name = "Label11"
+        Me.Label11.Size = New System.Drawing.Size(45, 13)
+        Me.Label11.TabIndex = 5
+        Me.Label11.Text = "Platform"
+        '
+        'txtSoftwareManufacturer
+        '
+        Me.txtSoftwareManufacturer.Location = New System.Drawing.Point(287, 29)
+        Me.txtSoftwareManufacturer.Name = "txtSoftwareManufacturer"
+        Me.txtSoftwareManufacturer.Size = New System.Drawing.Size(186, 20)
+        Me.txtSoftwareManufacturer.TabIndex = 4
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.Location = New System.Drawing.Point(211, 32)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(70, 13)
+        Me.Label10.TabIndex = 3
+        Me.Label10.Text = "Manufacturer"
+        '
+        'txtSoftwareTitle
+        '
+        Me.txtSoftwareTitle.Location = New System.Drawing.Point(287, 3)
+        Me.txtSoftwareTitle.Name = "txtSoftwareTitle"
+        Me.txtSoftwareTitle.Size = New System.Drawing.Size(186, 20)
+        Me.txtSoftwareTitle.TabIndex = 2
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(211, 6)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(27, 13)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "Title"
+        '
+        'tvSoftwares
+        '
+        Me.tvSoftwares.Location = New System.Drawing.Point(6, 6)
+        Me.tvSoftwares.Name = "tvSoftwares"
+        Me.tvSoftwares.Size = New System.Drawing.Size(199, 536)
+        Me.tvSoftwares.TabIndex = 0
         '
         'tbScraper
         '
@@ -355,114 +477,45 @@ Partial Class frmMain
         Me.tvGames.Size = New System.Drawing.Size(222, 492)
         Me.tvGames.TabIndex = 27
         '
-        'tbParser
+        'Parser1
         '
-        Me.tbParser.Controls.Add(Me.Label13)
-        Me.tbParser.Controls.Add(Me.dgvFiles)
-        Me.tbParser.Controls.Add(Me.txtSoftwareType)
-        Me.tbParser.Controls.Add(Me.Label12)
-        Me.tbParser.Controls.Add(Me.txtSoftwarePlatform)
-        Me.tbParser.Controls.Add(Me.Label11)
-        Me.tbParser.Controls.Add(Me.txtSoftwareManufacturer)
-        Me.tbParser.Controls.Add(Me.Label10)
-        Me.tbParser.Controls.Add(Me.txtSoftwareTitle)
-        Me.tbParser.Controls.Add(Me.Label1)
-        Me.tbParser.Controls.Add(Me.tvSoftwares)
-        Me.tbParser.Location = New System.Drawing.Point(4, 22)
-        Me.tbParser.Name = "tbParser"
-        Me.tbParser.Padding = New System.Windows.Forms.Padding(3)
-        Me.tbParser.Size = New System.Drawing.Size(1218, 558)
-        Me.tbParser.TabIndex = 1
-        Me.tbParser.Text = "Parser"
-        Me.tbParser.UseVisualStyleBackColor = True
+        Me.Parser1.DataSetName = "Parser"
+        Me.Parser1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
-        'tvSoftwares
+        'SoftwaresBindingSource
         '
-        Me.tvSoftwares.Location = New System.Drawing.Point(6, 6)
-        Me.tvSoftwares.Name = "tvSoftwares"
-        Me.tvSoftwares.Size = New System.Drawing.Size(199, 536)
-        Me.tvSoftwares.TabIndex = 0
+        Me.SoftwaresBindingSource.DataMember = "Softwares"
+        Me.SoftwaresBindingSource.DataSource = Me.Parser1
         '
-        'Label1
+        'SoftwareIdDataGridViewTextBoxColumn
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(211, 6)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(27, 13)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "Title"
+        Me.SoftwareIdDataGridViewTextBoxColumn.DataPropertyName = "softwareId"
+        Me.SoftwareIdDataGridViewTextBoxColumn.HeaderText = "softwareId"
+        Me.SoftwareIdDataGridViewTextBoxColumn.Name = "SoftwareIdDataGridViewTextBoxColumn"
         '
-        'txtSoftwareTitle
+        'SoftwareNameDataGridViewTextBoxColumn
         '
-        Me.txtSoftwareTitle.Location = New System.Drawing.Point(287, 3)
-        Me.txtSoftwareTitle.Name = "txtSoftwareTitle"
-        Me.txtSoftwareTitle.Size = New System.Drawing.Size(186, 20)
-        Me.txtSoftwareTitle.TabIndex = 2
+        Me.SoftwareNameDataGridViewTextBoxColumn.DataPropertyName = "softwareName"
+        Me.SoftwareNameDataGridViewTextBoxColumn.HeaderText = "softwareName"
+        Me.SoftwareNameDataGridViewTextBoxColumn.Name = "SoftwareNameDataGridViewTextBoxColumn"
         '
-        'txtSoftwareManufacturer
+        'ManufacturerIdDataGridViewTextBoxColumn
         '
-        Me.txtSoftwareManufacturer.Location = New System.Drawing.Point(287, 29)
-        Me.txtSoftwareManufacturer.Name = "txtSoftwareManufacturer"
-        Me.txtSoftwareManufacturer.Size = New System.Drawing.Size(186, 20)
-        Me.txtSoftwareManufacturer.TabIndex = 4
+        Me.ManufacturerIdDataGridViewTextBoxColumn.DataPropertyName = "manufacturerId"
+        Me.ManufacturerIdDataGridViewTextBoxColumn.HeaderText = "manufacturerId"
+        Me.ManufacturerIdDataGridViewTextBoxColumn.Name = "ManufacturerIdDataGridViewTextBoxColumn"
         '
-        'Label10
+        'SystemIdDataGridViewTextBoxColumn
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(211, 32)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(70, 13)
-        Me.Label10.TabIndex = 3
-        Me.Label10.Text = "Manufacturer"
+        Me.SystemIdDataGridViewTextBoxColumn.DataPropertyName = "systemId"
+        Me.SystemIdDataGridViewTextBoxColumn.HeaderText = "systemId"
+        Me.SystemIdDataGridViewTextBoxColumn.Name = "SystemIdDataGridViewTextBoxColumn"
         '
-        'txtSoftwarePlatform
+        'TypeIdDataGridViewTextBoxColumn
         '
-        Me.txtSoftwarePlatform.Location = New System.Drawing.Point(287, 55)
-        Me.txtSoftwarePlatform.Name = "txtSoftwarePlatform"
-        Me.txtSoftwarePlatform.Size = New System.Drawing.Size(186, 20)
-        Me.txtSoftwarePlatform.TabIndex = 6
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(211, 58)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(45, 13)
-        Me.Label11.TabIndex = 5
-        Me.Label11.Text = "Platform"
-        '
-        'txtSoftwareType
-        '
-        Me.txtSoftwareType.Location = New System.Drawing.Point(287, 81)
-        Me.txtSoftwareType.Name = "txtSoftwareType"
-        Me.txtSoftwareType.Size = New System.Drawing.Size(186, 20)
-        Me.txtSoftwareType.TabIndex = 8
-        '
-        'Label12
-        '
-        Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(211, 84)
-        Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(31, 13)
-        Me.Label12.TabIndex = 7
-        Me.Label12.Text = "Type"
-        '
-        'dgvFiles
-        '
-        Me.dgvFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFiles.Location = New System.Drawing.Point(287, 145)
-        Me.dgvFiles.Name = "dgvFiles"
-        Me.dgvFiles.Size = New System.Drawing.Size(911, 150)
-        Me.dgvFiles.TabIndex = 9
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Location = New System.Drawing.Point(211, 145)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(28, 13)
-        Me.Label13.TabIndex = 10
-        Me.Label13.Text = "Files"
+        Me.TypeIdDataGridViewTextBoxColumn.DataPropertyName = "typeId"
+        Me.TypeIdDataGridViewTextBoxColumn.HeaderText = "typeId"
+        Me.TypeIdDataGridViewTextBoxColumn.Name = "TypeIdDataGridViewTextBoxColumn"
         '
         'frmMain
         '
@@ -486,12 +539,14 @@ Partial Class frmMain
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
         Me.tcTabs.ResumeLayout(False)
-        Me.tbScraper.ResumeLayout(False)
-        Me.tbScraper.PerformLayout()
-        CType(Me.dgvReleases, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tbParser.ResumeLayout(False)
         Me.tbParser.PerformLayout()
         CType(Me.dgvFiles, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.tbScraper.ResumeLayout(False)
+        Me.tbScraper.PerformLayout()
+        CType(Me.dgvReleases, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Parser1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.SoftwaresBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -541,5 +596,12 @@ Partial Class frmMain
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label13 As System.Windows.Forms.Label
     Friend WithEvents dgvFiles As System.Windows.Forms.DataGridView
+    Friend WithEvents Parser1 As RomParser.Parser
+    Friend WithEvents SoftwareIdDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents SoftwareNameDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents ManufacturerIdDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents SystemIdDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents TypeIdDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
+    Friend WithEvents SoftwaresBindingSource As System.Windows.Forms.BindingSource
 
 End Class

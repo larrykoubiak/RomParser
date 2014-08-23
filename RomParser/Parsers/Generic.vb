@@ -2,9 +2,9 @@
 Imports System.ComponentModel
 Imports System.Data.SQLite
 Public Class Generic
-    Inherits Parser
-    Dim WithEvents realParser As Parser
-    Public Overrides Sub ParsePath(dir As DirectoryInfo, ByRef list As List(Of ParserSoftware))
+    Inherits FileParser
+    Dim WithEvents realParser As FileParser
+    Public Overrides Sub ParsePath(dir As DirectoryInfo, ByRef ds As Parser)
         Dim setdir As DirectoryInfo
         For Each setdir In dir.GetDirectories()
             Select Case setdir.Name
@@ -18,7 +18,7 @@ Public Class Generic
                     realParser = Nothing
             End Select
             If Not IsNothing(realParser) Then
-                realParser.ParsePath(setdir, list)
+                realParser.ParsePath(setdir, ds)
                 Exit For
             End If
         Next

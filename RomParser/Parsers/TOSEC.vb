@@ -3,7 +3,7 @@ Imports System.IO.Compression
 Imports System.ComponentModel
 Imports System.Text.RegularExpressions
 Public Class TOSEC
-    Inherits Parser
+    Inherits FileParser
     Const patternName As String = "^(.*?) (?:v[\d|\.]+|[rR]ev [\w|\d|\.]+|r\d[\d\.]+|\()"
     Const patternVersion As String = "(v[\d|\.]+|[rR]ev [\w|\d|\.]+|r\d[\d\.]+)+"
     Const patternDemo As String = "\((demo|demo-kiosk|demo-playable|demo-rolling|demo-slideshow)\)\s"
@@ -20,7 +20,7 @@ Public Class TOSEC
                                       "ur|vi|yi|zh|M\d)\)"
     Const patternLicense As String = "\((CW|CW-R|FW|GW|GW-R|LW|PD|SW|SW-R)\)"
     Const patternDevStatus As String = "\((alpha|beta|preview|pre-release|proto)\)"
-    Public Overrides Sub ParsePath(dir As DirectoryInfo, ByRef list As List(Of ParserSoftware))
+    Public Overrides Sub ParsePath(dir As DirectoryInfo, ByRef ds As Parser)
         Dim manufacturerdir As DirectoryInfo
         Dim systemdir As DirectoryInfo
         Dim typedir As DirectoryInfo
@@ -48,14 +48,14 @@ Public Class TOSEC
                                 Else
                                     strSoftwareName = "UNK"
                                 End If
-                                sfSoftware = list.Find(Function(x) x.SoftwareName.Equals(strSoftwareName) And x.ROMType.Equals(strType) And x.Platform.Equals(strSystem) And x.Manufacturer.Equals(strManufacturer))
+                                'sfSoftware = list.Find(Function(x) x.SoftwareName.Equals(strSoftwareName) And x.ROMType.Equals(strType) And x.Platform.Equals(strSystem) And x.Manufacturer.Equals(strManufacturer))
                                 If IsNothing(sfSoftware) Then
                                     sfSoftware = New ParserSoftware()
                                     sfSoftware.SoftwareName = strSoftwareName
                                     sfSoftware.ROMType = strType
                                     sfSoftware.Manufacturer = strManufacturer
                                     sfSoftware.Platform = strSystem
-                                    list.Add(sfSoftware)
+                                    'list.Add(sfSoftware)
                                 End If
                                 sfSoftware.Manufacturer = strManufacturer
                                 sfSoftware.Platform = strSystem
@@ -70,14 +70,14 @@ Public Class TOSEC
                             Else
                                 strSoftwareName = "UNK"
                             End If
-                            sfSoftware = list.Find(Function(x) x.SoftwareName.Equals(strSoftwareName) And x.ROMType.Equals(strType) And x.Platform.Equals(strSystem) And x.Manufacturer.Equals(strManufacturer))
+                            'sfSoftware = list.Find(Function(x) x.SoftwareName.Equals(strSoftwareName) And x.ROMType.Equals(strType) And x.Platform.Equals(strSystem) And x.Manufacturer.Equals(strManufacturer))
                             If IsNothing(sfSoftware) Then
                                 sfSoftware = New ParserSoftware()
                                 sfSoftware.SoftwareName = strSoftwareName
                                 sfSoftware.ROMType = strType
                                 sfSoftware.Manufacturer = strManufacturer
                                 sfSoftware.Platform = strSystem
-                                list.Add(sfSoftware)
+                                'list.Add(sfSoftware)
                             End If
                             ParseFilename(file, sfSoftware, "")
                         Next

@@ -3,278 +3,147 @@ Imports System.ComponentModel
 Public Class ParserSerializer
     Public Event ItemAdded(strLabel As String, intId As Integer, intCount As Integer)
     Private db As SQLiteConnection
-    Private ds As DataSet
-    Private caches As Hashtable
-    Public Property DataSet As DataSet
-        Get
-            Return ds
-        End Get
-        Set(value As DataSet)
-            ds = value
-        End Set
-    End Property
-
-    Public Sub New(path As String)
+    Private softwareDA As SQLiteDataAdapter
+    Private manufacturersDA As SQLiteDataAdapter
+    Private systemsDA As SQLiteDataAdapter
+    Private typesDA As SQLiteDataAdapter
+    Private flagsDA As SQLiteDataAdapter
+    Private softwareFlagsDA As SQLiteDataAdapter
+    Private filesDA As SQLiteDataAdapter
+    Private formatsDA As SQLiteDataAdapter
+    Private romsetsDA As SQLiteDataAdapter
+    Private fileFlagsDA As SQLiteDataAdapter
+    Private archiveFilesDA As SQLiteDataAdapter
+    Public Sub New(path As String, ByRef ds As Parser)
         db = New SQLiteConnection("Data Source=" + path)
-        db.Open()
         CreateParserTables()
-        caches = New Hashtable
-        ds = New DataSet("Parser")
+        Deserialize(ds)
     End Sub
-    Public Sub SerializeList(ByRef list As List(Of ParserSoftware))
-        Dim rom As ParserSoftware
-        Dim id, nb As Integer
-        Dim trans As SQLiteTransaction
-        nb = list.Count
-        id = 0
-        trans = db.BeginTransaction(IsolationLevel.ReadCommitted)
-        For Each rom In list
-            Serialize(rom, True)
-            id += 1
-            RaiseEvent ItemAdded(rom.Manufacturer + " - " + rom.Platform, id, nb)
-        Next
-        trans.Commit()
+    Public Sub SerializeList(ByRef ds As Parser)
+        Dim dt As DataTable
+        db.Open()
+        dt = ds.Manufacturers.GetChanges()
+        If Not IsNothing(dt) Then manufacturersDA.Update(dt)
+        dt = ds.Systems.GetChanges
+        If Not IsNothing(dt) Then systemsDA.Update(dt)
+        dt = ds.Types.GetChanges()
+        If Not IsNothing(dt) Then typesDA.Update(dt)
+        dt = ds.Softwares.GetChanges()
+        If Not IsNothing(dt) Then softwareDA.Update(dt)
+        dt = ds.Flags.GetChanges
+        If Not IsNothing(dt) Then flagsDA.Update(dt)
+        dt = ds.SoftwareFlags.GetChanges
+        If Not IsNothing(dt) Then softwareFlagsDA.Update(dt)
+        dt = ds.Formats.GetChanges()
+        If Not IsNothing(dt) Then formatsDA.Update(dt)
+        dt = ds.Romsets.GetChanges
+        If Not IsNothing(dt) Then romsetsDA.Update(dt)
+        dt = ds.Files.GetChanges
+        If Not IsNothing(dt) Then filesDA.Update(dt)
+        dt = ds.FileFlags.GetChanges
+        If Not IsNothing(dt) Then fileFlagsDA.Update(dt)
+        dt = ds.ArchiveFiles.GetChanges
+        If Not IsNothing(dt) Then archiveFilesDA.Update(dt)
+        db.Close()
     End Sub
-    Public Function Serialize(sfSoftware As ParserSoftware, Optional firstLoad As Boolean = False) As Integer
-        Dim cmd As SQLiteCommand
-        Dim str As String
-        Dim intManufacturerId, intSystemId, intTypeId As Integer
-        Dim intRomsetId, intSoftwareId, intFormatId As Integer
-        Dim intFlagId, intFileId, intSoftwareFlagId, intFileFlagId As Integer
-        Dim intArchiveFileId As Integer
-        Dim parameters As Hashtable
-        Dim flag As ParserFlag
-        Dim file As ParserZipFile
-        Dim archiveFile As ParserArchiveFile
-        Dim strFile As String
-        If IsNothing(db) Then Return -1
-        '1. write Software data
-        intManufacturerId = GetId("manufacturer", sfSoftware.Manufacturer, True)
-        intSystemId = GetId("system", sfSoftware.Platform, True)
-        intTypeId = GetId("type", sfSoftware.ROMType, True)
-        parameters = New Hashtable
-        parameters.Add("systemId", intSystemId)
-        intSoftwareId = GetId("software", sfSoftware.SoftwareName, False, parameters)
-        If intSoftwareId = 0 Then
-            str = "INSERT INTO tblSoftwares (softwareName,manufacturerId,systemId,typeId) VALUES ("
-            str += """" + sfSoftware.SoftwareName + """," + intManufacturerId.ToString + "," + intSystemId.ToString + "," + intTypeId.ToString + ")"
-            cmd = New SQLiteCommand(str, db)
-            cmd.ExecuteNonQuery()
-            intSoftwareId = db.LastInsertRowId
-        End If
-        '2. write software flag data
-        For Each flag In sfSoftware.Flags
-            parameters = New Hashtable
-            parameters.Add("flagType", flag.FlagType)
-            intFlagId = GetId("flag", flag.Name, False, parameters)
-            If intFlagId = 0 Then
-                str = "INSERT INTO tblFlags (flagName, flagType) VALUES ("
-                str += """" + flag.Name + """,""" + flag.FlagType + """)"
-                cmd = New SQLiteCommand(str, db)
-                cmd.ExecuteNonQuery()
-                intFlagId = db.LastInsertRowId
-            End If
-            parameters = New Hashtable
-            parameters.Add("softwareId", intSoftwareId)
-            parameters.Add("flagId", intFlagId)
-            intSoftwareFlagId = GetId("softwareFlag", flag.Value, False, parameters, "flagValue")
-            If intSoftwareFlagId = 0 Then
-                str = "INSERT INTO tblSoftwareFlags (softwareId, flagId,flagValue) VALUES ("
-                str += intSoftwareId.ToString + "," + intFlagId.ToString + ",""" + flag.Value + """)"
-                cmd = New SQLiteCommand(str, db)
-                cmd.ExecuteNonQuery()
-                intSoftwareFlagId = db.LastInsertRowId
-            End If
-        Next
-        '3. write software file data
-        For Each file In sfSoftware.Files
-            intRomsetId = GetId("romset", file.ROMSet, True)
-            intFormatId = GetId("format", file.Format, True)
-            If Not firstLoad Then
-                parameters = New Hashtable
-                parameters.Add("softwareId", intSoftwareId)
-                parameters.Add("formatId", intFormatId)
-                parameters.Add("romsetId", intRomsetId)
-                intFileId = GetId("file", file.FileName, False, parameters)
-            Else
-                intFileId = 0
-            End If
-            If intFileId = 0 Then
-                str = "INSERT INTO tblFiles (fileName, softwareId, formatId, romsetId) VALUES ("
-                str += """" + file.FileName + """," + intSoftwareId.ToString + "," + intFormatId.ToString + "," + intRomsetId.ToString + ")"
-                cmd = New SQLiteCommand(str, db)
-                cmd.ExecuteNonQuery()
-                intFileId = db.LastInsertRowId
-            End If
-            '4. write software file flags data
-            For Each flag In file.Flags
-                If Not firstLoad Then
-                    parameters = New Hashtable
-                    parameters.Add("fileId", intFileId)
-                    parameters.Add("flagId", intFlagId)
-                    intFileFlagId = GetId("fileFlag", flag.Value, False, parameters, "flagValue")
-                Else
-                    intFileFlagId = 0
-                End If
-                If intFileFlagId = 0 Then
-                    str = "INSERT INTO tblFileFlags (fileId, flagId,flagValue) VALUES ("
-                    str += intSoftwareId.ToString + "," + intFlagId.ToString + ",""" + flag.Value + """)"
-                    cmd = New SQLiteCommand(str, db)
-                    cmd.ExecuteNonQuery()
-                    intFileFlagId = db.LastInsertRowId
-                End If
-            Next
-            '5. write software archive file data
-            For Each archiveFile In file.ArchiveFiles
-                strFile = archiveFile.Name
-                parameters = New Hashtable
-                parameters.Add("fileid", intFileId)
-                parameters.Add("archiveFileExtension", archiveFile.Extension)
-                intArchiveFileId = GetId("archiveFile", strFile, False, parameters)
-                If intArchiveFileId = 0 Then
-                    str = "INSERT INTO tblArchiveFiles (fileId, archiveFileName,archiveFileExtension) VALUES ("
-                    str += intFileId.ToString + ",""" + strFile + """,""" + archiveFile.Extension + """)"
-                    cmd = New SQLiteCommand(str, db)
-                    cmd.ExecuteNonQuery()
-                    intArchiveFileId = db.LastInsertRowId
-                End If
-            Next
-        Next
-        Return intFileId
-    End Function
-    Public Sub Deserialize(ByRef lst As List(Of ParserSoftware))
-        Dim soft As ParserSoftware
-        Dim file As ParserZipFile
-        Dim flag As ParserFlag
-        Dim archiveFile As ParserArchiveFile
-        Dim strSQL As String
-        Dim softwareDA As SQLiteDataAdapter
-        Dim filesDA As SQLiteDataAdapter
-        Dim archiveFilesDA As SQLiteDataAdapter
-        Dim softwareFlagsDA As SQLiteDataAdapter
-        Dim fileFlagsDA As SQLiteDataAdapter
-        Dim softwareDR, fileDR, softwareFlagDr, fileFlagDR, fileArchiveDR As DataRow
+    Public Sub Deserialize(ByRef ds As Parser)
         Dim trans As SQLiteTransaction
-        If IsNothing(db) Then Exit Sub
+        db.Open()
         trans = db.BeginTransaction(IsolationLevel.ReadCommitted)
         '1. Setup data adapters
-        strSQL = "SELECT s.softwareId, s.softwareName, m.manufacturerName, p.systemName, t.typeName"
-        strSQL += " FROM tblSoftwares s INNER JOIN tblManufacturers m on m.manufacturerId = s.manufacturerId"
-        strSQL += " INNER JOIN tblSystems p on p.systemId = s.systemId "
-        strSQL += " INNER JOIN tblTypes t on t.typeId = s.typeId"
-        softwareDA = New SQLiteDataAdapter(strSQL, db)
+        softwareDA = New SQLiteDataAdapter
+        softwareDA.SelectCommand = New SQLiteCommand("SELECT s.softwareId, s.softwareName, s.manufacturerId, s.systemId, s.typeId FROM tblSoftwares s", db)
+        softwareDA.InsertCommand = New SQLiteCommand("INSERT INTO tblSoftwares (softwareName,manufacturerId, systemId, typeId) VALUES (@softwareName,@manufacturerId,@systemId,@typeId)", db)
+        softwareDA.InsertCommand.Parameters.Add("@softwareName", DbType.String, 255, "softwareName")
+        softwareDA.InsertCommand.Parameters.Add("@manufacturerId", DbType.String, 255, "manufacturerId")
+        softwareDA.InsertCommand.Parameters.Add("@systemId", DbType.String, 255, "systemId")
+        softwareDA.InsertCommand.Parameters.Add("@typeId", DbType.String, 255, "typeId")
+        softwareDA.UpdateCommand = New SQLiteCommand("UPDATE tblSoftwares set softwareName=@softwareName,manufacturerId=@manufacturerId, systemId=@systemId, typeId=@typeId) WHERE softwareId=@softwareId", db)
+        softwareDA.DeleteCommand = New SQLiteCommand("DELETE FROM tblSoftwares WHERE softwareId=@softwareId", db)
         softwareDA.Fill(ds, "Softwares")
-        strSQL = "select s.softwareFlagId, s.softwareId, f.flagName, s.flagValue, f.flagType"
-        strSQL += " FROM tblSoftwareFlags s INNER JOIN tblFlags f on f.flagId = s.FlagId"
-        softwareFlagsDA = New SQLiteDataAdapter(strSQL, db)
+        manufacturersDA = New SQLiteDataAdapter
+        manufacturersDA.SelectCommand = New SQLiteCommand("SELECT m.manufacturerId, m.manufacturerName FROM tblManufacturers m", db)
+        manufacturersDA.InsertCommand = New SQLiteCommand("INSERT INTO tblManufacturers (manufacturerName) VALUES (@manufacturerName)", db)
+        manufacturersDA.InsertCommand.Parameters.Add("@manufacturerName", DbType.String, 255, "manufacturerName")
+        manufacturersDA.UpdateCommand = New SQLiteCommand("UPDATE tblManufacturers SET manufacturerName=@manufacturerName WHERE manufacturerId=@manufacturerId", db)
+        manufacturersDA.DeleteCommand = New SQLiteCommand("DELETE FROM tblManufacturers WHERE manufacturerId=@manufacturerId", db)
+        manufacturersDA.Fill(ds, "Manufacturers")
+        systemsDA = New SQLiteDataAdapter
+        systemsDA.SelectCommand = New SQLiteCommand("SELECT s.systemId, s.systemName FROM tblSystems s", db)
+        systemsDA.InsertCommand = New SQLiteCommand("INSERT INTO tblSystems (systemName) VALUES (@systemName)", db)
+        systemsDA.InsertCommand.Parameters.Add("@systemName", DbType.String, 255, "systemName")
+        systemsDA.UpdateCommand = New SQLiteCommand("UPDATE tblSystems SET systemName=@systemName WHERE systemId=@systemId", db)
+        systemsDA.DeleteCommand = New SQLiteCommand("DELETE FROM tblSystems WHERE systemId=@systemId", db)
+        systemsDA.Fill(ds, "Systems")
+        typesDA = New SQLiteDataAdapter
+        typesDA.SelectCommand = New SQLiteCommand("SELECT t.typeId, t.typeName FROM tblTypes t", db)
+        typesDA.InsertCommand = New SQLiteCommand("INSERT INTO tblTypes (typeName) VALUES (@typeName)", db)
+        typesDA.InsertCommand.Parameters.Add("@typeName", DbType.String, 255, "typeName")
+        typesDA.UpdateCommand = New SQLiteCommand("UPDATE tblTypes SET typeName=@typeName WHERE typeId=@typeId", db)
+        typesDA.DeleteCommand = New SQLiteCommand("DELETE FROM tblTypes WHERE typeId=@typeId", db)
+        typesDA.Fill(ds, "Types")
+        flagsDA = New SQLiteDataAdapter
+        flagsDA.SelectCommand = New SQLiteCommand("SELECT f.flagId, f.flagName, f.flagType FROM tblFlags f", db)
+        flagsDA.InsertCommand = New SQLiteCommand("INSERT INTO tblFlags (flagName,flagType) VALUES (@flagName,@flagType)", db)
+        flagsDA.UpdateCommand = New SQLiteCommand("UPDATE tblFlags SET flagName=@flagName, flagType=@flagType WHERE flagId=@flagId", db)
+        flagsDA.DeleteCommand = New SQLiteCommand("DELETE FROM tblFlags WHERE flagId=@flagId", db)
+        flagsDA.Fill(ds, "Flags")
+        softwareFlagsDA = New SQLiteDataAdapter
+        softwareFlagsDA.SelectCommand = New SQLiteCommand("SELECT sf.softwareFlagId, sf.softwareId, sf.flagId, sf.flagValue FROM tblSoftwareFlags sf", db)
+        softwareFlagsDA.InsertCommand = New SQLiteCommand("INSERT INTO tblSoftwareFlags (softwareId,flagId,flagValue) VALUES (@softwareId,@flagId,@flagValue)", db)
+        softwareFlagsDA.UpdateCommand = New SQLiteCommand("UPDATE tblSoftwareFlags SET softwareId=@softwareId, flagId=@flagId, flagValue=@flagValue WHERE softwareFlagId=@softwareFlagId", db)
+        softwareFlagsDA.DeleteCommand = New SQLiteCommand("DELETE FROM tblSoftwareFlags WHERE softwareFlagId=@softwareFlagId", db)
         softwareFlagsDA.Fill(ds, "SoftwareFlags")
-        strSQL = "SELECT fileId, f.softwareId, fileName, formatName, romsetName "
-        strSQL += " FROM tblFiles f INNER JOIN tblFormats o on o.formatId = f.formatId"
-        strSQL += " INNER JOIN tblRomSets r on r.romsetId = f.romsetId"
-        filesDA = New SQLiteDataAdapter(strSQL, db)
+        filesDA = New SQLiteDataAdapter
+        filesDA.SelectCommand = New SQLiteCommand("SELECT f.fileId, f.fileName, f.softwareId, f.formatId, f.romsetId FROM tblFiles f", db)
+        filesDA.InsertCommand = New SQLiteCommand("INSERT INTO tblFiles (fileName,softwareId, formatId, romsetId) VALUES (@fileName,@softwareId,@formatId,@romsetId", db)
+        filesDA.UpdateCommand = New SQLiteCommand("UPDATE tblFiles set fileName=@fileName,softwareId=@softwareId, formatId=@formatId, romsetId=@romsetId) WHERE fileId=@fileId", db)
+        filesDA.DeleteCommand = New SQLiteCommand("DELETE FROM tblFiles WHERE fileId=@fileId", db)
         filesDA.Fill(ds, "Files")
-        strSQL = "select s.fileFlagId, s.FileId, f.flagName, s.flagValue, f.flagType"
-        strSQL += " FROM tblFileFlags s INNER JOIN tblFlags f on f.flagId = s.FlagId"
-        fileFlagsDA = New SQLiteDataAdapter(strSQL, db)
+        formatsDA = New SQLiteDataAdapter
+        formatsDA.SelectCommand = New SQLiteCommand("SELECT f.formatId, f.formatName FROM tblFormats f", db)
+        formatsDA.InsertCommand = New SQLiteCommand("INSERT INTO tblFormats (formatName) VALUES (@formatName)", db)
+        formatsDA.UpdateCommand = New SQLiteCommand("UPDATE tblFormats SET formatName=@formatName WHERE formatId=@formatId", db)
+        formatsDA.DeleteCommand = New SQLiteCommand("DELETE FROM tblFormats WHERE formatId=@formatId", db)
+        formatsDA.Fill(ds, "Formats")
+        romsetsDA = New SQLiteDataAdapter
+        romsetsDA.SelectCommand = New SQLiteCommand("SELECT r.romsetId, r.romsetName FROM tblRomsets r", db)
+        romsetsDA.InsertCommand = New SQLiteCommand("INSERT INTO tblRomsets (romsetName) VALUES (@romsetName)", db)
+        romsetsDA.UpdateCommand = New SQLiteCommand("UPDATE tblRomsets SET romsetName=@romsetName WHERE romsetId=@romsetId", db)
+        romsetsDA.DeleteCommand = New SQLiteCommand("DELETE FROM tblRomsets WHERE romsetId=@romsetId", db)
+        romsetsDA.Fill(ds, "Romsets")
+        fileFlagsDA = New SQLiteDataAdapter
+        fileFlagsDA.SelectCommand = New SQLiteCommand("SELECT f.fileFlagId, f.fileId, f.flagId, f.flagValue FROM tblFileFlags f", db)
+        fileFlagsDA.InsertCommand = New SQLiteCommand("INSERT INTO tblFileFlags (fileId,flagId,flagValue) VALUES (@fileId,@flagId,@flagValue)", db)
+        fileFlagsDA.UpdateCommand = New SQLiteCommand("UPDATE tblFileFlags SET fileId=@fileId, flagId=@flagId, flagValue=@flagValue WHERE fileFlagId=@fileFlagId", db)
+        fileFlagsDA.DeleteCommand = New SQLiteCommand("DELETE FROM tblFileFlags WHERE fileFlagId=@fileFlagId", db)
         fileFlagsDA.Fill(ds, "FileFlags")
-        strSQL = "SELECT archiveFileId, fileId, archiveFileName, archiveFileExtension"
-        strSQL += " FROM tblArchiveFiles"
-        archiveFilesDA = New SQLiteDataAdapter(strSQL, db)
+        archiveFilesDA = New SQLiteDataAdapter
+        archiveFilesDA.SelectCommand = New SQLiteCommand("SELECT a.archiveFileId, a.fileId, a.archiveFileName, a.archiveFileExtension FROM tblArchiveFiles a", db)
+        archiveFilesDA.InsertCommand = New SQLiteCommand("INSERT INTO tblArchiveFiles (fileId, archiveFileName, archiveFileExtension) VALUES (@fileId, @archiveFileName, @archiveFileExtension)", db)
+        archiveFilesDA.UpdateCommand = New SQLiteCommand("UPDATE tblArchiveFiles SET fileId, archiveFileName, archiveFileExtension WHERE archiveFileId=@archiveFileId", db)
+        archiveFilesDA.DeleteCommand = New SQLiteCommand("DELETE FROM tblArchiveFiles WHERE archiveFileId=@archiveFileId", db)
         archiveFilesDA.Fill(ds, "ArchiveFiles")
         '2. add data relations
-        ds.Relations.Add("softwareFile", ds.Tables("Softwares").Columns("softwareId"), ds.Tables("Files").Columns("softwareId"))
-        ds.Relations.Add("softwareFlag", ds.Tables("Softwares").Columns("softwareId"), ds.Tables("SoftwareFlags").Columns("softwareId"))
-        ds.Relations.Add("fileFlag", ds.Tables("Files").Columns("fileId"), ds.Tables("FileFlags").Columns("fileId"))
-        ds.Relations.Add("fileArchive", ds.Tables("Files").Columns("fileId"), ds.Tables("ArchiveFiles").Columns("fileId"))
-        '3. read data from dataset
-        For Each softwareDR In ds.Tables("Softwares").Rows
-            soft = New ParserSoftware
-            soft.SoftwareId = softwareDR("softwareId")
-            soft.SoftwareName = softwareDR("softwareName")
-            soft.Manufacturer = softwareDR("manufacturerName")
-            soft.Platform = softwareDR("systemName")
-            soft.ROMType = softwareDR("typeName")
-            soft.Flags = New List(Of ParserFlag)
-            For Each softwareFlagDr In softwareDR.GetChildRows("softwareFlag")
-                flag = New ParserFlag()
-                flag.Name = softwareFlagDr("flagName")
-                flag.Value = softwareFlagDr("flagValue")
-                flag.FlagType = softwareFlagDr("flagType")
-                soft.Flags.Add(flag)
-            Next
-            soft.Files = New List(Of ParserZipFile)
-            For Each fileDR In softwareDR.GetChildRows("softwareFile")
-                file = New ParserZipFile
-                file.FileName = fileDR("fileName")
-                file.Format = fileDR("formatName")
-                file.ROMSet = fileDR("romsetName")
-                file.Flags = New List(Of ParserFlag)
-                For Each fileFlagDR In fileDR.GetChildRows("fileFlag")
-                    flag = New ParserFlag()
-                    flag.Name = fileFlagDR("flagName")
-                    flag.Value = fileFlagDR("flagValue")
-                    flag.FlagType = fileFlagDR("flagType")
-                    file.Flags.Add(flag)
-                Next
-                file.ArchiveFiles = New List(Of ParserArchiveFile)
-                For Each fileArchiveDR In fileDR.GetChildRows("fileArchive")
-                    archiveFile = New ParserArchiveFile
-                    archiveFile.Name = fileArchiveDR("archiveFileName")
-                    archiveFile.Extension = fileArchiveDR("archiveFileExtension")
-                    file.ArchiveFiles.Add(archiveFile)
-                Next
-                soft.Files.Add(file)
-            Next
-            RaiseEvent ItemAdded(soft.Manufacturer + " - " + soft.Platform, softwareDR("softwareId"), ds.Tables("Softwares").Rows.Count)
-            lst.Add(soft)
-        Next
+        'ds.Relations.Add("manufacturerSoftware", ds.Tables("Manufacturers").Columns("manufacturerId"), ds.Tables("Softwares").Columns("manufacturerId"))
+        'ds.Relations.Add("systemSoftware", ds.Tables("Systems").Columns("systemId"), ds.Tables("Softwares").Columns("systemId"))
+        'ds.Relations.Add("typeSoftware", ds.Tables("Types").Columns("typeId"), ds.Tables("Softwares").Columns("typeId"))
+        'ds.Relations.Add("softwareFlag", ds.Tables("Softwares").Columns("softwareId"), ds.Tables("SoftwareFlags").Columns("softwareId"))
+        'ds.Relations.Add("flagSoftwareFlag", ds.Tables("Flags").Columns("flagId"), ds.Tables("SoftwareFlags").Columns("flagId"))
+        'ds.Relations.Add("softwareFile", ds.Tables("Softwares").Columns("softwareId"), ds.Tables("Files").Columns("softwareId"))
+        'ds.Relations.Add("formatFile", ds.Tables("Formats").Columns("formatId"), ds.Tables("Files").Columns("formatId"))
+        'ds.Relations.Add("romsetFile", ds.Tables("Romsets").Columns("romsetId"), ds.Tables("Files").Columns("romsetId"))
+        'ds.Relations.Add("fileFlag", ds.Tables("Files").Columns("fileId"), ds.Tables("FileFlags").Columns("fileId"))
+        'ds.Relations.Add("flagFileFlag", ds.Tables("Flags").Columns("flagId"), ds.Tables("FileFlags").Columns("flagId"))
+        'ds.Relations.Add("fileArchive", ds.Tables("Files").Columns("fileId"), ds.Tables("ArchiveFiles").Columns("fileId"))
         trans.Commit()
+        db.Close()
+        ds.WriteXmlSchema("C:\\Temp\\parser.xsd")
     End Sub
-    Private Function GetId(name As String, value As String, insert As Boolean, Optional parameters As Hashtable = Nothing, _
-                           Optional valueField As String = "") As Integer
-        Dim cmd As SQLiteCommand
-        Dim id As Integer
-        Dim strSQL As String
-        Dim cache As Hashtable
-        'init caches if needed
-        If Not caches.Contains(name) Then
-            cache = New Hashtable
-            caches.Add(name, cache)
-        Else
-            cache = caches(name)
-        End If
-        If cache.Contains(value) Then
-            Return cache(value)
-        Else
-            If valueField = "" Then
-                valueField = name + "Name"
-            End If
-            strSQL = "SELECT " + name + "Id FROM tbl" + System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name) + "s WHERE " + valueField + " = """ + value + """"
-            If Not IsNothing(parameters) Then
-                Dim param As DictionaryEntry
-                Dim i As Integer
-                For Each param In parameters
-                    strSQL += " AND " + param.Key + " = """ + param.Value.ToString() + """"
-                    i += 1
-                Next
-            End If
-            cmd = New SQLiteCommand(strSQL, db)
-            id = cmd.ExecuteScalar
-            If id = 0 And insert Then
-                strSQL = "INSERT INTO tbl" + System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name) + "s (" + name + "Name) VALUES (""" + value + """)"
-                cmd = New SQLiteCommand(strSQL, db)
-                cmd.ExecuteNonQuery()
-                id = db.LastInsertRowId()
-            End If
-            If id <> 0 Then
-                cache.Add(value, id)
-            End If
-            cmd.Dispose()
-            Return id
-        End If
-    End Function
+
     Private Sub CreateParserTables()
         Dim cmd As SQLiteCommand
+        db.Open()
         If Not CheckTableExists("tblRomsets") Then
             cmd = New SQLiteCommand("CREATE TABLE tblRomsets (romsetId INTEGER PRIMARY KEY, romsetName TEXT)", db)
             cmd.ExecuteNonQuery()
@@ -341,6 +210,7 @@ Public Class ParserSerializer
             cmd = New SQLiteCommand("CREATE INDEX idxArchiveFile ON tblArchiveFiles(fileId)", db)
             cmd.ExecuteNonQuery()
         End If
+        db.Close()
     End Sub
     Private Function CheckTableExists(tblName As String) As Boolean
         Dim cmd As SQLiteCommand

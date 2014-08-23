@@ -9,11 +9,20 @@ Public Class frmMain
     Dim WithEvents parser As New Generic
     Dim softwares As New List(Of ParserSoftware)
     Dim games As New List(Of ScraperGame)
-    Dim WithEvents parserserial As New ParserSerializer("parser.db")
+    Dim WithEvents parserserial As ParserSerializer
     Dim WithEvents scraperserial As New ScraperSerializer("scraper.db")
     Dim previousId As Integer
 #End Region
 #Region "Events"
+    Public Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+        Parser1 = New Parser
+        parserserial = New ParserSerializer("parser.db", Parser1)
+        ' Add any initialization after the InitializeComponent() call.
+
+    End Sub
     Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowse.Click
         Dim res As DialogResult
         res = FolderBrowserDialog1.ShowDialog()
@@ -27,7 +36,7 @@ Public Class frmMain
         If txtPath.Text.Length > 0 Then
             Me.Cursor = Cursors.WaitCursor
             directory = New DirectoryInfo(txtPath.Text)
-            parser.ParsePath(directory, softwares)
+            parser.ParsePath(directory, Parser1)
             For Each soft In softwares
                 If tvSoftwares.Nodes.ContainsKey("mf" + soft.Manufacturer) Then
                     manufacturerNode = tvSoftwares.Nodes("mf" + soft.Manufacturer)
@@ -48,7 +57,7 @@ Public Class frmMain
     End Sub
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Me.Cursor = Cursors.WaitCursor
-        parserserial.SerializeList(softwares)
+        parserserial.SerializeList(Parser1)
         Me.Cursor = Cursors.Default
     End Sub
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
@@ -87,25 +96,8 @@ Public Class frmMain
         Me.Cursor = Cursors.Default
     End Sub
     Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        Dim manufacturerNode, systemNode, softwareNode As TreeNode
-        Dim soft As ParserSoftware
         Me.Cursor = Cursors.WaitCursor
-        parserserial.Deserialize(softwares)
-        For Each soft In softwares
-            If tvSoftwares.Nodes.ContainsKey("mf" + soft.Manufacturer) Then
-                manufacturerNode = tvSoftwares.Nodes("mf" + soft.Manufacturer)
-            Else
-                manufacturerNode = tvSoftwares.Nodes.Add("mf" + soft.Manufacturer, soft.Manufacturer)
-            End If
-            If manufacturerNode.Nodes.ContainsKey("sys" + soft.Platform) Then
-                systemNode = manufacturerNode.Nodes("sys" + soft.Platform)
-            Else
-                systemNode = manufacturerNode.Nodes.Add("sys" + soft.Platform, soft.Platform)
-            End If
-            softwareNode = New TreeNode(soft.SoftwareName)
-            softwareNode.Tag = soft.SoftwareId
-            systemNode.Nodes.Add(softwareNode)
-        Next
+        parserserial.Deserialize(Parser1)
         Me.Cursor = Cursors.Default
     End Sub
     Private Sub dgvReleases_SelectionChanged(sender As Object, e As EventArgs) Handles dgvReleases.SelectionChanged
