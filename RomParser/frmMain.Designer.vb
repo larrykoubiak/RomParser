@@ -22,7 +22,6 @@ Partial Class frmMain
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.components = New System.ComponentModel.Container()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.txtPath = New System.Windows.Forms.TextBox()
         Me.Label2 = New System.Windows.Forms.Label()
@@ -41,7 +40,6 @@ Partial Class frmMain
         Me.tcTabs = New System.Windows.Forms.TabControl()
         Me.tbParser = New System.Windows.Forms.TabPage()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.dgvFiles = New System.Windows.Forms.DataGridView()
         Me.txtSoftwareType = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.txtSoftwarePlatform = New System.Windows.Forms.TextBox()
@@ -69,20 +67,13 @@ Partial Class frmMain
         Me.txtTitle = New System.Windows.Forms.TextBox()
         Me.tvGames = New System.Windows.Forms.TreeView()
         Me.Parser1 = New RomParser.Parser()
-        Me.SoftwaresBindingSource = New System.Windows.Forms.BindingSource(Me.components)
-        Me.SoftwareIdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SoftwareNameDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ManufacturerIdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.SystemIdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TypeIdDataGridViewTextBoxColumn = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.lvFiles = New System.Windows.Forms.ListView()
         Me.StatusStrip1.SuspendLayout()
         Me.tcTabs.SuspendLayout()
         Me.tbParser.SuspendLayout()
-        CType(Me.dgvFiles, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.tbScraper.SuspendLayout()
         CType(Me.dgvReleases, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Parser1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.SoftwaresBindingSource, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtPath
@@ -212,8 +203,9 @@ Partial Class frmMain
         '
         'tbParser
         '
+        Me.tbParser.AllowDrop = True
+        Me.tbParser.Controls.Add(Me.lvFiles)
         Me.tbParser.Controls.Add(Me.Label13)
-        Me.tbParser.Controls.Add(Me.dgvFiles)
         Me.tbParser.Controls.Add(Me.txtSoftwareType)
         Me.tbParser.Controls.Add(Me.Label12)
         Me.tbParser.Controls.Add(Me.txtSoftwarePlatform)
@@ -239,17 +231,6 @@ Partial Class frmMain
         Me.Label13.Size = New System.Drawing.Size(28, 13)
         Me.Label13.TabIndex = 10
         Me.Label13.Text = "Files"
-        '
-        'dgvFiles
-        '
-        Me.dgvFiles.AutoGenerateColumns = False
-        Me.dgvFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvFiles.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.SoftwareIdDataGridViewTextBoxColumn, Me.SoftwareNameDataGridViewTextBoxColumn, Me.ManufacturerIdDataGridViewTextBoxColumn, Me.SystemIdDataGridViewTextBoxColumn, Me.TypeIdDataGridViewTextBoxColumn})
-        Me.dgvFiles.DataSource = Me.SoftwaresBindingSource
-        Me.dgvFiles.Location = New System.Drawing.Point(287, 145)
-        Me.dgvFiles.Name = "dgvFiles"
-        Me.dgvFiles.Size = New System.Drawing.Size(911, 150)
-        Me.dgvFiles.TabIndex = 9
         '
         'txtSoftwareType
         '
@@ -482,40 +463,14 @@ Partial Class frmMain
         Me.Parser1.DataSetName = "Parser"
         Me.Parser1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
-        'SoftwaresBindingSource
+        'lvFiles
         '
-        Me.SoftwaresBindingSource.DataMember = "Softwares"
-        Me.SoftwaresBindingSource.DataSource = Me.Parser1
-        '
-        'SoftwareIdDataGridViewTextBoxColumn
-        '
-        Me.SoftwareIdDataGridViewTextBoxColumn.DataPropertyName = "softwareId"
-        Me.SoftwareIdDataGridViewTextBoxColumn.HeaderText = "softwareId"
-        Me.SoftwareIdDataGridViewTextBoxColumn.Name = "SoftwareIdDataGridViewTextBoxColumn"
-        '
-        'SoftwareNameDataGridViewTextBoxColumn
-        '
-        Me.SoftwareNameDataGridViewTextBoxColumn.DataPropertyName = "softwareName"
-        Me.SoftwareNameDataGridViewTextBoxColumn.HeaderText = "softwareName"
-        Me.SoftwareNameDataGridViewTextBoxColumn.Name = "SoftwareNameDataGridViewTextBoxColumn"
-        '
-        'ManufacturerIdDataGridViewTextBoxColumn
-        '
-        Me.ManufacturerIdDataGridViewTextBoxColumn.DataPropertyName = "manufacturerId"
-        Me.ManufacturerIdDataGridViewTextBoxColumn.HeaderText = "manufacturerId"
-        Me.ManufacturerIdDataGridViewTextBoxColumn.Name = "ManufacturerIdDataGridViewTextBoxColumn"
-        '
-        'SystemIdDataGridViewTextBoxColumn
-        '
-        Me.SystemIdDataGridViewTextBoxColumn.DataPropertyName = "systemId"
-        Me.SystemIdDataGridViewTextBoxColumn.HeaderText = "systemId"
-        Me.SystemIdDataGridViewTextBoxColumn.Name = "SystemIdDataGridViewTextBoxColumn"
-        '
-        'TypeIdDataGridViewTextBoxColumn
-        '
-        Me.TypeIdDataGridViewTextBoxColumn.DataPropertyName = "typeId"
-        Me.TypeIdDataGridViewTextBoxColumn.HeaderText = "typeId"
-        Me.TypeIdDataGridViewTextBoxColumn.Name = "TypeIdDataGridViewTextBoxColumn"
+        Me.lvFiles.Location = New System.Drawing.Point(287, 145)
+        Me.lvFiles.Name = "lvFiles"
+        Me.lvFiles.Size = New System.Drawing.Size(911, 97)
+        Me.lvFiles.TabIndex = 11
+        Me.lvFiles.UseCompatibleStateImageBehavior = False
+        Me.lvFiles.View = System.Windows.Forms.View.Details
         '
         'frmMain
         '
@@ -541,12 +496,10 @@ Partial Class frmMain
         Me.tcTabs.ResumeLayout(False)
         Me.tbParser.ResumeLayout(False)
         Me.tbParser.PerformLayout()
-        CType(Me.dgvFiles, System.ComponentModel.ISupportInitialize).EndInit()
         Me.tbScraper.ResumeLayout(False)
         Me.tbScraper.PerformLayout()
         CType(Me.dgvReleases, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Parser1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.SoftwaresBindingSource, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -584,7 +537,6 @@ Partial Class frmMain
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents txtTitle As System.Windows.Forms.TextBox
     Friend WithEvents tvGames As System.Windows.Forms.TreeView
-    Friend WithEvents tbParser As System.Windows.Forms.TabPage
     Friend WithEvents tvSoftwares As System.Windows.Forms.TreeView
     Friend WithEvents txtSoftwarePlatform As System.Windows.Forms.TextBox
     Friend WithEvents Label11 As System.Windows.Forms.Label
@@ -595,13 +547,8 @@ Partial Class frmMain
     Friend WithEvents txtSoftwareType As System.Windows.Forms.TextBox
     Friend WithEvents Label12 As System.Windows.Forms.Label
     Friend WithEvents Label13 As System.Windows.Forms.Label
-    Friend WithEvents dgvFiles As System.Windows.Forms.DataGridView
     Friend WithEvents Parser1 As RomParser.Parser
-    Friend WithEvents SoftwareIdDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents SoftwareNameDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents ManufacturerIdDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents SystemIdDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents TypeIdDataGridViewTextBoxColumn As System.Windows.Forms.DataGridViewTextBoxColumn
-    Friend WithEvents SoftwaresBindingSource As System.Windows.Forms.BindingSource
+    Friend WithEvents tbParser As System.Windows.Forms.TabPage
+    Friend WithEvents lvFiles As System.Windows.Forms.ListView
 
 End Class

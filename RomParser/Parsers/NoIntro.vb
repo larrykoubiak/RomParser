@@ -127,15 +127,15 @@ Public Class NoIntro
                 End If
                 If rgxRevision.IsMatch(file.Name) Then
                     Dim flag As Parser.FlagsRow = GetFlag("Version", "File", ds)
-                    fileFlag = GetFileFlag(filerow, flag, rgxVersion.Match(file.Name).Groups(1).Value, ds)
+                    fileFlag = GetFileFlag(filerow, flag, rgxRevision.Match(file.Name).Groups(1).Value, ds)
                 End If
                 If rgxDevStatus.IsMatch(file.Name) Then
                     Dim flag As Parser.FlagsRow = GetFlag("DevStatus", "File", ds)
-                    fileFlag = GetFileFlag(filerow, flag, rgxVersion.Match(file.Name).Groups(1).Value, ds)
+                    fileFlag = GetFileFlag(filerow, flag, rgxDevStatus.Match(file.Name).Groups(1).Value, ds)
                 End If
                 If rgxLicense.IsMatch(file.Name) Then
                     Dim flag As Parser.FlagsRow = GetFlag("License", "File", ds)
-                    fileFlag = GetFileFlag(filerow, flag, rgxVersion.Match(file.Name).Groups(1).Value, ds)
+                    fileFlag = GetFileFlag(filerow, flag, rgxLicense.Match(file.Name).Groups(1).Value, ds)
                 End If
                 If rgxBadDump.IsMatch(file.Name) Then
                     Dim flag As Parser.FlagsRow = GetFlag("BadDump", "File", ds)
@@ -148,145 +148,98 @@ Public Class NoIntro
         Next
     End Sub
     Private Function GetManufacturer(strManufacturerName As String, ByRef ds As Parser) As Parser.ManufacturersRow
-        Dim temp, manufacturer As Parser.ManufacturersRow
-        manufacturer = Nothing
-        For Each temp In ds.Manufacturers
-            If temp.manufacturerName = strManufacturerName Then
-                manufacturer = temp
-                Exit For
-            End If
-        Next
-        If IsNothing(manufacturer) Then
-            manufacturer = ds.Manufacturers.AddManufacturersRow(strManufacturerName)
+        Dim manufacturer As Parser.ManufacturersRow()
+        manufacturer = ds.Manufacturers.Select("manufacturerName = '" + strManufacturerName.Replace("'", "''") + "'")
+        If manufacturer.Length = 0 Then
+            Return ds.Manufacturers.AddManufacturersRow(strManufacturerName)
+        Else
+            Return manufacturer(0)
         End If
-        Return manufacturer
     End Function
     Private Function GetSystem(strSystemName As String, ByRef ds As Parser) As Parser.SystemsRow
-        Dim temp, system As Parser.SystemsRow
-        system = Nothing
-        For Each temp In ds.Systems
-            If temp.systemName = strSystemName Then
-                system = temp
-                Exit For
-            End If
-        Next
-        If IsNothing(system) Then
-            system = ds.Systems.AddSystemsRow(strSystemName)
+        Dim system As Parser.SystemsRow()
+        system = ds.Systems.Select("systemName = '" + strSystemName.Replace("'", "''") + "'")
+        If system.Length = 0 Then
+            Return ds.Systems.AddSystemsRow(strSystemName)
+        Else
+            Return system(0)
         End If
-        Return system
     End Function
 
     Private Function GetSoftwareType(strTypeName As String, ByRef ds As Parser) As Parser.TypesRow
-        Dim temp, type As Parser.TypesRow
-        type = Nothing
-        For Each temp In ds.Types
-            If temp.typeName = strTypeName Then
-                type = temp
-                Exit For
-            End If
-        Next
-        If IsNothing(type) Then
-            type = ds.Types.AddTypesRow(strTypeName)
+        Dim type As Parser.TypesRow()
+        type = ds.Types.Select("typeName = '" + strTypeName.Replace("'", "''") + "'")
+        If type.Length = 0 Then
+            Return ds.Types.AddTypesRow(strTypeName)
         End If
-        Return type
+        Return type(0)
     End Function
     Private Function GetSoftware(manufacturer As Parser.ManufacturersRow, system As Parser.SystemsRow, type As Parser.TypesRow, strSoftwareName As String, ByRef ds As Parser) As Parser.SoftwaresRow
-        Dim temp, soft As Parser.SoftwaresRow
-        soft = Nothing
-        For Each temp In ds.Softwares
-            If temp.ManufacturersRow.Equals(manufacturer) And temp.SystemsRow.Equals(system) And temp.TypesRow.Equals(type) And temp.softwareName = strSoftwareName Then
-                soft = temp
-                Exit For
-            End If
-        Next
-        If IsNothing(soft) Then
-            soft = ds.Softwares.AddSoftwaresRow(strSoftwareName, manufacturer, system, type)
+        Dim soft As Parser.SoftwaresRow()
+        soft = ds.Softwares.Select("manufacturerId = " + manufacturer.manufacturerId.ToString + " And systemId = " + system.systemId.ToString _
+                                   + " and typeId = " + type.typeId.ToString + " and softwareName = '" + strSoftwareName.Replace("'", "''") + "'")
+        If soft.Length = 0 Then
+            Return ds.Softwares.AddSoftwaresRow(strSoftwareName, manufacturer, system, type)
+        Else
+            Return soft(0)
         End If
-        Return soft
     End Function
     Private Function GetFlag(strFlagName As String, strFlagType As String, ByRef ds As Parser) As Parser.FlagsRow
-        Dim temp, flag As Parser.FlagsRow
-        flag = Nothing
-        For Each temp In ds.Flags
-            If temp.flagName = strFlagName And temp.flagType = strFlagType Then
-                flag = temp
-                Exit For
-            End If
-        Next
-        If IsNothing(flag) Then
-            flag = ds.Flags.AddFlagsRow(strFlagName, strFlagType)
+        Dim flag As Parser.FlagsRow()
+        flag = ds.Flags.Select("flagName = '" + strFlagName.Replace("'", "''") + "' and flagType = '" + strFlagType.Replace("'", "''") + "'")
+        If flag.Length = 0 Then
+            Return ds.Flags.AddFlagsRow(strFlagName, strFlagType)
+        Else
+            Return flag(0)
         End If
-        Return flag
     End Function
     Private Function GetRomSet(strRomsetName As String, ByRef ds As Parser) As Parser.RomsetsRow
-        Dim temp, romset As Parser.RomsetsRow
-        romset = Nothing
-        For Each temp In ds.Romsets
-            If temp.romsetName = strRomsetName Then
-                romset = temp
-                Exit For
-            End If
-        Next
-        If IsNothing(romset) Then
-            romset = ds.Romsets.AddRomsetsRow(strRomsetName)
+        Dim romset As Parser.RomsetsRow()
+        romset = ds.Romsets.Select("romsetName = '" + strRomsetName.Replace("'", "''") + "'")
+        If romset.Length = 0 Then
+            Return ds.Romsets.AddRomsetsRow(strRomsetName)
+        Else
+            Return romset(0)
         End If
-        Return romset
     End Function
     Private Function GetFormat(strFormatName As String, ByRef ds As Parser) As Parser.FormatsRow
-        Dim temp, format As Parser.FormatsRow
-        format = Nothing
-        For Each temp In ds.Formats
-            If temp.formatName = strFormatName Then
-                format = temp
-                Exit For
-            End If
-        Next
-        If IsNothing(format) Then
-            format = ds.Formats.AddFormatsRow(strFormatName)
+        Dim format As Parser.FormatsRow()
+        format = ds.Formats.Select("formatName = '" + strFormatName.Replace("'", "''") + "'")
+        If format.Length = 0 Then
+            Return ds.Formats.AddFormatsRow(strFormatName)
+        Else
+            Return format(0)
         End If
-        Return format
     End Function
-    Private Function getFile(strFileName As String, software As Parser.SoftwaresRow, format As Parser.FormatsRow, romset As Parser.RomsetsRow, ByRef ds As Parser) As Parser.FilesRow
-        Dim temp, filerow As Parser.FilesRow
-        filerow = Nothing
-        For Each temp In ds.Files
-            If temp.fileName = strFileName And temp.SoftwaresRow.Equals(software) And temp.FormatsRow.Equals(format) And temp.RomsetsRow.Equals(romset) Then
-                filerow = temp
-                Exit For
-            End If
-        Next
-        If IsNothing(filerow) Then
-            filerow = ds.Files.AddFilesRow(strFileName, software, format, romset)
+    Private Function GetFile(strFileName As String, software As Parser.SoftwaresRow, format As Parser.FormatsRow, romset As Parser.RomsetsRow, ByRef ds As Parser) As Parser.FilesRow
+        Dim filerow As Parser.FilesRow()
+        filerow = ds.Files.Select("softwareId = " + software.softwareId.ToString + " and formatId = " + format.formatId.ToString _
+                                  + " and romsetId = " + romset.romsetId.ToString + " and fileName = '" + strFileName.Replace("'", "''") + "'")
+        If filerow.Length = 0 Then
+            Return ds.Files.AddFilesRow(strFileName, software, format, romset)
+        Else
+            Return filerow(0)
         End If
-        Return filerow
-
     End Function
     Private Function GetFileFlag(filerow As Parser.FilesRow, flagrow As Parser.FlagsRow, strFlagValue As String, ByRef ds As Parser)
-        Dim temp, fileflag As Parser.FileFlagsRow
-        fileflag = Nothing
-        For Each temp In ds.FileFlags
-            If temp.FilesRow.Equals(filerow) And temp.FlagsRow.Equals(flagrow) And temp.flagValue = strFlagValue Then
-                fileflag = temp
-                Exit For
-            End If
-        Next
-        If IsNothing(fileflag) Then
-            fileflag = ds.FileFlags.AddFileFlagsRow(filerow, flagrow, strFlagValue)
+        Dim fileflag As Parser.FileFlagsRow()
+        fileflag = ds.FileFlags.Select("fileId = " + filerow.fileId.ToString + " and flagId = " + flagrow.flagId.ToString _
+                                       + " and flagValue = '" + strFlagValue.Replace("'", "''") + "'")
+        If fileflag.Length = 0 Then
+            Return ds.FileFlags.AddFileFlagsRow(filerow, flagrow, strFlagValue)
+        Else
+            Return fileflag(0)
         End If
-        Return fileflag
     End Function
     Private Function GetArchiveFile(filerow As Parser.FilesRow, strArchiveFileName As String, strArchiveFileExtension As String, ByRef ds As Parser)
-        Dim temp, archiveFile As Parser.ArchiveFilesRow
-        archiveFile = Nothing
-        For Each temp In ds.ArchiveFiles
-            If temp.FilesRow.Equals(filerow) And temp.archiveFileName = strArchiveFileName And temp.archiveFileExtension = strArchiveFileExtension Then
-                archiveFile = temp
-                Exit For
-            End If
-        Next
-        If IsNothing(archiveFile) Then
-            archiveFile = ds.ArchiveFiles.AddArchiveFilesRow(filerow, strArchiveFileName, strArchiveFileExtension)
+        Dim archiveFile As Parser.ArchiveFilesRow()
+        archiveFile = ds.ArchiveFiles.Select("fileId = " + filerow.fileId.ToString + " and archiveFileName = '" + strArchiveFileName.Replace("'", "''") + "'" _
+                                             + " and archiveFileExtension = '" + strArchiveFileExtension.Replace("'", "''") + "'")
+        If archiveFile.Length = 0 Then
+            Return ds.ArchiveFiles.AddArchiveFilesRow(filerow, strArchiveFileName, strArchiveFileExtension)
+        Else
+            Return archiveFile(0)
         End If
-        Return archiveFile
+
     End Function
 End Class

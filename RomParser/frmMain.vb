@@ -21,7 +21,7 @@ Public Class frmMain
         Parser1 = New Parser
         parserserial = New ParserSerializer("parser.db", Parser1)
         ' Add any initialization after the InitializeComponent() call.
-
+        refreshTvSoftwares()
     End Sub
     Private Sub btnBrowse_Click(sender As Object, e As EventArgs) Handles btnBrowse.Click
         Dim res As DialogResult
@@ -31,27 +31,12 @@ Public Class frmMain
         End If
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim manufacturerNode, systemNode, softwareNode As TreeNode
         Dim directory As DirectoryInfo
         If txtPath.Text.Length > 0 Then
             Me.Cursor = Cursors.WaitCursor
             directory = New DirectoryInfo(txtPath.Text)
             parser.ParsePath(directory, Parser1)
-            For Each soft In softwares
-                If tvSoftwares.Nodes.ContainsKey("mf" + soft.Manufacturer) Then
-                    manufacturerNode = tvSoftwares.Nodes("mf" + soft.Manufacturer)
-                Else
-                    manufacturerNode = tvSoftwares.Nodes.Add("mf" + soft.Manufacturer, soft.Manufacturer)
-                End If
-                If manufacturerNode.Nodes.ContainsKey("sys" + soft.Platform) Then
-                    systemNode = manufacturerNode.Nodes("sys" + soft.Platform)
-                Else
-                    systemNode = manufacturerNode.Nodes.Add("sys" + soft.Platform, soft.Platform)
-                End If
-                softwareNode = New TreeNode(soft.SoftwareName)
-                softwareNode.Tag = soft.SoftwareId
-                systemNode.Nodes.Add(softwareNode)
-            Next
+            refreshTvSoftwares()
             Me.Cursor = Cursors.Default
         End If
     End Sub
@@ -154,15 +139,6 @@ Public Class frmMain
         End If
     End Sub
     Private Sub tvSoftwares_NodeMouseClick(sender As Object, e As TreeNodeMouseClickEventArgs) Handles tvSoftwares.NodeMouseClick
-        Dim soft As ParserSoftware
-        soft = softwares.Find(Function(x) x.SoftwareId = e.Node.Tag)
-        If Not IsNothing(soft) Then
-            Me.txtSoftwareTitle.Text = soft.SoftwareName
-            Me.txtSoftwareManufacturer.Text = soft.Manufacturer
-            Me.txtSoftwarePlatform.Text = soft.Platform
-            Me.txtSoftwareType.Text = soft.ROMType
-            Me.dgvFiles.DataSource = soft.Files
-        End If
     End Sub
 #End Region
 #Region "Handlers"
@@ -176,6 +152,68 @@ Public Class frmMain
         Application.DoEvents()
     End Sub
 #End Region
+    Private Sub refreshTvSoftwares()
+        Dim manufacturerNode, systemNode, softwareNode As TreeNode
+        Dim soft As Parser.SoftwaresRow
+        tvSoftwares.Nodes.Clear()
+        For Each soft In Parser1.Softwares
+            If tvSoftwares.Nodes.ContainsKey("mf" + soft.ManufacturersRow.manufacturerName) Then
+                manufacturerNode = tvSoftwares.Nodes("mf" + soft.ManufacturersRow.manufacturerName)
+            Else
+                manufacturerNode = tvSoftwares.Nodes.Add("mf" + soft.ManufacturersRow.manufacturerName, soft.ManufacturersRow.manufacturerName)
+            End If
+            If manufacturerNode.Nodes.ContainsKey("sys" + soft.SystemsRow.systemName) Then
+                systemNode = manufacturerNode.Nodes("sys" + soft.SystemsRow.systemName)
+            Else
+                systemNode = manufacturerNode.Nodes.Add("sys" + soft.SystemsRow.systemName, soft.SystemsRow.systemName)
+            End If
+            softwareNode = New TreeNode(soft.softwareName)
+            softwareNode.Tag = soft
+            systemNode.Nodes.Add(softwareNode)
+        Next
+    End Sub
 
-
+    Private Sub tvSoftwares_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles tvSoftwares.AfterSelect
+        Dim soft As Parser.SoftwaresRow
+        Dim file As Parser.FilesRow
+        Dim flag As Parser.FlagsRow
+        Dim fileflag As Parser.FileFlagsRow
+        Dim itm As ListViewItem
+        Dim subitm As ListViewItem.ListViewSubItem
+        Dim list As New Hashtable
+        Dim g As System.Drawing.Graphics = Me.CreateGraphics()
+        soft = e.Node.Tag
+        lvFiles.Clear()
+        If Not IsNothing(soft) Then
+            Me.txtSoftwareTitle.Text = soft.softwareName
+            Me.txtSoftwareManufacturer.Text = soft.ManufacturersRow.manufacturerName
+            Me.txtSoftwarePlatform.Text = soft.SystemsRow.systemName
+            Me.txtSoftwareType.Text = soft.TypesRow.typeName
+            lvFiles.Columns.Add("fileName", "File Name", 200)
+            lvFiles.Columns.Add("formatName", "Format", 60)
+            lvFiles.Columns.Add("romsetName", "Romset", 60)
+            For Each flag In Parser1.Flags.Select("flagType='File'", "flagId ASC")
+                lvFiles.Columns.Add(flag.flagId.ToString, flag.flagName, Convert.ToInt32(g.MeasureString(flag.flagName, lvFiles.Font).Width) + 20)
+            Next
+            For Each file In soft.GetChildRows("softwareFile")
+                itm = lvFiles.Items.Add(file.fileName)
+                itm.SubItems.Add(file.FormatsRow.formatName)
+                itm.SubItems.Add(file.RomsetsRow.romsetName)
+                For Each flag In Parser1.Flags.Select("flagType='File'", "flagId ASC")
+                    subitm = itm.SubItems.Add("")
+                    For Each fileflag In file.GetChildRows("fileFlag")
+                        If fileflag.FlagsRow.Equals(flag) Then
+                            subitm.Text += fileflag.flagValue + ","
+                        End If
+                    Next
+                    If subitm.Text.Length > 0 Then subitm.Text = subitm.Text.Substring(0, subitm.Text.Length - 1)
+                Next
+            Next
+        Else
+            Me.txtSoftwareTitle.Text = ""
+            Me.txtSoftwareManufacturer.Text = ""
+            Me.txtSoftwarePlatform.Text = ""
+            Me.txtSoftwareType.Text = ""
+        End If
+    End Sub
 End Class

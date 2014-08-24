@@ -47,25 +47,25 @@ Partial Public Class Parser
     
     Private tableArchiveFiles As ArchiveFilesDataTable
     
-    Private relationmanufacturerSoftware As Global.System.Data.DataRelation
+    Private relationtypeSoftware As Global.System.Data.DataRelation
 
     Private relationsystemSoftware As Global.System.Data.DataRelation
 
-    Private relationtypeSoftware As Global.System.Data.DataRelation
-
-    Private relationsoftwareFlag As Global.System.Data.DataRelation
+    Private relationmanufacturerSoftware As Global.System.Data.DataRelation
 
     Private relationflagSoftwareFlag As Global.System.Data.DataRelation
 
-    Private relationsoftwareFile As Global.System.Data.DataRelation
-
-    Private relationformatFile As Global.System.Data.DataRelation
+    Private relationsoftwareFlag As Global.System.Data.DataRelation
 
     Private relationromsetFile As Global.System.Data.DataRelation
 
-    Private relationfileFlag As Global.System.Data.DataRelation
+    Private relationformatFile As Global.System.Data.DataRelation
+
+    Private relationsoftwareFile As Global.System.Data.DataRelation
 
     Private relationFK_Flags_FileFlags As Global.System.Data.DataRelation
+
+    Private relationfileFlag As Global.System.Data.DataRelation
 
     Private relationfileArchive As Global.System.Data.DataRelation
 
@@ -456,16 +456,16 @@ Partial Public Class Parser
                 Me.tableArchiveFiles.InitVars()
             End If
         End If
-        Me.relationmanufacturerSoftware = Me.Relations("manufacturerSoftware")
-        Me.relationsystemSoftware = Me.Relations("systemSoftware")
         Me.relationtypeSoftware = Me.Relations("typeSoftware")
-        Me.relationsoftwareFlag = Me.Relations("softwareFlag")
+        Me.relationsystemSoftware = Me.Relations("systemSoftware")
+        Me.relationmanufacturerSoftware = Me.Relations("manufacturerSoftware")
         Me.relationflagSoftwareFlag = Me.Relations("flagSoftwareFlag")
-        Me.relationsoftwareFile = Me.Relations("softwareFile")
-        Me.relationformatFile = Me.Relations("formatFile")
+        Me.relationsoftwareFlag = Me.Relations("softwareFlag")
         Me.relationromsetFile = Me.Relations("romsetFile")
-        Me.relationfileFlag = Me.Relations("fileFlag")
+        Me.relationformatFile = Me.Relations("formatFile")
+        Me.relationsoftwareFile = Me.Relations("softwareFile")
         Me.relationFK_Flags_FileFlags = Me.Relations("FK_Flags_FileFlags")
+        Me.relationfileFlag = Me.Relations("fileFlag")
         Me.relationfileArchive = Me.Relations("fileArchive")
     End Sub
 
@@ -499,7 +499,7 @@ Partial Public Class Parser
         Me.tableArchiveFiles = New ArchiveFilesDataTable()
         MyBase.Tables.Add(Me.tableArchiveFiles)
         Dim fkc As Global.System.Data.ForeignKeyConstraint
-        fkc = New Global.System.Data.ForeignKeyConstraint("manufacturerSoftware", New Global.System.Data.DataColumn() {Me.tableManufacturers.manufacturerIdColumn}, New Global.System.Data.DataColumn() {Me.tableSoftwares.manufacturerIdColumn})
+        fkc = New Global.System.Data.ForeignKeyConstraint("typeSoftware", New Global.System.Data.DataColumn() {Me.tableTypes.typeIdColumn}, New Global.System.Data.DataColumn() {Me.tableSoftwares.typeIdColumn})
         Me.tableSoftwares.Constraints.Add(fkc)
         fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
         fkc.DeleteRule = Global.System.Data.Rule.Cascade
@@ -509,13 +509,8 @@ Partial Public Class Parser
         fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
         fkc.DeleteRule = Global.System.Data.Rule.Cascade
         fkc.UpdateRule = Global.System.Data.Rule.Cascade
-        fkc = New Global.System.Data.ForeignKeyConstraint("typeSoftware", New Global.System.Data.DataColumn() {Me.tableTypes.typeIdColumn}, New Global.System.Data.DataColumn() {Me.tableSoftwares.typeIdColumn})
+        fkc = New Global.System.Data.ForeignKeyConstraint("manufacturerSoftware", New Global.System.Data.DataColumn() {Me.tableManufacturers.manufacturerIdColumn}, New Global.System.Data.DataColumn() {Me.tableSoftwares.manufacturerIdColumn})
         Me.tableSoftwares.Constraints.Add(fkc)
-        fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
-        fkc.DeleteRule = Global.System.Data.Rule.Cascade
-        fkc.UpdateRule = Global.System.Data.Rule.Cascade
-        fkc = New Global.System.Data.ForeignKeyConstraint("softwareFlag", New Global.System.Data.DataColumn() {Me.tableSoftwares.softwareIdColumn}, New Global.System.Data.DataColumn() {Me.tableSoftwareFlags.softwareIdColumn})
-        Me.tableSoftwareFlags.Constraints.Add(fkc)
         fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
         fkc.DeleteRule = Global.System.Data.Rule.Cascade
         fkc.UpdateRule = Global.System.Data.Rule.Cascade
@@ -524,7 +519,12 @@ Partial Public Class Parser
         fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
         fkc.DeleteRule = Global.System.Data.Rule.Cascade
         fkc.UpdateRule = Global.System.Data.Rule.Cascade
-        fkc = New Global.System.Data.ForeignKeyConstraint("softwareFile", New Global.System.Data.DataColumn() {Me.tableSoftwares.softwareIdColumn}, New Global.System.Data.DataColumn() {Me.tableFiles.softwareIdColumn})
+        fkc = New Global.System.Data.ForeignKeyConstraint("softwareFlag", New Global.System.Data.DataColumn() {Me.tableSoftwares.softwareIdColumn}, New Global.System.Data.DataColumn() {Me.tableSoftwareFlags.softwareIdColumn})
+        Me.tableSoftwareFlags.Constraints.Add(fkc)
+        fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
+        fkc.DeleteRule = Global.System.Data.Rule.Cascade
+        fkc.UpdateRule = Global.System.Data.Rule.Cascade
+        fkc = New Global.System.Data.ForeignKeyConstraint("romsetFile", New Global.System.Data.DataColumn() {Me.tableRomsets.romsetIdColumn}, New Global.System.Data.DataColumn() {Me.tableFiles.romsetIdColumn})
         Me.tableFiles.Constraints.Add(fkc)
         fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
         fkc.DeleteRule = Global.System.Data.Rule.Cascade
@@ -534,17 +534,17 @@ Partial Public Class Parser
         fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
         fkc.DeleteRule = Global.System.Data.Rule.Cascade
         fkc.UpdateRule = Global.System.Data.Rule.Cascade
-        fkc = New Global.System.Data.ForeignKeyConstraint("romsetFile", New Global.System.Data.DataColumn() {Me.tableRomsets.romsetIdColumn}, New Global.System.Data.DataColumn() {Me.tableFiles.romsetIdColumn})
+        fkc = New Global.System.Data.ForeignKeyConstraint("softwareFile", New Global.System.Data.DataColumn() {Me.tableSoftwares.softwareIdColumn}, New Global.System.Data.DataColumn() {Me.tableFiles.softwareIdColumn})
         Me.tableFiles.Constraints.Add(fkc)
         fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
         fkc.DeleteRule = Global.System.Data.Rule.Cascade
         fkc.UpdateRule = Global.System.Data.Rule.Cascade
-        fkc = New Global.System.Data.ForeignKeyConstraint("fileFlag", New Global.System.Data.DataColumn() {Me.tableFiles.fileIdColumn}, New Global.System.Data.DataColumn() {Me.tableFileFlags.fileIdColumn})
+        fkc = New Global.System.Data.ForeignKeyConstraint("FK_Flags_FileFlags", New Global.System.Data.DataColumn() {Me.tableFlags.flagIdColumn}, New Global.System.Data.DataColumn() {Me.tableFileFlags.flagIdColumn})
         Me.tableFileFlags.Constraints.Add(fkc)
         fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
         fkc.DeleteRule = Global.System.Data.Rule.Cascade
         fkc.UpdateRule = Global.System.Data.Rule.Cascade
-        fkc = New Global.System.Data.ForeignKeyConstraint("FK_Flags_FileFlags", New Global.System.Data.DataColumn() {Me.tableFlags.flagIdColumn}, New Global.System.Data.DataColumn() {Me.tableFileFlags.flagIdColumn})
+        fkc = New Global.System.Data.ForeignKeyConstraint("fileFlag", New Global.System.Data.DataColumn() {Me.tableFiles.fileIdColumn}, New Global.System.Data.DataColumn() {Me.tableFileFlags.fileIdColumn})
         Me.tableFileFlags.Constraints.Add(fkc)
         fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
         fkc.DeleteRule = Global.System.Data.Rule.Cascade
@@ -554,26 +554,26 @@ Partial Public Class Parser
         fkc.AcceptRejectRule = Global.System.Data.AcceptRejectRule.None
         fkc.DeleteRule = Global.System.Data.Rule.Cascade
         fkc.UpdateRule = Global.System.Data.Rule.Cascade
-        Me.relationmanufacturerSoftware = New Global.System.Data.DataRelation("manufacturerSoftware", New Global.System.Data.DataColumn() {Me.tableManufacturers.manufacturerIdColumn}, New Global.System.Data.DataColumn() {Me.tableSoftwares.manufacturerIdColumn}, False)
-        Me.Relations.Add(Me.relationmanufacturerSoftware)
-        Me.relationsystemSoftware = New Global.System.Data.DataRelation("systemSoftware", New Global.System.Data.DataColumn() {Me.tableSystems.systemIdColumn}, New Global.System.Data.DataColumn() {Me.tableSoftwares.systemIdColumn}, False)
-        Me.Relations.Add(Me.relationsystemSoftware)
         Me.relationtypeSoftware = New Global.System.Data.DataRelation("typeSoftware", New Global.System.Data.DataColumn() {Me.tableTypes.typeIdColumn}, New Global.System.Data.DataColumn() {Me.tableSoftwares.typeIdColumn}, False)
         Me.Relations.Add(Me.relationtypeSoftware)
-        Me.relationsoftwareFlag = New Global.System.Data.DataRelation("softwareFlag", New Global.System.Data.DataColumn() {Me.tableSoftwares.softwareIdColumn}, New Global.System.Data.DataColumn() {Me.tableSoftwareFlags.softwareIdColumn}, False)
-        Me.Relations.Add(Me.relationsoftwareFlag)
+        Me.relationsystemSoftware = New Global.System.Data.DataRelation("systemSoftware", New Global.System.Data.DataColumn() {Me.tableSystems.systemIdColumn}, New Global.System.Data.DataColumn() {Me.tableSoftwares.systemIdColumn}, False)
+        Me.Relations.Add(Me.relationsystemSoftware)
+        Me.relationmanufacturerSoftware = New Global.System.Data.DataRelation("manufacturerSoftware", New Global.System.Data.DataColumn() {Me.tableManufacturers.manufacturerIdColumn}, New Global.System.Data.DataColumn() {Me.tableSoftwares.manufacturerIdColumn}, False)
+        Me.Relations.Add(Me.relationmanufacturerSoftware)
         Me.relationflagSoftwareFlag = New Global.System.Data.DataRelation("flagSoftwareFlag", New Global.System.Data.DataColumn() {Me.tableFlags.flagIdColumn}, New Global.System.Data.DataColumn() {Me.tableSoftwareFlags.flagIdColumn}, False)
         Me.Relations.Add(Me.relationflagSoftwareFlag)
-        Me.relationsoftwareFile = New Global.System.Data.DataRelation("softwareFile", New Global.System.Data.DataColumn() {Me.tableSoftwares.softwareIdColumn}, New Global.System.Data.DataColumn() {Me.tableFiles.softwareIdColumn}, False)
-        Me.Relations.Add(Me.relationsoftwareFile)
-        Me.relationformatFile = New Global.System.Data.DataRelation("formatFile", New Global.System.Data.DataColumn() {Me.tableFormats.formatIdColumn}, New Global.System.Data.DataColumn() {Me.tableFiles.formatIdColumn}, False)
-        Me.Relations.Add(Me.relationformatFile)
+        Me.relationsoftwareFlag = New Global.System.Data.DataRelation("softwareFlag", New Global.System.Data.DataColumn() {Me.tableSoftwares.softwareIdColumn}, New Global.System.Data.DataColumn() {Me.tableSoftwareFlags.softwareIdColumn}, False)
+        Me.Relations.Add(Me.relationsoftwareFlag)
         Me.relationromsetFile = New Global.System.Data.DataRelation("romsetFile", New Global.System.Data.DataColumn() {Me.tableRomsets.romsetIdColumn}, New Global.System.Data.DataColumn() {Me.tableFiles.romsetIdColumn}, False)
         Me.Relations.Add(Me.relationromsetFile)
-        Me.relationfileFlag = New Global.System.Data.DataRelation("fileFlag", New Global.System.Data.DataColumn() {Me.tableFiles.fileIdColumn}, New Global.System.Data.DataColumn() {Me.tableFileFlags.fileIdColumn}, False)
-        Me.Relations.Add(Me.relationfileFlag)
+        Me.relationformatFile = New Global.System.Data.DataRelation("formatFile", New Global.System.Data.DataColumn() {Me.tableFormats.formatIdColumn}, New Global.System.Data.DataColumn() {Me.tableFiles.formatIdColumn}, False)
+        Me.Relations.Add(Me.relationformatFile)
+        Me.relationsoftwareFile = New Global.System.Data.DataRelation("softwareFile", New Global.System.Data.DataColumn() {Me.tableSoftwares.softwareIdColumn}, New Global.System.Data.DataColumn() {Me.tableFiles.softwareIdColumn}, False)
+        Me.Relations.Add(Me.relationsoftwareFile)
         Me.relationFK_Flags_FileFlags = New Global.System.Data.DataRelation("FK_Flags_FileFlags", New Global.System.Data.DataColumn() {Me.tableFlags.flagIdColumn}, New Global.System.Data.DataColumn() {Me.tableFileFlags.flagIdColumn}, False)
         Me.Relations.Add(Me.relationFK_Flags_FileFlags)
+        Me.relationfileFlag = New Global.System.Data.DataRelation("fileFlag", New Global.System.Data.DataColumn() {Me.tableFiles.fileIdColumn}, New Global.System.Data.DataColumn() {Me.tableFileFlags.fileIdColumn}, False)
+        Me.Relations.Add(Me.relationfileFlag)
         Me.relationfileArchive = New Global.System.Data.DataRelation("fileArchive", New Global.System.Data.DataColumn() {Me.tableFiles.fileIdColumn}, New Global.System.Data.DataColumn() {Me.tableArchiveFiles.fileIdColumn}, False)
         Me.Relations.Add(Me.relationfileArchive)
     End Sub
@@ -930,7 +930,6 @@ Partial Public Class Parser
             Me.columnsoftwareId.AutoIncrementSeed = -1
             Me.columnsoftwareId.AutoIncrementStep = -1
             Me.columnsoftwareId.AllowDBNull = False
-            Me.columnsoftwareId.ReadOnly = True
             Me.columnsoftwareId.Unique = True
         End Sub
 
@@ -1208,7 +1207,6 @@ Partial Public Class Parser
             Me.columnmanufacturerId.AutoIncrementSeed = -1
             Me.columnmanufacturerId.AutoIncrementStep = -1
             Me.columnmanufacturerId.AllowDBNull = False
-            Me.columnmanufacturerId.ReadOnly = True
             Me.columnmanufacturerId.Unique = True
         End Sub
 
@@ -1486,7 +1484,6 @@ Partial Public Class Parser
             Me.columnsystemId.AutoIncrementSeed = -1
             Me.columnsystemId.AutoIncrementStep = -1
             Me.columnsystemId.AllowDBNull = False
-            Me.columnsystemId.ReadOnly = True
             Me.columnsystemId.Unique = True
         End Sub
 
@@ -1764,7 +1761,6 @@ Partial Public Class Parser
             Me.columntypeId.AutoIncrementSeed = -1
             Me.columntypeId.AutoIncrementStep = -1
             Me.columntypeId.AllowDBNull = False
-            Me.columntypeId.ReadOnly = True
             Me.columntypeId.Unique = True
         End Sub
 
@@ -2055,7 +2051,6 @@ Partial Public Class Parser
             Me.columnflagId.AutoIncrementSeed = -1
             Me.columnflagId.AutoIncrementStep = -1
             Me.columnflagId.AllowDBNull = False
-            Me.columnflagId.ReadOnly = True
             Me.columnflagId.Unique = True
         End Sub
 
@@ -2365,7 +2360,6 @@ Partial Public Class Parser
             Me.columnsoftwareFlagId.AutoIncrementSeed = -1
             Me.columnsoftwareFlagId.AutoIncrementStep = -1
             Me.columnsoftwareFlagId.AllowDBNull = False
-            Me.columnsoftwareFlagId.ReadOnly = True
             Me.columnsoftwareFlagId.Unique = True
         End Sub
 
@@ -3862,7 +3856,6 @@ Partial Public Class Parser
             Me.columnarchiveFileId.AutoIncrementSeed = -1
             Me.columnarchiveFileId.AutoIncrementStep = -1
             Me.columnarchiveFileId.AllowDBNull = False
-            Me.columnarchiveFileId.ReadOnly = True
             Me.columnarchiveFileId.Unique = True
         End Sub
 
@@ -4081,12 +4074,12 @@ Partial Public Class Parser
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property ManufacturersRow() As ManufacturersRow
+        Public Property TypesRow() As TypesRow
             Get
-                Return CType(Me.GetParentRow(Me.Table.ParentRelations("manufacturerSoftware")), ManufacturersRow)
+                Return CType(Me.GetParentRow(Me.Table.ParentRelations("typeSoftware")), TypesRow)
             End Get
-            Set(value As ManufacturersRow)
-                Me.SetParentRow(value, Me.Table.ParentRelations("manufacturerSoftware"))
+            Set(value As TypesRow)
+                Me.SetParentRow(value, Me.Table.ParentRelations("typeSoftware"))
             End Set
         End Property
 
@@ -4103,12 +4096,12 @@ Partial Public Class Parser
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property TypesRow() As TypesRow
+        Public Property ManufacturersRow() As ManufacturersRow
             Get
-                Return CType(Me.GetParentRow(Me.Table.ParentRelations("typeSoftware")), TypesRow)
+                Return CType(Me.GetParentRow(Me.Table.ParentRelations("manufacturerSoftware")), ManufacturersRow)
             End Get
-            Set(value As TypesRow)
-                Me.SetParentRow(value, Me.Table.ParentRelations("typeSoftware"))
+            Set(value As ManufacturersRow)
+                Me.SetParentRow(value, Me.Table.ParentRelations("manufacturerSoftware"))
             End Set
         End Property
 
@@ -4547,23 +4540,23 @@ Partial Public Class Parser
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property SoftwaresRow() As SoftwaresRow
-            Get
-                Return CType(Me.GetParentRow(Me.Table.ParentRelations("softwareFlag")), SoftwaresRow)
-            End Get
-            Set(value As SoftwaresRow)
-                Me.SetParentRow(value, Me.Table.ParentRelations("softwareFlag"))
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property FlagsRow() As FlagsRow
             Get
                 Return CType(Me.GetParentRow(Me.Table.ParentRelations("flagSoftwareFlag")), FlagsRow)
             End Get
             Set(value As FlagsRow)
                 Me.SetParentRow(value, Me.Table.ParentRelations("flagSoftwareFlag"))
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property SoftwaresRow() As SoftwaresRow
+            Get
+                Return CType(Me.GetParentRow(Me.Table.ParentRelations("softwareFlag")), SoftwaresRow)
+            End Get
+            Set(value As SoftwaresRow)
+                Me.SetParentRow(value, Me.Table.ParentRelations("softwareFlag"))
             End Set
         End Property
 
@@ -4692,12 +4685,12 @@ Partial Public Class Parser
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property SoftwaresRow() As SoftwaresRow
+        Public Property RomsetsRow() As RomsetsRow
             Get
-                Return CType(Me.GetParentRow(Me.Table.ParentRelations("softwareFile")), SoftwaresRow)
+                Return CType(Me.GetParentRow(Me.Table.ParentRelations("romsetFile")), RomsetsRow)
             End Get
-            Set(value As SoftwaresRow)
-                Me.SetParentRow(value, Me.Table.ParentRelations("softwareFile"))
+            Set(value As RomsetsRow)
+                Me.SetParentRow(value, Me.Table.ParentRelations("romsetFile"))
             End Set
         End Property
 
@@ -4714,12 +4707,12 @@ Partial Public Class Parser
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property RomsetsRow() As RomsetsRow
+        Public Property SoftwaresRow() As SoftwaresRow
             Get
-                Return CType(Me.GetParentRow(Me.Table.ParentRelations("romsetFile")), RomsetsRow)
+                Return CType(Me.GetParentRow(Me.Table.ParentRelations("softwareFile")), SoftwaresRow)
             End Get
-            Set(value As RomsetsRow)
-                Me.SetParentRow(value, Me.Table.ParentRelations("romsetFile"))
+            Set(value As SoftwaresRow)
+                Me.SetParentRow(value, Me.Table.ParentRelations("softwareFile"))
             End Set
         End Property
 
@@ -4993,23 +4986,23 @@ Partial Public Class Parser
 
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
-        Public Property FilesRow() As FilesRow
-            Get
-                Return CType(Me.GetParentRow(Me.Table.ParentRelations("fileFlag")), FilesRow)
-            End Get
-            Set(value As FilesRow)
-                Me.SetParentRow(value, Me.Table.ParentRelations("fileFlag"))
-            End Set
-        End Property
-
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
         Public Property FlagsRow() As FlagsRow
             Get
                 Return CType(Me.GetParentRow(Me.Table.ParentRelations("FK_Flags_FileFlags")), FlagsRow)
             End Get
             Set(value As FlagsRow)
                 Me.SetParentRow(value, Me.Table.ParentRelations("FK_Flags_FileFlags"))
+            End Set
+        End Property
+
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(), _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")> _
+        Public Property FilesRow() As FilesRow
+            Get
+                Return CType(Me.GetParentRow(Me.Table.ParentRelations("fileFlag")), FilesRow)
+            End Get
+            Set(value As FilesRow)
+                Me.SetParentRow(value, Me.Table.ParentRelations("fileFlag"))
             End Set
         End Property
 
