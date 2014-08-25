@@ -5,7 +5,7 @@ Imports System.IO
 Imports System.Xml
 Imports System.Xml.Serialization
 Imports HtmlAgilityPack
-Public MustInherit Class Scraper
+Public MustInherit Class GameScraper
     Protected lstSystems As List(Of ScraperSystem)
     Protected lstGenres As List(Of ScraperGenre)
     Protected strName As String
@@ -44,9 +44,9 @@ Public MustInherit Class Scraper
         End Set
     End Property
 
-    Public MustOverride Function GetGameInfo(gameURL As String) As ScraperGame
-    Public MustOverride Sub GetGameList(ByVal system As ScraperSystem, ByRef list As List(Of ScraperGame))
-    Public MustOverride Sub GetAllGames(ByRef list As List(Of ScraperGame))
+    Public MustOverride Sub GetGameInfo(gameURL As String, platform As Scraper.PlatformsRow, ByRef ds As Scraper)
+    Public MustOverride Sub GetGameList(ByVal system As ScraperSystem, ByRef ds As Scraper)
+    Public MustOverride Sub GetAllGames(ByRef ds As Scraper)
 
     Protected Function GetHtml(url As String) As String
         Dim client As WebClient
@@ -84,7 +84,7 @@ Public Class ScraperGame
     Private lstGenres As List(Of ScraperGenre)
     Private strDeveloper As String
     Private lstReleases As List(Of ScraperRelease)
-    Private spScraper As Scraper
+    Private spScraper As GameScraper
 
     Public Property ID() As Integer
         Get
@@ -150,11 +150,11 @@ Public Class ScraperGame
             lstReleases = value
         End Set
     End Property
-    Public Property Scraper() As Scraper
+    Public Property Scraper() As GameScraper
         Get
             Return spScraper
         End Get
-        Set(ByVal value As Scraper)
+        Set(ByVal value As GameScraper)
             spScraper = value
         End Set
     End Property

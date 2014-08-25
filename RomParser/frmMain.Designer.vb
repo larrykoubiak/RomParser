@@ -39,6 +39,7 @@ Partial Class frmMain
         Me.Button6 = New System.Windows.Forms.Button()
         Me.tcTabs = New System.Windows.Forms.TabControl()
         Me.tbParser = New System.Windows.Forms.TabPage()
+        Me.lvFiles = New System.Windows.Forms.ListView()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.txtSoftwareType = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
@@ -55,7 +56,6 @@ Partial Class frmMain
         Me.Label8 = New System.Windows.Forms.Label()
         Me.txtGenre = New System.Windows.Forms.TextBox()
         Me.lbl8 = New System.Windows.Forms.Label()
-        Me.dgvReleases = New System.Windows.Forms.DataGridView()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.txtDeveloper = New System.Windows.Forms.TextBox()
         Me.txtPlot = New System.Windows.Forms.TextBox()
@@ -67,13 +67,14 @@ Partial Class frmMain
         Me.txtTitle = New System.Windows.Forms.TextBox()
         Me.tvGames = New System.Windows.Forms.TreeView()
         Me.Parser1 = New RomParser.Parser()
-        Me.lvFiles = New System.Windows.Forms.ListView()
+        Me.Scraper1 = New RomParser.Scraper()
+        Me.lvReleases = New System.Windows.Forms.ListView()
         Me.StatusStrip1.SuspendLayout()
         Me.tcTabs.SuspendLayout()
         Me.tbParser.SuspendLayout()
         Me.tbScraper.SuspendLayout()
-        CType(Me.dgvReleases, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.Parser1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.Scraper1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'txtPath
@@ -223,6 +224,15 @@ Partial Class frmMain
         Me.tbParser.Text = "Parser"
         Me.tbParser.UseVisualStyleBackColor = True
         '
+        'lvFiles
+        '
+        Me.lvFiles.Location = New System.Drawing.Point(287, 145)
+        Me.lvFiles.Name = "lvFiles"
+        Me.lvFiles.Size = New System.Drawing.Size(911, 97)
+        Me.lvFiles.TabIndex = 11
+        Me.lvFiles.UseCompatibleStateImageBehavior = False
+        Me.lvFiles.View = System.Windows.Forms.View.Details
+        '
         'Label13
         '
         Me.Label13.AutoSize = True
@@ -305,12 +315,12 @@ Partial Class frmMain
         '
         'tbScraper
         '
+        Me.tbScraper.Controls.Add(Me.lvReleases)
         Me.tbScraper.Controls.Add(Me.Label9)
         Me.tbScraper.Controls.Add(Me.FlowLayoutPanel1)
         Me.tbScraper.Controls.Add(Me.Label8)
         Me.tbScraper.Controls.Add(Me.txtGenre)
         Me.tbScraper.Controls.Add(Me.lbl8)
-        Me.tbScraper.Controls.Add(Me.dgvReleases)
         Me.tbScraper.Controls.Add(Me.Label7)
         Me.tbScraper.Controls.Add(Me.txtDeveloper)
         Me.tbScraper.Controls.Add(Me.txtPlot)
@@ -370,14 +380,6 @@ Partial Class frmMain
         Me.lbl8.Size = New System.Drawing.Size(51, 13)
         Me.lbl8.TabIndex = 38
         Me.lbl8.Text = "Releases"
-        '
-        'dgvReleases
-        '
-        Me.dgvReleases.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvReleases.Location = New System.Drawing.Point(295, 142)
-        Me.dgvReleases.Name = "dgvReleases"
-        Me.dgvReleases.Size = New System.Drawing.Size(903, 154)
-        Me.dgvReleases.TabIndex = 37
         '
         'Label7
         '
@@ -463,14 +465,19 @@ Partial Class frmMain
         Me.Parser1.DataSetName = "Parser"
         Me.Parser1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
-        'lvFiles
+        'Scraper1
         '
-        Me.lvFiles.Location = New System.Drawing.Point(287, 145)
-        Me.lvFiles.Name = "lvFiles"
-        Me.lvFiles.Size = New System.Drawing.Size(911, 97)
-        Me.lvFiles.TabIndex = 11
-        Me.lvFiles.UseCompatibleStateImageBehavior = False
-        Me.lvFiles.View = System.Windows.Forms.View.Details
+        Me.Scraper1.DataSetName = "Scraper"
+        Me.Scraper1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
+        '
+        'lvReleases
+        '
+        Me.lvReleases.Location = New System.Drawing.Point(295, 142)
+        Me.lvReleases.Name = "lvReleases"
+        Me.lvReleases.Size = New System.Drawing.Size(903, 97)
+        Me.lvReleases.TabIndex = 43
+        Me.lvReleases.UseCompatibleStateImageBehavior = False
+        Me.lvReleases.View = System.Windows.Forms.View.Details
         '
         'frmMain
         '
@@ -498,8 +505,8 @@ Partial Class frmMain
         Me.tbParser.PerformLayout()
         Me.tbScraper.ResumeLayout(False)
         Me.tbScraper.PerformLayout()
-        CType(Me.dgvReleases, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.Parser1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.Scraper1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -526,7 +533,6 @@ Partial Class frmMain
     Friend WithEvents Label8 As System.Windows.Forms.Label
     Friend WithEvents txtGenre As System.Windows.Forms.TextBox
     Friend WithEvents lbl8 As System.Windows.Forms.Label
-    Friend WithEvents dgvReleases As System.Windows.Forms.DataGridView
     Friend WithEvents Label7 As System.Windows.Forms.Label
     Friend WithEvents txtDeveloper As System.Windows.Forms.TextBox
     Friend WithEvents txtPlot As System.Windows.Forms.TextBox
@@ -550,5 +556,7 @@ Partial Class frmMain
     Friend WithEvents Parser1 As RomParser.Parser
     Friend WithEvents tbParser As System.Windows.Forms.TabPage
     Friend WithEvents lvFiles As System.Windows.Forms.ListView
+    Friend WithEvents Scraper1 As RomParser.Scraper
+    Friend WithEvents lvReleases As System.Windows.Forms.ListView
 
 End Class

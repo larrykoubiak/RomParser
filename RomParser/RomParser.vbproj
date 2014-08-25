@@ -141,6 +141,11 @@
       <DependentUpon>ParserSerializer.xsd</DependentUpon>
     </Compile>
     <Compile Include="Serializer\ParserSerializer.vb" />
+    <Compile Include="Serializer\ScraperSerializer.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ScraperSerializer.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Serializer\ScraperSerializer.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -175,6 +180,17 @@
     </None>
     <None Include="Serializer\ParserSerializer.xss">
       <DependentUpon>ParserSerializer.xsd</DependentUpon>
+    </None>
+    <None Include="Serializer\ScraperSerializer.xsc">
+      <DependentUpon>ScraperSerializer.xsd</DependentUpon>
+    </None>
+    <None Include="Serializer\ScraperSerializer.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ScraperSerializer.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Serializer\ScraperSerializer.xss">
+      <DependentUpon>ScraperSerializer.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Scraper" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Scraper" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="Scraper" msprop:Generator_UserDSName="Scraper">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Games" msprop:Generator_TableClassName="GamesDataTable" msprop:Generator_TableVarName="tableGames" msprop:Generator_RowChangedName="GamesRowChanged" msprop:Generator_TablePropName="Games" msprop:Generator_RowDeletingName="GamesRowDeleting" msprop:Generator_RowChangingName="GamesRowChanging" msprop:Generator_RowEvHandlerName="GamesRowChangeEventHandler" msprop:Generator_RowDeletedName="GamesRowDeleted" msprop:Generator_RowClassName="GamesRow" msprop:Generator_UserTableName="Games" msprop:Generator_RowEvArgName="GamesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="gameId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columngameId" msprop:Generator_ColumnPropNameInRow="gameId" msprop:Generator_ColumnPropNameInTable="gameIdColumn" msprop:Generator_UserColumnName="gameId" type="xs:long" />
+              <xs:element name="gameName" msprop:Generator_ColumnVarNameInTable="columngameName" msprop:Generator_ColumnPropNameInRow="gameName" msprop:Generator_ColumnPropNameInTable="gameNameColumn" msprop:Generator_UserColumnName="gameName" type="xs:string" minOccurs="0" />
+              <xs:element name="gameURL" msprop:Generator_ColumnVarNameInTable="columngameURL" msprop:Generator_ColumnPropNameInRow="gameURL" msprop:Generator_ColumnPropNameInTable="gameURLColumn" msprop:Generator_UserColumnName="gameURL" type="xs:string" minOccurs="0" />
+              <xs:element name="gamePlot" msprop:Generator_ColumnVarNameInTable="columngamePlot" msprop:Generator_ColumnPropNameInRow="gamePlot" msprop:Generator_ColumnPropNameInTable="gamePlotColumn" msprop:Generator_UserColumnName="gamePlot" type="xs:string" minOccurs="0" />
+              <xs:element name="developerId" msprop:Generator_ColumnVarNameInTable="columndeveloperId" msprop:Generator_ColumnPropNameInRow="developerId" msprop:Generator_ColumnPropNameInTable="developerIdColumn" msprop:Generator_UserColumnName="developerId" type="xs:long" minOccurs="0" />
+              <xs:element name="platformId" msprop:Generator_ColumnVarNameInTable="columnplatformId" msprop:Generator_ColumnPropNameInRow="platformId" msprop:Generator_ColumnPropNameInTable="platformIdColumn" msprop:Generator_UserColumnName="platformId" type="xs:long" minOccurs="0" />
+              <xs:element name="scraperId" msprop:Generator_ColumnVarNameInTable="columnscraperId" msprop:Generator_ColumnPropNameInRow="scraperId" msprop:Generator_ColumnPropNameInTable="scraperIdColumn" msprop:Generator_UserColumnName="scraperId" type="xs:long" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Scrapers" msprop:Generator_TableClassName="ScrapersDataTable" msprop:Generator_TableVarName="tableScrapers" msprop:Generator_RowChangedName="ScrapersRowChanged" msprop:Generator_TablePropName="Scrapers" msprop:Generator_RowDeletingName="ScrapersRowDeleting" msprop:Generator_RowChangingName="ScrapersRowChanging" msprop:Generator_RowEvHandlerName="ScrapersRowChangeEventHandler" msprop:Generator_RowDeletedName="ScrapersRowDeleted" msprop:Generator_RowClassName="ScrapersRow" msprop:Generator_UserTableName="Scrapers" msprop:Generator_RowEvArgName="ScrapersRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="scraperId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnscraperId" msprop:Generator_ColumnPropNameInRow="scraperId" msprop:Generator_ColumnPropNameInTable="scraperIdColumn" msprop:Generator_UserColumnName="scraperId" type="xs:long" />
+              <xs:element name="scraperName" msprop:Generator_ColumnVarNameInTable="columnscraperName" msprop:Generator_ColumnPropNameInRow="scraperName" msprop:Generator_ColumnPropNameInTable="scraperNameColumn" msprop:Generator_UserColumnName="scraperName" type="xs:string" minOccurs="0" />
+              <xs:element name="scraperURL" msprop:Generator_ColumnVarNameInTable="columnscraperURL" msprop:Generator_ColumnPropNameInRow="scraperURL" msprop:Generator_ColumnPropNameInTable="scraperURLColumn" msprop:Generator_UserColumnName="scraperURL" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Platforms" msprop:Generator_TableClassName="PlatformsDataTable" msprop:Generator_TableVarName="tablePlatforms" msprop:Generator_RowChangedName="PlatformsRowChanged" msprop:Generator_TablePropName="Platforms" msprop:Generator_RowDeletingName="PlatformsRowDeleting" msprop:Generator_RowChangingName="PlatformsRowChanging" msprop:Generator_RowEvHandlerName="PlatformsRowChangeEventHandler" msprop:Generator_RowDeletedName="PlatformsRowDeleted" msprop:Generator_RowClassName="PlatformsRow" msprop:Generator_UserTableName="Platforms" msprop:Generator_RowEvArgName="PlatformsRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="platformId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnplatformId" msprop:Generator_ColumnPropNameInRow="platformId" msprop:Generator_ColumnPropNameInTable="platformIdColumn" msprop:Generator_UserColumnName="platformId" type="xs:long" />
+              <xs:element name="platformName" msprop:Generator_ColumnVarNameInTable="columnplatformName" msprop:Generator_ColumnPropNameInRow="platformName" msprop:Generator_ColumnPropNameInTable="platformNameColumn" msprop:Generator_UserColumnName="platformName" type="xs:string" minOccurs="0" />
+              <xs:element name="platformURL" msprop:Generator_ColumnVarNameInTable="columnplatformURL" msprop:Generator_ColumnPropNameInRow="platformURL" msprop:Generator_ColumnPropNameInTable="platformURLColumn" msprop:Generator_UserColumnName="platformURL" type="xs:string" minOccurs="0" />
+              <xs:element name="platformAcronym" msprop:Generator_ColumnVarNameInTable="columnplatformAcronym" msprop:Generator_ColumnPropNameInRow="platformAcronym" msprop:Generator_ColumnPropNameInTable="platformAcronymColumn" msprop:Generator_UserColumnName="platformAcronym" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Developers" msprop:Generator_TableClassName="DevelopersDataTable" msprop:Generator_TableVarName="tableDevelopers" msprop:Generator_RowChangedName="DevelopersRowChanged" msprop:Generator_TablePropName="Developers" msprop:Generator_RowDeletingName="DevelopersRowDeleting" msprop:Generator_RowChangingName="DevelopersRowChanging" msprop:Generator_RowEvHandlerName="DevelopersRowChangeEventHandler" msprop:Generator_RowDeletedName="DevelopersRowDeleted" msprop:Generator_RowClassName="DevelopersRow" msprop:Generator_UserTableName="Developers" msprop:Generator_RowEvArgName="DevelopersRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="developerId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columndeveloperId" msprop:Generator_ColumnPropNameInRow="developerId" msprop:Generator_ColumnPropNameInTable="developerIdColumn" msprop:Generator_UserColumnName="developerId" type="xs:long" />
+              <xs:element name="developerName" msprop:Generator_ColumnVarNameInTable="columndeveloperName" msprop:Generator_ColumnPropNameInRow="developerName" msprop:Generator_ColumnPropNameInTable="developerNameColumn" msprop:Generator_UserColumnName="developerName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="GameGenreFlags" msprop:Generator_TableClassName="GameGenreFlagsDataTable" msprop:Generator_TableVarName="tableGameGenreFlags" msprop:Generator_RowChangedName="GameGenreFlagsRowChanged" msprop:Generator_TablePropName="GameGenreFlags" msprop:Generator_RowDeletingName="GameGenreFlagsRowDeleting" msprop:Generator_RowChangingName="GameGenreFlagsRowChanging" msprop:Generator_RowEvHandlerName="GameGenreFlagsRowChangeEventHandler" msprop:Generator_RowDeletedName="GameGenreFlagsRowDeleted" msprop:Generator_RowClassName="GameGenreFlagsRow" msprop:Generator_UserTableName="GameGenreFlags" msprop:Generator_RowEvArgName="GameGenreFlagsRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="gameGenreFlagId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columngameGenreFlagId" msprop:Generator_ColumnPropNameInRow="gameGenreFlagId" msprop:Generator_ColumnPropNameInTable="gameGenreFlagIdColumn" msprop:Generator_UserColumnName="gameGenreFlagId" type="xs:long" />
+              <xs:element name="gameId" msprop:Generator_ColumnVarNameInTable="columngameId" msprop:Generator_ColumnPropNameInRow="gameId" msprop:Generator_ColumnPropNameInTable="gameIdColumn" msprop:Generator_UserColumnName="gameId" type="xs:long" minOccurs="0" />
+              <xs:element name="genreFlagId" msprop:Generator_ColumnVarNameInTable="columngenreFlagId" msprop:Generator_ColumnPropNameInRow="genreFlagId" msprop:Generator_ColumnPropNameInTable="genreFlagIdColumn" msprop:Generator_UserColumnName="genreFlagId" type="xs:long" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="GenreFlagTypes" msprop:Generator_TableClassName="GenreFlagTypesDataTable" msprop:Generator_TableVarName="tableGenreFlagTypes" msprop:Generator_RowChangedName="GenreFlagTypesRowChanged" msprop:Generator_TablePropName="GenreFlagTypes" msprop:Generator_RowDeletingName="GenreFlagTypesRowDeleting" msprop:Generator_RowChangingName="GenreFlagTypesRowChanging" msprop:Generator_RowEvHandlerName="GenreFlagTypesRowChangeEventHandler" msprop:Generator_RowDeletedName="GenreFlagTypesRowDeleted" msprop:Generator_RowClassName="GenreFlagTypesRow" msprop:Generator_UserTableName="GenreFlagTypes" msprop:Generator_RowEvArgName="GenreFlagTypesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="genreFlagTypeId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columngenreFlagTypeId" msprop:Generator_ColumnPropNameInRow="genreFlagTypeId" msprop:Generator_ColumnPropNameInTable="genreFlagTypeIdColumn" msprop:Generator_UserColumnName="genreFlagTypeId" type="xs:long" />
+              <xs:element name="genreFlagTypeName" msprop:Generator_ColumnVarNameInTable="columngenreFlagTypeName" msprop:Generator_ColumnPropNameInRow="genreFlagTypeName" msprop:Generator_ColumnPropNameInTable="genreFlagTypeNameColumn" msprop:Generator_UserColumnName="genreFlagTypeName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="GenreFlags" msprop:Generator_TableClassName="GenreFlagsDataTable" msprop:Generator_TableVarName="tableGenreFlags" msprop:Generator_RowChangedName="GenreFlagsRowChanged" msprop:Generator_TablePropName="GenreFlags" msprop:Generator_RowDeletingName="GenreFlagsRowDeleting" msprop:Generator_RowChangingName="GenreFlagsRowChanging" msprop:Generator_RowEvHandlerName="GenreFlagsRowChangeEventHandler" msprop:Generator_RowDeletedName="GenreFlagsRowDeleted" msprop:Generator_RowClassName="GenreFlagsRow" msprop:Generator_UserTableName="GenreFlags" msprop:Generator_RowEvArgName="GenreFlagsRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="genreFlagId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columngenreFlagId" msprop:Generator_ColumnPropNameInRow="genreFlagId" msprop:Generator_ColumnPropNameInTable="genreFlagIdColumn" msprop:Generator_UserColumnName="genreFlagId" type="xs:long" />
+              <xs:element name="genreFlagName" msprop:Generator_ColumnVarNameInTable="columngenreFlagName" msprop:Generator_ColumnPropNameInRow="genreFlagName" msprop:Generator_ColumnPropNameInTable="genreFlagNameColumn" msprop:Generator_UserColumnName="genreFlagName" type="xs:string" minOccurs="0" />
+              <xs:element name="genreFlagTypeId" msprop:Generator_ColumnVarNameInTable="columngenreFlagTypeId" msprop:Generator_ColumnPropNameInRow="genreFlagTypeId" msprop:Generator_ColumnPropNameInTable="genreFlagTypeIdColumn" msprop:Generator_UserColumnName="genreFlagTypeId" type="xs:long" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Releases" msprop:Generator_TableClassName="ReleasesDataTable" msprop:Generator_TableVarName="tableReleases" msprop:Generator_RowChangedName="ReleasesRowChanged" msprop:Generator_TablePropName="Releases" msprop:Generator_RowDeletingName="ReleasesRowDeleting" msprop:Generator_RowChangingName="ReleasesRowChanging" msprop:Generator_RowEvHandlerName="ReleasesRowChangeEventHandler" msprop:Generator_RowDeletedName="ReleasesRowDeleted" msprop:Generator_RowClassName="ReleasesRow" msprop:Generator_UserTableName="Releases" msprop:Generator_RowEvArgName="ReleasesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="releaseId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnreleaseId" msprop:Generator_ColumnPropNameInRow="releaseId" msprop:Generator_ColumnPropNameInTable="releaseIdColumn" msprop:Generator_UserColumnName="releaseId" type="xs:long" />
+              <xs:element name="releaseName" msprop:Generator_ColumnVarNameInTable="columnreleaseName" msprop:Generator_ColumnPropNameInRow="releaseName" msprop:Generator_ColumnPropNameInTable="releaseNameColumn" msprop:Generator_UserColumnName="releaseName" type="xs:string" minOccurs="0" />
+              <xs:element name="releaseProductNr" msprop:Generator_ColumnVarNameInTable="columnreleaseProductNr" msprop:Generator_ColumnPropNameInRow="releaseProductNr" msprop:Generator_ColumnPropNameInTable="releaseProductNrColumn" msprop:Generator_UserColumnName="releaseProductNr" type="xs:string" minOccurs="0" />
+              <xs:element name="releaseDistBarcode" msprop:Generator_ColumnVarNameInTable="columnreleaseDistBarcode" msprop:Generator_ColumnPropNameInRow="releaseDistBarcode" msprop:Generator_ColumnPropNameInTable="releaseDistBarcodeColumn" msprop:Generator_UserColumnName="releaseDistBarcode" type="xs:string" minOccurs="0" />
+              <xs:element name="releaseDate" msprop:Generator_ColumnVarNameInTable="columnreleaseDate" msprop:Generator_ColumnPropNameInRow="releaseDate" msprop:Generator_ColumnPropNameInTable="releaseDateColumn" msprop:Generator_UserColumnName="releaseDate" type="xs:string" minOccurs="0" />
+              <xs:element name="releaseRating" msprop:Generator_ColumnVarNameInTable="columnreleaseRating" msprop:Generator_ColumnPropNameInRow="releaseRating" msprop:Generator_ColumnPropNameInTable="releaseRatingColumn" msprop:Generator_UserColumnName="releaseRating" type="xs:string" minOccurs="0" />
+              <xs:element name="gameId" msprop:Generator_ColumnVarNameInTable="columngameId" msprop:Generator_ColumnPropNameInRow="gameId" msprop:Generator_ColumnPropNameInTable="gameIdColumn" msprop:Generator_UserColumnName="gameId" type="xs:long" minOccurs="0" />
+              <xs:element name="regionId" msprop:Generator_ColumnVarNameInTable="columnregionId" msprop:Generator_ColumnPropNameInRow="regionId" msprop:Generator_ColumnPropNameInTable="regionIdColumn" msprop:Generator_UserColumnName="regionId" type="xs:long" minOccurs="0" />
+              <xs:element name="publisherId" msprop:Generator_ColumnVarNameInTable="columnpublisherId" msprop:Generator_ColumnPropNameInRow="publisherId" msprop:Generator_ColumnPropNameInTable="publisherIdColumn" msprop:Generator_UserColumnName="publisherId" type="xs:long" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Regions" msprop:Generator_TableClassName="RegionsDataTable" msprop:Generator_TableVarName="tableRegions" msprop:Generator_RowChangedName="RegionsRowChanged" msprop:Generator_TablePropName="Regions" msprop:Generator_RowDeletingName="RegionsRowDeleting" msprop:Generator_RowChangingName="RegionsRowChanging" msprop:Generator_RowEvHandlerName="RegionsRowChangeEventHandler" msprop:Generator_RowDeletedName="RegionsRowDeleted" msprop:Generator_RowClassName="RegionsRow" msprop:Generator_UserTableName="Regions" msprop:Generator_RowEvArgName="RegionsRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="regionId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnregionId" msprop:Generator_ColumnPropNameInRow="regionId" msprop:Generator_ColumnPropNameInTable="regionIdColumn" msprop:Generator_UserColumnName="regionId" type="xs:long" />
+              <xs:element name="regionName" msprop:Generator_ColumnVarNameInTable="columnregionName" msprop:Generator_ColumnPropNameInRow="regionName" msprop:Generator_ColumnPropNameInTable="regionNameColumn" msprop:Generator_UserColumnName="regionName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Publishers" msprop:Generator_TableClassName="PublishersDataTable" msprop:Generator_TableVarName="tablePublishers" msprop:Generator_RowChangedName="PublishersRowChanged" msprop:Generator_TablePropName="Publishers" msprop:Generator_RowDeletingName="PublishersRowDeleting" msprop:Generator_RowChangingName="PublishersRowChanging" msprop:Generator_RowEvHandlerName="PublishersRowChangeEventHandler" msprop:Generator_RowDeletedName="PublishersRowDeleted" msprop:Generator_RowClassName="PublishersRow" msprop:Generator_UserTableName="Publishers" msprop:Generator_RowEvArgName="PublishersRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="publisherId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnpublisherId" msprop:Generator_ColumnPropNameInRow="publisherId" msprop:Generator_ColumnPropNameInTable="publisherIdColumn" msprop:Generator_UserColumnName="publisherId" type="xs:long" />
+              <xs:element name="publisherName" msprop:Generator_ColumnVarNameInTable="columnpublisherName" msprop:Generator_ColumnPropNameInRow="publisherName" msprop:Generator_ColumnPropNameInTable="publisherNameColumn" msprop:Generator_UserColumnName="publisherName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Images" msprop:Generator_TableClassName="ImagesDataTable" msprop:Generator_TableVarName="tableImages" msprop:Generator_RowChangedName="ImagesRowChanged" msprop:Generator_TablePropName="Images" msprop:Generator_RowDeletingName="ImagesRowDeleting" msprop:Generator_RowChangingName="ImagesRowChanging" msprop:Generator_RowEvHandlerName="ImagesRowChangeEventHandler" msprop:Generator_RowDeletedName="ImagesRowDeleted" msprop:Generator_RowClassName="ImagesRow" msprop:Generator_UserTableName="Images" msprop:Generator_RowEvArgName="ImagesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="imageId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnimageId" msprop:Generator_ColumnPropNameInRow="imageId" msprop:Generator_ColumnPropNameInTable="imageIdColumn" msprop:Generator_UserColumnName="imageId" type="xs:long" />
+              <xs:element name="imageSize" msprop:Generator_ColumnVarNameInTable="columnimageSize" msprop:Generator_ColumnPropNameInRow="imageSize" msprop:Generator_ColumnPropNameInTable="imageSizeColumn" msprop:Generator_UserColumnName="imageSize" type="xs:long" minOccurs="0" />
+              <xs:element name="imageData" msprop:Generator_ColumnVarNameInTable="columnimageData" msprop:Generator_ColumnPropNameInRow="imageData" msprop:Generator_ColumnPropNameInTable="imageDataColumn" msprop:Generator_UserColumnName="imageData" type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="releaseId" msprop:Generator_ColumnVarNameInTable="columnreleaseId" msprop:Generator_ColumnPropNameInRow="releaseId" msprop:Generator_ColumnPropNameInTable="releaseIdColumn" msprop:Generator_UserColumnName="releaseId" type="xs:long" minOccurs="0" />
+              <xs:element name="imageTypeId" msprop:Generator_ColumnVarNameInTable="columnimageTypeId" msprop:Generator_ColumnPropNameInRow="imageTypeId" msprop:Generator_ColumnPropNameInTable="imageTypeIdColumn" msprop:Generator_UserColumnName="imageTypeId" type="xs:long" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ImageTypes" msprop:Generator_TableClassName="ImageTypesDataTable" msprop:Generator_TableVarName="tableImageTypes" msprop:Generator_RowChangedName="ImageTypesRowChanged" msprop:Generator_TablePropName="ImageTypes" msprop:Generator_RowDeletingName="ImageTypesRowDeleting" msprop:Generator_RowChangingName="ImageTypesRowChanging" msprop:Generator_RowEvHandlerName="ImageTypesRowChangeEventHandler" msprop:Generator_RowDeletedName="ImageTypesRowDeleted" msprop:Generator_RowClassName="ImageTypesRow" msprop:Generator_UserTableName="ImageTypes" msprop:Generator_RowEvArgName="ImageTypesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="imageTypeId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnimageTypeId" msprop:Generator_ColumnPropNameInRow="imageTypeId" msprop:Generator_ColumnPropNameInTable="imageTypeIdColumn" msprop:Generator_UserColumnName="imageTypeId" type="xs:long" />
+              <xs:element name="imageTypeName" msprop:Generator_ColumnVarNameInTable="columnimageTypeName" msprop:Generator_ColumnPropNameInRow="imageTypeName" msprop:Generator_ColumnPropNameInTable="imageTypeNameColumn" msprop:Generator_UserColumnName="imageTypeName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1">
+      <xs:selector xpath=".//Games" />
+      <xs:field xpath="gameId" />
+    </xs:unique>
+    <xs:unique name="Scrapers_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//Scrapers" />
+      <xs:field xpath="scraperId" />
+    </xs:unique>
+    <xs:unique name="Platforms_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//Platforms" />
+      <xs:field xpath="platformId" />
+    </xs:unique>
+    <xs:unique name="Developers_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//Developers" />
+      <xs:field xpath="developerId" />
+    </xs:unique>
+    <xs:unique name="GameGenreFlags_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//GameGenreFlags" />
+      <xs:field xpath="gameGenreFlagId" />
+    </xs:unique>
+    <xs:unique name="GenreFlagTypes_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//GenreFlagTypes" />
+      <xs:field xpath="genreFlagTypeId" />
+    </xs:unique>
+    <xs:unique name="GenreFlags_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//GenreFlags" />
+      <xs:field xpath="genreFlagId" />
+    </xs:unique>
+    <xs:unique name="Releases_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//Releases" />
+      <xs:field xpath="releaseId" />
+    </xs:unique>
+    <xs:unique name="Regions_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//Regions" />
+      <xs:field xpath="regionId" />
+    </xs:unique>
+    <xs:unique name="Publishers_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//Publishers" />
+      <xs:field xpath="publisherId" />
+    </xs:unique>
+    <xs:unique name="Images_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//Images" />
+      <xs:field xpath="imageId" />
+    </xs:unique>
+    <xs:unique name="ImageTypes_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//ImageTypes" />
+      <xs:field xpath="imageTypeId" />
+    </xs:unique>
+    <xs:keyref name="releaseImage" refer="Releases_Constraint1" msprop:rel_Generator_UserChildTable="Images" msprop:rel_Generator_ChildPropName="GetImagesRows" msprop:rel_Generator_UserRelationName="releaseImage" msprop:rel_Generator_RelationVarName="relationreleaseImage" msprop:rel_Generator_UserParentTable="Releases" msprop:rel_Generator_ParentPropName="ReleasesRow">
+      <xs:selector xpath=".//Images" />
+      <xs:field xpath="releaseId" />
+    </xs:keyref>
+    <xs:keyref name="imageTypeImage" refer="ImageTypes_Constraint1" msprop:rel_Generator_UserChildTable="Images" msprop:rel_Generator_ChildPropName="GetImagesRows" msprop:rel_Generator_UserRelationName="imageTypeImage" msprop:rel_Generator_ParentPropName="ImageTypesRow" msprop:rel_Generator_RelationVarName="relationimageTypeImage" msprop:rel_Generator_UserParentTable="ImageTypes">
+      <xs:selector xpath=".//Images" />
+      <xs:field xpath="imageTypeId" />
+    </xs:keyref>
+    <xs:keyref name="publisherRelease" refer="Publishers_Constraint1" msprop:rel_Generator_UserChildTable="Releases" msprop:rel_Generator_ChildPropName="GetReleasesRows" msprop:rel_Generator_UserRelationName="publisherRelease" msprop:rel_Generator_RelationVarName="relationpublisherRelease" msprop:rel_Generator_UserParentTable="Publishers" msprop:rel_Generator_ParentPropName="PublishersRow">
+      <xs:selector xpath=".//Releases" />
+      <xs:field xpath="publisherId" />
+    </xs:keyref>
+    <xs:keyref name="regionRelease" refer="Regions_Constraint1" msprop:rel_Generator_UserChildTable="Releases" msprop:rel_Generator_ChildPropName="GetReleasesRows" msprop:rel_Generator_UserRelationName="regionRelease" msprop:rel_Generator_RelationVarName="relationregionRelease" msprop:rel_Generator_UserParentTable="Regions" msprop:rel_Generator_ParentPropName="RegionsRow">
+      <xs:selector xpath=".//Releases" />
+      <xs:field xpath="regionId" />
+    </xs:keyref>
+    <xs:keyref name="gameRelease" refer="Constraint1" msprop:rel_Generator_UserChildTable="Releases" msprop:rel_Generator_ChildPropName="GetReleasesRows" msprop:rel_Generator_UserRelationName="gameRelease" msprop:rel_Generator_RelationVarName="relationgameRelease" msprop:rel_Generator_UserParentTable="Games" msprop:rel_Generator_ParentPropName="GamesRow">
+      <xs:selector xpath=".//Releases" />
+      <xs:field xpath="gameId" />
+    </xs:keyref>
+    <xs:keyref name="genreFlagTypeGenreFlag" refer="GenreFlagTypes_Constraint1" msprop:rel_Generator_UserChildTable="GenreFlags" msprop:rel_Generator_ChildPropName="GetGenreFlagsRows" msprop:rel_Generator_UserRelationName="genreFlagTypeGenreFlag" msprop:rel_Generator_RelationVarName="relationgenreFlagTypeGenreFlag" msprop:rel_Generator_UserParentTable="GenreFlagTypes" msprop:rel_Generator_ParentPropName="GenreFlagTypesRow">
+      <xs:selector xpath=".//GenreFlags" />
+      <xs:field xpath="genreFlagTypeId" />
+    </xs:keyref>
+    <xs:keyref name="gameGameGenreFlag" refer="Constraint1" msprop:rel_Generator_UserChildTable="GameGenreFlags" msprop:rel_Generator_ChildPropName="GetGameGenreFlagsRows" msprop:rel_Generator_UserRelationName="gameGameGenreFlag" msprop:rel_Generator_RelationVarName="relationgameGameGenreFlag" msprop:rel_Generator_UserParentTable="Games" msprop:rel_Generator_ParentPropName="GamesRow">
+      <xs:selector xpath=".//GameGenreFlags" />
+      <xs:field xpath="gameId" />
+    </xs:keyref>
+    <xs:keyref name="genreGameGenreFlag" refer="GenreFlags_Constraint1" msprop:rel_Generator_UserChildTable="GameGenreFlags" msprop:rel_Generator_ChildPropName="GetGameGenreFlagsRows" msprop:rel_Generator_UserRelationName="genreGameGenreFlag" msprop:rel_Generator_ParentPropName="GenreFlagsRow" msprop:rel_Generator_RelationVarName="relationgenreGameGenreFlag" msprop:rel_Generator_UserParentTable="GenreFlags">
+      <xs:selector xpath=".//GameGenreFlags" />
+      <xs:field xpath="genreFlagId" />
+    </xs:keyref>
+    <xs:keyref name="developerGame" refer="Developers_Constraint1" msprop:rel_Generator_UserChildTable="Games" msprop:rel_Generator_ChildPropName="GetGamesRows" msprop:rel_Generator_UserRelationName="developerGame" msprop:rel_Generator_ParentPropName="DevelopersRow" msprop:rel_Generator_RelationVarName="relationdeveloperGame" msprop:rel_Generator_UserParentTable="Developers">
+      <xs:selector xpath=".//Games" />
+      <xs:field xpath="developerId" />
+    </xs:keyref>
+    <xs:keyref name="platformGame" refer="Platforms_Constraint1" msprop:rel_Generator_UserChildTable="Games" msprop:rel_Generator_ChildPropName="GetGamesRows" msprop:rel_Generator_UserRelationName="platformGame" msprop:rel_Generator_ParentPropName="PlatformsRow" msprop:rel_Generator_RelationVarName="relationplatformGame" msprop:rel_Generator_UserParentTable="Platforms">
+      <xs:selector xpath=".//Games" />
+      <xs:field xpath="platformId" />
+    </xs:keyref>
+    <xs:keyref name="scraperGame" refer="Scrapers_Constraint1" msprop:rel_Generator_UserChildTable="Games" msprop:rel_Generator_ChildPropName="GetGamesRows" msprop:rel_Generator_UserRelationName="scraperGame" msprop:rel_Generator_ParentPropName="ScrapersRow" msprop:rel_Generator_RelationVarName="relationscraperGame" msprop:rel_Generator_UserParentTable="Scrapers">
+      <xs:selector xpath=".//Games" />
+      <xs:field xpath="scraperId" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>
