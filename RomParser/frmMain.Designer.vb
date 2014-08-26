@@ -35,8 +35,6 @@ Partial Class frmMain
         Me.Button3 = New System.Windows.Forms.Button()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.Button4 = New System.Windows.Forms.Button()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.Button6 = New System.Windows.Forms.Button()
         Me.tcTabs = New System.Windows.Forms.TabControl()
         Me.tbParser = New System.Windows.Forms.TabPage()
         Me.lvFiles = New System.Windows.Forms.ListView()
@@ -51,6 +49,7 @@ Partial Class frmMain
         Me.Label1 = New System.Windows.Forms.Label()
         Me.tvSoftwares = New System.Windows.Forms.TreeView()
         Me.tbScraper = New System.Windows.Forms.TabPage()
+        Me.lvReleases = New System.Windows.Forms.ListView()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.FlowLayoutPanel1 = New System.Windows.Forms.FlowLayoutPanel()
         Me.Label8 = New System.Windows.Forms.Label()
@@ -68,7 +67,6 @@ Partial Class frmMain
         Me.tvGames = New System.Windows.Forms.TreeView()
         Me.Parser1 = New RomParser.Parser()
         Me.Scraper1 = New RomParser.Scraper()
-        Me.lvReleases = New System.Windows.Forms.ListView()
         Me.StatusStrip1.SuspendLayout()
         Me.tcTabs.SuspendLayout()
         Me.tbParser.SuspendLayout()
@@ -149,7 +147,7 @@ Partial Class frmMain
         '
         'Button3
         '
-        Me.Button3.Location = New System.Drawing.Point(849, 12)
+        Me.Button3.Location = New System.Drawing.Point(718, 12)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(75, 22)
         Me.Button3.TabIndex = 9
@@ -167,30 +165,12 @@ Partial Class frmMain
         '
         'Button4
         '
-        Me.Button4.Location = New System.Drawing.Point(930, 12)
+        Me.Button4.Location = New System.Drawing.Point(799, 12)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(153, 22)
         Me.Button4.TabIndex = 27
         Me.Button4.Text = "Export Scraped Data To DB"
         Me.Button4.UseVisualStyleBackColor = True
-        '
-        'Button5
-        '
-        Me.Button5.Location = New System.Drawing.Point(1089, 12)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(113, 23)
-        Me.Button5.TabIndex = 28
-        Me.Button5.Text = "Import Scraper Data"
-        Me.Button5.UseVisualStyleBackColor = True
-        '
-        'Button6
-        '
-        Me.Button6.Location = New System.Drawing.Point(718, 12)
-        Me.Button6.Name = "Button6"
-        Me.Button6.Size = New System.Drawing.Size(125, 22)
-        Me.Button6.TabIndex = 29
-        Me.Button6.Text = "Import Parser Data"
-        Me.Button6.UseVisualStyleBackColor = True
         '
         'tcTabs
         '
@@ -339,6 +319,15 @@ Partial Class frmMain
         Me.tbScraper.Text = "Scraper"
         Me.tbScraper.UseVisualStyleBackColor = True
         '
+        'lvReleases
+        '
+        Me.lvReleases.Location = New System.Drawing.Point(295, 142)
+        Me.lvReleases.Name = "lvReleases"
+        Me.lvReleases.Size = New System.Drawing.Size(903, 97)
+        Me.lvReleases.TabIndex = 43
+        Me.lvReleases.UseCompatibleStateImageBehavior = False
+        Me.lvReleases.View = System.Windows.Forms.View.Details
+        '
         'Label9
         '
         Me.Label9.AutoSize = True
@@ -470,23 +459,12 @@ Partial Class frmMain
         Me.Scraper1.DataSetName = "Scraper"
         Me.Scraper1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema
         '
-        'lvReleases
-        '
-        Me.lvReleases.Location = New System.Drawing.Point(295, 142)
-        Me.lvReleases.Name = "lvReleases"
-        Me.lvReleases.Size = New System.Drawing.Size(903, 97)
-        Me.lvReleases.TabIndex = 43
-        Me.lvReleases.UseCompatibleStateImageBehavior = False
-        Me.lvReleases.View = System.Windows.Forms.View.Details
-        '
         'frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1226, 662)
         Me.Controls.Add(Me.tcTabs)
-        Me.Controls.Add(Me.Button6)
-        Me.Controls.Add(Me.Button5)
         Me.Controls.Add(Me.Button4)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Button3)
@@ -524,8 +502,6 @@ Partial Class frmMain
     Friend WithEvents Button3 As System.Windows.Forms.Button
     Friend WithEvents Label6 As System.Windows.Forms.Label
     Friend WithEvents Button4 As System.Windows.Forms.Button
-    Friend WithEvents Button5 As System.Windows.Forms.Button
-    Friend WithEvents Button6 As System.Windows.Forms.Button
     Friend WithEvents tcTabs As System.Windows.Forms.TabControl
     Friend WithEvents tbScraper As System.Windows.Forms.TabPage
     Friend WithEvents Label9 As System.Windows.Forms.Label

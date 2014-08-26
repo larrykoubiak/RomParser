@@ -84,6 +84,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -111,8 +112,6 @@
       <DependentUpon>frmMain.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DataClasses\Game.vb" />
-    <Compile Include="Html\Table.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -132,21 +131,23 @@
     <Compile Include="Parsers\NoIntro.vb" />
     <Compile Include="Parsers\Parser.vb" />
     <Compile Include="Parsers\TOSEC.vb" />
-    <Compile Include="PredicateWrapper.vb" />
     <Compile Include="Scrapers\GameFAQScraper.vb" />
     <Compile Include="Scrapers\Scraper.vb" />
-    <Compile Include="Serializer\ParserSerializer.Designer.vb">
+    <Compile Include="Matcher\MatcherSerializer.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MatcherSerializer.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Parsers\ParserSerializer.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ParserSerializer.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Serializer\ParserSerializer.vb" />
-    <Compile Include="Serializer\ScraperSerializer.Designer.vb">
+    <Compile Include="Scrapers\ScraperSerializer.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ScraperSerializer.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Serializer\ScraperSerializer.vb" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="frmMain.resx">
@@ -170,26 +171,37 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
-    <None Include="Serializer\ParserSerializer.xsc">
+    <None Include="Matcher\MatcherSerializer.xsc">
+      <DependentUpon>MatcherSerializer.xsd</DependentUpon>
+    </None>
+    <None Include="Matcher\MatcherSerializer.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MatcherSerializer.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Matcher\MatcherSerializer.xss">
+      <DependentUpon>MatcherSerializer.xsd</DependentUpon>
+    </None>
+    <None Include="Parsers\ParserSerializer.xsc">
       <DependentUpon>ParserSerializer.xsd</DependentUpon>
     </None>
-    <None Include="Serializer\ParserSerializer.xsd">
+    <None Include="Parsers\ParserSerializer.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ParserSerializer.Designer.vb</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Serializer\ParserSerializer.xss">
+    <None Include="Parsers\ParserSerializer.xss">
       <DependentUpon>ParserSerializer.xsd</DependentUpon>
     </None>
-    <None Include="Serializer\ScraperSerializer.xsc">
+    <None Include="Scrapers\ScraperSerializer.xsc">
       <DependentUpon>ScraperSerializer.xsd</DependentUpon>
     </None>
-    <None Include="Serializer\ScraperSerializer.xsd">
+    <None Include="Scrapers\ScraperSerializer.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>ScraperSerializer.Designer.vb</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
-    <None Include="Serializer\ScraperSerializer.xss">
+    <None Include="Scrapers\ScraperSerializer.xss">
       <DependentUpon>ScraperSerializer.xsd</DependentUpon>
     </None>
   </ItemGroup>

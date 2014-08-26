@@ -3,13 +3,15 @@ Imports System.ComponentModel
 Imports System.Data.SQLite
 Public Class Generic
     Inherits FileParser
-    Dim WithEvents realParser As FileParser
+    Dim dbpath As String
+    Dim parserds As Parser
+    Dim WithEvents realparser As FileParser
     Public Overrides Sub ParsePath(dir As DirectoryInfo, ByRef ds As Parser)
         Dim setdir As DirectoryInfo
         For Each setdir In dir.GetDirectories()
             Select Case setdir.Name
                 Case "No-Intro"
-                    realParser = New NoIntro
+                    realparser = New NoIntro(dbpath)
                     'realParser = Nothing
                 Case "TOSEC"
                     'realParser = New TOSEC
@@ -22,6 +24,13 @@ Public Class Generic
                 Exit For
             End If
         Next
+    End Sub
+    Public Sub New(path As String, ByRef ds As Parser)
+        dbpath = path
+        db = New SQLiteConnection("Data Source=" + path)
+        CreateParserTables()
+        SetupDataAdapters()
+        Deserialize(ds)
     End Sub
     Public Sub OnReadItemAdded(strLabel As String, intId As Integer, intCount As Integer) Handles realParser.ItemAdded
         OnItemAdded(strLabel, intId, intCount)

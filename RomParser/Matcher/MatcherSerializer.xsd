@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="MatcherSerializer" targetNamespace="http://tempuri.org/MatcherSerializer.xsd" xmlns:mstns="http://tempuri.org/MatcherSerializer.xsd" xmlns="http://tempuri.org/MatcherSerializer.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="MatcherSerializer" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="MatcherSerializer" msprop:Generator_UserDSName="MatcherSerializer">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="tblSystems" msprop:Generator_TableClassName="tblSystemsDataTable" msprop:Generator_TableVarName="tabletblSystems" msprop:Generator_RowChangedName="tblSystemsRowChanged" msprop:Generator_TablePropName="tblSystems" msprop:Generator_RowDeletingName="tblSystemsRowDeleting" msprop:Generator_RowChangingName="tblSystemsRowChanging" msprop:Generator_RowEvHandlerName="tblSystemsRowChangeEventHandler" msprop:Generator_RowDeletedName="tblSystemsRowDeleted" msprop:Generator_RowClassName="tblSystemsRow" msprop:Generator_UserTableName="tblSystems" msprop:Generator_RowEvArgName="tblSystemsRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="systemId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnsystemId" msprop:Generator_ColumnPropNameInRow="systemId" msprop:Generator_ColumnPropNameInTable="systemIdColumn" msprop:Generator_UserColumnName="systemId" type="xs:long" />
+              <xs:element name="systemName" msprop:Generator_ColumnVarNameInTable="columnsystemName" msprop:Generator_ColumnPropNameInRow="systemName" msprop:Generator_ColumnPropNameInTable="systemNameColumn" msprop:Generator_UserColumnName="systemName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tblGames" msprop:Generator_TableClassName="tblGamesDataTable" msprop:Generator_TableVarName="tabletblGames" msprop:Generator_RowChangedName="tblGamesRowChanged" msprop:Generator_TablePropName="tblGames" msprop:Generator_RowDeletingName="tblGamesRowDeleting" msprop:Generator_RowChangingName="tblGamesRowChanging" msprop:Generator_RowEvHandlerName="tblGamesRowChangeEventHandler" msprop:Generator_RowDeletedName="tblGamesRowDeleted" msprop:Generator_RowClassName="tblGamesRow" msprop:Generator_UserTableName="tblGames" msprop:Generator_RowEvArgName="tblGamesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="gameId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columngameId" msprop:Generator_ColumnPropNameInRow="gameId" msprop:Generator_ColumnPropNameInTable="gameIdColumn" msprop:Generator_UserColumnName="gameId" type="xs:long" />
+              <xs:element name="gameName" msprop:Generator_ColumnVarNameInTable="columngameName" msprop:Generator_ColumnPropNameInRow="gameName" msprop:Generator_ColumnPropNameInTable="gameNameColumn" msprop:Generator_UserColumnName="gameName" type="xs:string" minOccurs="0" />
+              <xs:element name="systemId" msprop:Generator_ColumnVarNameInTable="columnsystemId" msprop:Generator_ColumnPropNameInRow="systemId" msprop:Generator_ColumnPropNameInTable="systemIdColumn" msprop:Generator_UserColumnName="systemId" type="xs:long" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tblRegions" msprop:Generator_TableClassName="tblRegionsDataTable" msprop:Generator_TableVarName="tabletblRegions" msprop:Generator_RowChangedName="tblRegionsRowChanged" msprop:Generator_TablePropName="tblRegions" msprop:Generator_RowDeletingName="tblRegionsRowDeleting" msprop:Generator_RowChangingName="tblRegionsRowChanging" msprop:Generator_RowEvHandlerName="tblRegionsRowChangeEventHandler" msprop:Generator_RowDeletedName="tblRegionsRowDeleted" msprop:Generator_RowClassName="tblRegionsRow" msprop:Generator_UserTableName="tblRegions" msprop:Generator_RowEvArgName="tblRegionsRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="regionId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnregionId" msprop:Generator_ColumnPropNameInRow="regionId" msprop:Generator_ColumnPropNameInTable="regionIdColumn" msprop:Generator_UserColumnName="regionId" type="xs:long" />
+              <xs:element name="regionName" msprop:Generator_ColumnVarNameInTable="columnregionName" msprop:Generator_ColumnPropNameInRow="regionName" msprop:Generator_ColumnPropNameInTable="regionNameColumn" msprop:Generator_UserColumnName="regionName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tblReleases" msprop:Generator_TableClassName="tblReleasesDataTable" msprop:Generator_TableVarName="tabletblReleases" msprop:Generator_RowChangedName="tblReleasesRowChanged" msprop:Generator_TablePropName="tblReleases" msprop:Generator_RowDeletingName="tblReleasesRowDeleting" msprop:Generator_RowChangingName="tblReleasesRowChanging" msprop:Generator_RowEvHandlerName="tblReleasesRowChangeEventHandler" msprop:Generator_RowDeletedName="tblReleasesRowDeleted" msprop:Generator_RowClassName="tblReleasesRow" msprop:Generator_UserTableName="tblReleases" msprop:Generator_RowEvArgName="tblReleasesRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="releaseId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnreleaseId" msprop:Generator_ColumnPropNameInRow="releaseId" msprop:Generator_ColumnPropNameInTable="releaseIdColumn" msprop:Generator_UserColumnName="releaseId" type="xs:long" />
+              <xs:element name="releaseName" msprop:Generator_ColumnVarNameInTable="columnreleaseName" msprop:Generator_ColumnPropNameInRow="releaseName" msprop:Generator_ColumnPropNameInTable="releaseNameColumn" msprop:Generator_UserColumnName="releaseName" type="xs:string" minOccurs="0" />
+              <xs:element name="gameId" msprop:Generator_ColumnVarNameInTable="columngameId" msprop:Generator_ColumnPropNameInRow="gameId" msprop:Generator_ColumnPropNameInTable="gameIdColumn" msprop:Generator_UserColumnName="gameId" type="xs:long" minOccurs="0" />
+              <xs:element name="regionId" msprop:Generator_ColumnVarNameInTable="columnregionId" msprop:Generator_ColumnPropNameInRow="regionId" msprop:Generator_ColumnPropNameInTable="regionIdColumn" msprop:Generator_UserColumnName="regionId" type="xs:long" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tblLnkSystemPlatform" msprop:Generator_TableClassName="tblLnkSystemPlatformDataTable" msprop:Generator_TableVarName="tabletblLnkSystemPlatform" msprop:Generator_TablePropName="tblLnkSystemPlatform" msprop:Generator_RowDeletingName="tblLnkSystemPlatformRowDeleting" msprop:Generator_RowChangingName="tblLnkSystemPlatformRowChanging" msprop:Generator_RowEvHandlerName="tblLnkSystemPlatformRowChangeEventHandler" msprop:Generator_RowDeletedName="tblLnkSystemPlatformRowDeleted" msprop:Generator_UserTableName="tblLnkSystemPlatform" msprop:Generator_RowChangedName="tblLnkSystemPlatformRowChanged" msprop:Generator_RowEvArgName="tblLnkSystemPlatformRowChangeEvent" msprop:Generator_RowClassName="tblLnkSystemPlatformRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="lnkSystemPlatformId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnlnkSystemPlatformId" msprop:Generator_ColumnPropNameInRow="lnkSystemPlatformId" msprop:Generator_ColumnPropNameInTable="lnkSystemPlatformIdColumn" msprop:Generator_UserColumnName="lnkSystemPlatformId" type="xs:long" />
+              <xs:element name="systemId" msprop:Generator_ColumnVarNameInTable="columnsystemId" msprop:Generator_ColumnPropNameInRow="systemId" msprop:Generator_ColumnPropNameInTable="systemIdColumn" msprop:Generator_UserColumnName="systemId" type="xs:long" minOccurs="0" />
+              <xs:element name="parserSystemId" msprop:Generator_ColumnVarNameInTable="columnparserSystemId" msprop:Generator_ColumnPropNameInRow="parserSystemId" msprop:Generator_ColumnPropNameInTable="parserSystemIdColumn" msprop:Generator_UserColumnName="parserSystemId" type="xs:long" minOccurs="0" />
+              <xs:element name="parserRomsetId" msprop:Generator_ColumnVarNameInTable="columnparserRomsetId" msprop:Generator_ColumnPropNameInRow="parserRomsetId" msprop:Generator_ColumnPropNameInTable="parserRomsetIdColumn" msprop:Generator_UserColumnName="parserRomsetId" type="xs:long" minOccurs="0" />
+              <xs:element name="scraperPlatformid" msprop:Generator_ColumnVarNameInTable="columnscraperPlatformid" msprop:Generator_ColumnPropNameInRow="scraperPlatformid" msprop:Generator_ColumnPropNameInTable="scraperPlatformidColumn" msprop:Generator_UserColumnName="scraperPlatformid" type="xs:long" minOccurs="0" />
+              <xs:element name="scraperScraperId" msprop:Generator_ColumnVarNameInTable="columnscraperScraperId" msprop:Generator_ColumnPropNameInRow="scraperScraperId" msprop:Generator_ColumnPropNameInTable="scraperScraperIdColumn" msprop:Generator_UserColumnName="scraperScraperId" type="xs:long" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1">
+      <xs:selector xpath=".//mstns:tblSystems" />
+      <xs:field xpath="mstns:systemId" />
+    </xs:unique>
+    <xs:unique name="tblGames_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:tblGames" />
+      <xs:field xpath="mstns:gameId" />
+    </xs:unique>
+    <xs:unique name="tblRegions_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:tblRegions" />
+      <xs:field xpath="mstns:regionId" />
+    </xs:unique>
+    <xs:unique name="tblReleases_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:tblReleases" />
+      <xs:field xpath="mstns:releaseId" />
+    </xs:unique>
+    <xs:unique name="tblLnkSystemPlatform_Constraint1" msdata:ConstraintName="Constraint1">
+      <xs:selector xpath=".//mstns:tblLnkSystemPlatform" />
+      <xs:field xpath="mstns:lnkSystemPlatformId" />
+    </xs:unique>
+    <xs:keyref name="regionRelease" refer="tblRegions_Constraint1" msprop:rel_Generator_UserChildTable="tblReleases" msprop:rel_Generator_ChildPropName="GettblReleasesRows" msprop:rel_Generator_UserRelationName="regionRelease" msprop:rel_Generator_ParentPropName="tblRegionsRow" msprop:rel_Generator_RelationVarName="relationregionRelease" msprop:rel_Generator_UserParentTable="tblRegions">
+      <xs:selector xpath=".//mstns:tblReleases" />
+      <xs:field xpath="mstns:regionId" />
+    </xs:keyref>
+    <xs:keyref name="gameRelease" refer="tblGames_Constraint1" msprop:rel_Generator_UserChildTable="tblReleases" msprop:rel_Generator_ChildPropName="GettblReleasesRows" msprop:rel_Generator_UserRelationName="gameRelease" msprop:rel_Generator_RelationVarName="relationgameRelease" msprop:rel_Generator_UserParentTable="tblGames" msprop:rel_Generator_ParentPropName="tblGamesRow">
+      <xs:selector xpath=".//mstns:tblReleases" />
+      <xs:field xpath="mstns:gameId" />
+    </xs:keyref>
+    <xs:keyref name="systemGame" refer="Constraint1" msprop:rel_Generator_UserChildTable="tblGames" msprop:rel_Generator_ChildPropName="GettblGamesRows" msprop:rel_Generator_UserRelationName="systemGame" msprop:rel_Generator_RelationVarName="relationsystemGame" msprop:rel_Generator_UserParentTable="tblSystems" msprop:rel_Generator_ParentPropName="tblSystemsRow">
+      <xs:selector xpath=".//mstns:tblGames" />
+      <xs:field xpath="mstns:systemId" />
+    </xs:keyref>
+  </xs:element>
+</xs:schema>

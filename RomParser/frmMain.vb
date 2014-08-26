@@ -5,22 +5,16 @@ Imports System.Xml
 Imports System.Drawing
 Public Class frmMain
 #Region "Variables"
-    Dim WithEvents gf As New GameFAQScraper
-    Dim WithEvents parser As New Generic
-    Dim softwares As New List(Of ParserSoftware)
-    Dim games As New List(Of ScraperGame)
-    Dim WithEvents parserserial As ParserSerializer
-    Dim WithEvents scraperserial As ScraperSerializer
+    Dim WithEvents scraper As GameFAQScraper
+    Dim WithEvents parser As Generic
     Dim previousId As Integer
 #End Region
 #Region "Events"
     Public Sub New()
-
         ' This call is required by the designer.
         InitializeComponent()
-        Parser1 = New Parser
-        parserserial = New ParserSerializer("parser.db", Parser1)
-        scraperserial = New ScraperSerializer("scraper.db", Scraper1)
+        parser = New Generic("parser.db", Parser1)
+        scraper = New GameFAQScraper("scraper.db", Scraper1)
         ' Add any initialization after the InitializeComponent() call.
         refreshTvSoftwares()
         refreshTvGames()
@@ -38,35 +32,27 @@ Public Class frmMain
             Me.Cursor = Cursors.WaitCursor
             directory = New DirectoryInfo(txtPath.Text)
             parser.ParsePath(directory, Parser1)
+            parser.Serialize(Parser1)
             refreshTvSoftwares()
             Me.Cursor = Cursors.Default
         End If
     End Sub
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Me.Cursor = Cursors.WaitCursor
-        parserserial.SerializeList(Parser1)
+        parser.Serialize(Parser1)
         Me.Cursor = Cursors.Default
     End Sub
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         Dim sys As ScraperSystem
-        tvGames.Nodes.Clear()
-        sys = gf.Systems.Find(Function(x) x.Acronym = "WSC")
-        gf.GetGameList(sys, Me.Scraper1)
+        For Each sys In scraper.Systems
+            scraper.GetGameList(sys, Scraper1)
+            scraper.Serialize(Scraper1)
+            refreshTvGames()
+        Next
     End Sub
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         Me.Cursor = Cursors.WaitCursor
-        scraperserial.Serialize(Me.Scraper1)
-        Me.Cursor = Cursors.Default
-    End Sub
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-        Me.Cursor = Cursors.WaitCursor
-        scraperserial.Deserialize(Me.Scraper1)
-        refreshTvGames()
-        Me.Cursor = Cursors.Default
-    End Sub
-    Private Sub Button6_Click(sender As Object, e As EventArgs) Handles Button6.Click
-        Me.Cursor = Cursors.WaitCursor
-        parserserial.Deserialize(Parser1)
+        scraper.Serialize(Me.Scraper1)
         Me.Cursor = Cursors.Default
     End Sub
     Private Sub tvSoftwares_AfterSelect(sender As Object, e As TreeViewEventArgs) Handles tvSoftwares.AfterSelect
@@ -81,7 +67,7 @@ Public Class frmMain
         lvFiles.Clear()
         If Not IsNothing(soft) Then
             Me.txtSoftwareTitle.Text = soft.softwareName
-            Me.txtSoftwareManufacturer.Text = soft.ManufacturersRow.manufacturerName
+            Me.txtSoftwareManufacturer.Text = soft.SystemsRow.ManufacturersRow.manufacturerName
             Me.txtSoftwarePlatform.Text = soft.SystemsRow.systemName
             Me.txtSoftwareType.Text = soft.TypesRow.typeName
             lvFiles.Columns.Add("fileName", "File Name", 200)
@@ -191,7 +177,7 @@ Public Class frmMain
 
 #End Region
 #Region "Handlers"
-    Private Sub itemAdded(strLabel As String, intId As Integer, intCount As Integer) Handles parserserial.ItemAdded, parser.ItemAdded, gf.ItemAdded, scraperserial.ItemAdded
+    Private Sub itemAdded(strLabel As String, intId As Integer, intCount As Integer) Handles parser.ItemAdded, scraper.ItemAdded
         ToolStripStatusLabel1.Text = intId.ToString + " of " + intCount.ToString
         ToolStripStatusLabel2.Text = strLabel
         If ToolStripProgressBar1.Maximum <> intCount Then
@@ -206,10 +192,10 @@ Public Class frmMain
         Dim soft As Parser.SoftwaresRow
         tvSoftwares.Nodes.Clear()
         For Each soft In Parser1.Softwares
-            If tvSoftwares.Nodes.ContainsKey("mf" + soft.ManufacturersRow.manufacturerName) Then
-                manufacturerNode = tvSoftwares.Nodes("mf" + soft.ManufacturersRow.manufacturerName)
+            If tvSoftwares.Nodes.ContainsKey("mf" + soft.SystemsRow.ManufacturersRow.manufacturerName) Then
+                manufacturerNode = tvSoftwares.Nodes("mf" + soft.SystemsRow.ManufacturersRow.manufacturerName)
             Else
-                manufacturerNode = tvSoftwares.Nodes.Add("mf" + soft.ManufacturersRow.manufacturerName, soft.ManufacturersRow.manufacturerName)
+                manufacturerNode = tvSoftwares.Nodes.Add("mf" + soft.SystemsRow.ManufacturersRow.manufacturerName, soft.SystemsRow.ManufacturersRow.manufacturerName)
             End If
             If manufacturerNode.Nodes.ContainsKey("sys" + soft.SystemsRow.systemName) Then
                 systemNode = manufacturerNode.Nodes("sys" + soft.SystemsRow.systemName)
@@ -234,5 +220,4 @@ Public Class frmMain
             rootnode.Nodes.Add(node)
         Next
     End Sub
-
 End Class

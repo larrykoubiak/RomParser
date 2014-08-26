@@ -26,41 +26,34 @@ Public Class TOSEC
         Dim typedir As DirectoryInfo
         Dim formatdir As DirectoryInfo
         Dim file As FileInfo
+        Dim manufacturer As Parser.ManufacturersRow
+        Dim system As Parser.SystemsRow
+        Dim type As Parser.TypesRow
+        Dim software As Parser.SoftwaresRow
         Dim strManufacturer As String
         Dim strSystem As String
         Dim strType As String
-        Dim strFormat As String
         Dim strSoftwareName As String
-        Dim sfSoftware As ParserSoftware
         Dim rgxName As New Regex(patternName)
         For Each manufacturerdir In dir.GetDirectories()
             strManufacturer = manufacturerdir.Name
+            manufacturer = GetManufacturer(strManufacturer, ds)
             For Each systemdir In manufacturerdir.GetDirectories()
                 strSystem = systemdir.Name
+                system = GetSystem(strSystem, manufacturer, ds)
                 For Each typedir In systemdir.GetDirectories
                     strType = typedir.Name
+                    type = GetSoftwareType(strType, ds)
                     If typedir.GetDirectories().Length > 0 Then
                         For Each formatdir In typedir.GetDirectories()
-                            strFormat = formatdir.Name
                             For Each file In formatdir.GetFiles("*.zip")
                                 If rgxName.IsMatch(file.Name) Then
                                     strSoftwareName = rgxName.Match(file.Name).Groups(1).Value.Trim
                                 Else
                                     strSoftwareName = "UNK"
                                 End If
-                                'sfSoftware = list.Find(Function(x) x.SoftwareName.Equals(strSoftwareName) And x.ROMType.Equals(strType) And x.Platform.Equals(strSystem) And x.Manufacturer.Equals(strManufacturer))
-                                If IsNothing(sfSoftware) Then
-                                    sfSoftware = New ParserSoftware()
-                                    sfSoftware.SoftwareName = strSoftwareName
-                                    sfSoftware.ROMType = strType
-                                    sfSoftware.Manufacturer = strManufacturer
-                                    sfSoftware.Platform = strSystem
-                                    'list.Add(sfSoftware)
-                                End If
-                                sfSoftware.Manufacturer = strManufacturer
-                                sfSoftware.Platform = strSystem
-                                sfSoftware.ROMType = strType
-                                ParseFilename(file, sfSoftware, strFormat)
+                                software = GetSoftware(system, type, strSoftwareName, ds)
+                                ParseFilename(file, software, ds)
                             Next
                         Next
                     Else
@@ -70,16 +63,8 @@ Public Class TOSEC
                             Else
                                 strSoftwareName = "UNK"
                             End If
-                            'sfSoftware = list.Find(Function(x) x.SoftwareName.Equals(strSoftwareName) And x.ROMType.Equals(strType) And x.Platform.Equals(strSystem) And x.Manufacturer.Equals(strManufacturer))
-                            If IsNothing(sfSoftware) Then
-                                sfSoftware = New ParserSoftware()
-                                sfSoftware.SoftwareName = strSoftwareName
-                                sfSoftware.ROMType = strType
-                                sfSoftware.Manufacturer = strManufacturer
-                                sfSoftware.Platform = strSystem
-                                'list.Add(sfSoftware)
-                            End If
-                            ParseFilename(file, sfSoftware, "")
+                            software = GetSoftware(system, type, strSoftwareName, ds)
+                            ParseFilename(file, software, ds)
                         Next
                     End If
                 Next
@@ -87,8 +72,7 @@ Public Class TOSEC
             Exit For
         Next
     End Sub
-    Private Sub ParseFilename(file As FileInfo, ByRef sfSoftware As ParserSoftware, ByVal format As String)
-        Dim zfFile As New ParserZipFile
+    Private Sub ParseFilename(file As FileInfo, ByRef software As Parser.SoftwaresRow, ByRef ds As Parser)
         Dim archive As ZipArchive
         Dim entry As ZipArchiveEntry
         Dim rgxVersion As New Regex(patternVersion)
@@ -100,59 +84,75 @@ Public Class TOSEC
         Dim rgxLanguage As New Regex(patternLanguage)
         Dim rgxLicense As New Regex(patternLicense)
         Dim rgxDevStatus As New Regex(patternDevStatus)
+        Dim romset As Parser.RomsetsRow
+        Dim format As Parser.FormatsRow
+        Dim filerow As Parser.FilesRow
+        Dim flag As Parser.FlagsRow
+        Dim fileFlag As Parser.FileFlagsRow
+        Dim softwareFlag As Parser.SoftwareFlagsRow
+        Dim archiverow As Parser.ArchiveFilesRow
+        Dim strFormat, strFileName
+        Dim strArchiveFileName, strArchiveFileExtension As String
         Dim match As Match
-        zfFile.ROMSet = "TOSEC"
-        If format = "" Then
-            archive = ZipFile.Open(file.FullName, ZipArchiveMode.Read)
-            If archive.Entries.Count > 1 Then
-                zfFile.Format = "Archive"
-                entry = archive.Entries(0)
-                For Each entry In archive.Entries
-                    zfFile.ArchiveFiles.Add(New ParserArchiveFile(Path.GetFileNameWithoutExtension(entry.FullName), _
-                                           Path.GetExtension(entry.FullName)))
-                Next
-
-            Else
-                entry = archive.Entries(0)
-                zfFile.Format = Path.GetExtension(entry.FullName).Substring(1).ToUpper
-            End If
+        archive = ZipFile.Open(file.FullName, ZipArchiveMode.Read)
+        If archive.Entries.Count > 1 Then
+            strFormat = "Archive"
         Else
-            zfFile.Format = format
+            entry = archive.Entries(0)
+            strFormat = Path.GetExtension(entry.FullName).Substring(1).ToUpper
         End If
-        zfFile.FileName = file.Name
+        format = GetFormat(strFormat, ds)
+        romset = GetRomSet("TOSEC", ds)
+        strFileName = file.Name
+        filerow = GetFile(strFileName, software, format, romset, ds)
+        If strFormat = "Archive" Then
+            For Each entry In archive.Entries
+                strArchiveFileName = Path.GetFileNameWithoutExtension(entry.FullName)
+                strArchiveFileExtension = Path.GetExtension(entry.FullName)
+                archiverow = GetArchiveFile(filerow, strArchiveFileName, strArchiveFileExtension, ds)
+            Next
+        End If
         If rgxVersion.IsMatch(file.Name) Then
+            flag = GetFlag("Version", "File", ds)
             For Each match In rgxVersion.Matches(file.Name)
-                zfFile.Flags.Add(New ParserFlag("Version", match.Groups(1).Value, "File"))
+                fileFlag = GetFileFlag(filerow, flag, match.Groups(1).Value, ds)
             Next
         End If
         If rgxDemo.IsMatch(file.Name) Then
-            zfFile.Flags.Add(New ParserFlag("Demo", rgxDemo.Match(file.Name).Groups(1).Value, "File"))
+            flag = GetFlag("Demo", "File", ds)
+            fileFlag = GetFileFlag(filerow, flag, rgxDemo.Match(file.Name).Groups(1).Value, ds)
         End If
         If rgxDate.IsMatch(file.Name) Then
-            zfFile.Flags.Add(New ParserFlag("Date", rgxDate.Match(file.Name).Groups(1).Value, "File"))
+            flag = GetFlag("Date", "File", ds)
+            fileFlag = GetFileFlag(filerow, flag, rgxDate.Match(file.Name).Groups(1).Value, ds)
         End If
         If rgxPublisher.IsMatch(file.Name) Then
-            sfSoftware.Flags.Add(New ParserFlag("Publisher", rgxPublisher.Match(file.Name).Groups(1).Value, "Game"))
+            flag = GetFlag("Publisher", "Game", ds)
+            softwareFlag = GetSoftwareFlag(software, flag, rgxPublisher.Match(file.Name).Groups(1).Value, ds)
         End If
         If rgxSystem.IsMatch(file.Name) Then
-            zfFile.Flags.Add(New ParserFlag("System", rgxSystem.Match(file.Name).Groups(1).Value, "File"))
+            flag = GetFlag("System", "File", ds)
+            fileFlag = GetFileFlag(filerow, flag, rgxSystem.Match(file.Name).Groups(1).Value, ds)
         End If
         If rgxCountry.IsMatch(file.Name.Replace("-", ")(")) Then
+            flag = GetFlag("Region", "File", ds)
             For Each match In rgxCountry.Matches(file.Name.Replace("-", ")("))
-                zfFile.Flags.Add(New ParserFlag("Region", match.Groups(1).Value, "File"))
+                fileFlag = GetFileFlag(filerow, flag, match.Groups(1).Value, ds)
             Next
         End If
         If rgxLanguage.IsMatch(file.Name.Replace("-", ")(")) Then
+            flag = GetFlag("Language", "File", ds)
             For Each match In rgxLanguage.Matches(file.Name.Replace("-", ")("))
-                zfFile.Flags.Add(New ParserFlag("Language", match.Groups(1).Value, "File"))
+                fileFlag = GetFileFlag(filerow, flag, match.Groups(1).Value, ds)
             Next
         End If
         If rgxLicense.IsMatch(file.Name) Then
-            zfFile.Flags.Add(New ParserFlag("License", rgxLicense.Match(file.Name).Groups(1).Value, "File"))
+            flag = GetFlag("License", "File", ds)
+            fileFlag = GetFileFlag(filerow, flag, rgxLicense.Match(file.Name).Groups(1).Value, ds)
         End If
         If rgxDevStatus.IsMatch(file.Name) Then
-            zfFile.Flags.Add(New ParserFlag("DevStatus", rgxDevStatus.Match(file.Name).Groups(1).Value, "File"))
+            flag = GetFlag("DevStatus", "File", ds)
+            fileFlag = GetFileFlag(filerow, flag, rgxDevStatus.Match(file.Name).Groups(1).Value, ds)
         End If
-        sfSoftware.Files.Add(zfFile)
     End Sub
 End Class

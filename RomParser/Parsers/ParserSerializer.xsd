@@ -12,18 +12,17 @@
   <xs:element name="Parser" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:Generator_DataSetName="Parser" msprop:Generator_UserDSName="Parser">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Softwares" msprop:Generator_TableClassName="SoftwaresDataTable" msprop:Generator_TableVarName="tableSoftwares" msprop:Generator_TablePropName="Softwares" msprop:Generator_RowDeletingName="SoftwaresRowDeleting" msprop:Generator_RowChangingName="SoftwaresRowChanging" msprop:Generator_RowEvHandlerName="SoftwaresRowChangeEventHandler" msprop:Generator_RowDeletedName="SoftwaresRowDeleted" msprop:Generator_UserTableName="Softwares" msprop:Generator_RowChangedName="SoftwaresRowChanged" msprop:Generator_RowEvArgName="SoftwaresRowChangeEvent" msprop:Generator_RowClassName="SoftwaresRow">
+        <xs:element name="Softwares" msprop:Generator_TableClassName="SoftwaresDataTable" msprop:Generator_TableVarName="tableSoftwares" msprop:Generator_RowChangedName="SoftwaresRowChanged" msprop:Generator_TablePropName="Softwares" msprop:Generator_RowDeletingName="SoftwaresRowDeleting" msprop:Generator_RowChangingName="SoftwaresRowChanging" msprop:Generator_RowEvHandlerName="SoftwaresRowChangeEventHandler" msprop:Generator_RowDeletedName="SoftwaresRowDeleted" msprop:Generator_RowClassName="SoftwaresRow" msprop:Generator_UserTableName="Softwares" msprop:Generator_RowEvArgName="SoftwaresRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="softwareId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnsoftwareId" msprop:Generator_ColumnPropNameInRow="softwareId" msprop:Generator_ColumnPropNameInTable="softwareIdColumn" msprop:Generator_UserColumnName="softwareId" type="xs:long" />
               <xs:element name="softwareName" msprop:Generator_ColumnVarNameInTable="columnsoftwareName" msprop:Generator_ColumnPropNameInRow="softwareName" msprop:Generator_ColumnPropNameInTable="softwareNameColumn" msprop:Generator_UserColumnName="softwareName" type="xs:string" minOccurs="0" />
-              <xs:element name="manufacturerId" msprop:Generator_ColumnVarNameInTable="columnmanufacturerId" msprop:Generator_ColumnPropNameInRow="manufacturerId" msprop:Generator_ColumnPropNameInTable="manufacturerIdColumn" msprop:Generator_UserColumnName="manufacturerId" type="xs:long" minOccurs="0" />
               <xs:element name="systemId" msprop:Generator_ColumnVarNameInTable="columnsystemId" msprop:Generator_ColumnPropNameInRow="systemId" msprop:Generator_ColumnPropNameInTable="systemIdColumn" msprop:Generator_UserColumnName="systemId" type="xs:long" minOccurs="0" />
               <xs:element name="typeId" msprop:Generator_ColumnVarNameInTable="columntypeId" msprop:Generator_ColumnPropNameInRow="typeId" msprop:Generator_ColumnPropNameInTable="typeIdColumn" msprop:Generator_UserColumnName="typeId" type="xs:long" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Manufacturers" msprop:Generator_TableClassName="ManufacturersDataTable" msprop:Generator_TableVarName="tableManufacturers" msprop:Generator_TablePropName="Manufacturers" msprop:Generator_RowDeletingName="ManufacturersRowDeleting" msprop:Generator_RowChangingName="ManufacturersRowChanging" msprop:Generator_RowEvHandlerName="ManufacturersRowChangeEventHandler" msprop:Generator_RowDeletedName="ManufacturersRowDeleted" msprop:Generator_UserTableName="Manufacturers" msprop:Generator_RowChangedName="ManufacturersRowChanged" msprop:Generator_RowEvArgName="ManufacturersRowChangeEvent" msprop:Generator_RowClassName="ManufacturersRow">
+        <xs:element name="Manufacturers" msprop:Generator_TableClassName="ManufacturersDataTable" msprop:Generator_TableVarName="tableManufacturers" msprop:Generator_RowChangedName="ManufacturersRowChanged" msprop:Generator_TablePropName="Manufacturers" msprop:Generator_RowDeletingName="ManufacturersRowDeleting" msprop:Generator_RowChangingName="ManufacturersRowChanging" msprop:Generator_RowEvHandlerName="ManufacturersRowChangeEventHandler" msprop:Generator_RowDeletedName="ManufacturersRowDeleted" msprop:Generator_RowClassName="ManufacturersRow" msprop:Generator_UserTableName="Manufacturers" msprop:Generator_RowEvArgName="ManufacturersRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="manufacturerId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnmanufacturerId" msprop:Generator_ColumnPropNameInRow="manufacturerId" msprop:Generator_ColumnPropNameInTable="manufacturerIdColumn" msprop:Generator_UserColumnName="manufacturerId" type="xs:long" />
@@ -31,15 +30,16 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Systems" msprop:Generator_TableClassName="SystemsDataTable" msprop:Generator_TableVarName="tableSystems" msprop:Generator_TablePropName="Systems" msprop:Generator_RowDeletingName="SystemsRowDeleting" msprop:Generator_RowChangingName="SystemsRowChanging" msprop:Generator_RowEvHandlerName="SystemsRowChangeEventHandler" msprop:Generator_RowDeletedName="SystemsRowDeleted" msprop:Generator_UserTableName="Systems" msprop:Generator_RowChangedName="SystemsRowChanged" msprop:Generator_RowEvArgName="SystemsRowChangeEvent" msprop:Generator_RowClassName="SystemsRow">
+        <xs:element name="Systems" msprop:Generator_TableClassName="SystemsDataTable" msprop:Generator_TableVarName="tableSystems" msprop:Generator_RowChangedName="SystemsRowChanged" msprop:Generator_TablePropName="Systems" msprop:Generator_RowDeletingName="SystemsRowDeleting" msprop:Generator_RowChangingName="SystemsRowChanging" msprop:Generator_RowEvHandlerName="SystemsRowChangeEventHandler" msprop:Generator_RowDeletedName="SystemsRowDeleted" msprop:Generator_RowClassName="SystemsRow" msprop:Generator_UserTableName="Systems" msprop:Generator_RowEvArgName="SystemsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="systemId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnsystemId" msprop:Generator_ColumnPropNameInRow="systemId" msprop:Generator_ColumnPropNameInTable="systemIdColumn" msprop:Generator_UserColumnName="systemId" type="xs:long" />
               <xs:element name="systemName" msprop:Generator_ColumnVarNameInTable="columnsystemName" msprop:Generator_ColumnPropNameInRow="systemName" msprop:Generator_ColumnPropNameInTable="systemNameColumn" msprop:Generator_UserColumnName="systemName" type="xs:string" minOccurs="0" />
+              <xs:element name="manufacturerId" msprop:Generator_ColumnVarNameInTable="columnmanufacturerId" msprop:Generator_ColumnPropNameInRow="manufacturerId" msprop:Generator_ColumnPropNameInTable="manufacturerIdColumn" msprop:Generator_UserColumnName="manufacturerId" type="xs:long" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Types" msprop:Generator_TableClassName="TypesDataTable" msprop:Generator_TableVarName="tableTypes" msprop:Generator_TablePropName="Types" msprop:Generator_RowDeletingName="TypesRowDeleting" msprop:Generator_RowChangingName="TypesRowChanging" msprop:Generator_RowEvHandlerName="TypesRowChangeEventHandler" msprop:Generator_RowDeletedName="TypesRowDeleted" msprop:Generator_UserTableName="Types" msprop:Generator_RowChangedName="TypesRowChanged" msprop:Generator_RowEvArgName="TypesRowChangeEvent" msprop:Generator_RowClassName="TypesRow">
+        <xs:element name="Types" msprop:Generator_TableClassName="TypesDataTable" msprop:Generator_TableVarName="tableTypes" msprop:Generator_RowChangedName="TypesRowChanged" msprop:Generator_TablePropName="Types" msprop:Generator_RowDeletingName="TypesRowDeleting" msprop:Generator_RowChangingName="TypesRowChanging" msprop:Generator_RowEvHandlerName="TypesRowChangeEventHandler" msprop:Generator_RowDeletedName="TypesRowDeleted" msprop:Generator_RowClassName="TypesRow" msprop:Generator_UserTableName="Types" msprop:Generator_RowEvArgName="TypesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="typeId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columntypeId" msprop:Generator_ColumnPropNameInRow="typeId" msprop:Generator_ColumnPropNameInTable="typeIdColumn" msprop:Generator_UserColumnName="typeId" type="xs:long" />
@@ -47,7 +47,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Flags" msprop:Generator_TableClassName="FlagsDataTable" msprop:Generator_TableVarName="tableFlags" msprop:Generator_TablePropName="Flags" msprop:Generator_RowDeletingName="FlagsRowDeleting" msprop:Generator_RowChangingName="FlagsRowChanging" msprop:Generator_RowEvHandlerName="FlagsRowChangeEventHandler" msprop:Generator_RowDeletedName="FlagsRowDeleted" msprop:Generator_UserTableName="Flags" msprop:Generator_RowChangedName="FlagsRowChanged" msprop:Generator_RowEvArgName="FlagsRowChangeEvent" msprop:Generator_RowClassName="FlagsRow">
+        <xs:element name="Flags" msprop:Generator_TableClassName="FlagsDataTable" msprop:Generator_TableVarName="tableFlags" msprop:Generator_RowChangedName="FlagsRowChanged" msprop:Generator_TablePropName="Flags" msprop:Generator_RowDeletingName="FlagsRowDeleting" msprop:Generator_RowChangingName="FlagsRowChanging" msprop:Generator_RowEvHandlerName="FlagsRowChangeEventHandler" msprop:Generator_RowDeletedName="FlagsRowDeleted" msprop:Generator_RowClassName="FlagsRow" msprop:Generator_UserTableName="Flags" msprop:Generator_RowEvArgName="FlagsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="flagId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnflagId" msprop:Generator_ColumnPropNameInRow="flagId" msprop:Generator_ColumnPropNameInTable="flagIdColumn" msprop:Generator_UserColumnName="flagId" type="xs:long" />
@@ -56,7 +56,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="SoftwareFlags" msprop:Generator_TableClassName="SoftwareFlagsDataTable" msprop:Generator_TableVarName="tableSoftwareFlags" msprop:Generator_TablePropName="SoftwareFlags" msprop:Generator_RowDeletingName="SoftwareFlagsRowDeleting" msprop:Generator_RowChangingName="SoftwareFlagsRowChanging" msprop:Generator_RowEvHandlerName="SoftwareFlagsRowChangeEventHandler" msprop:Generator_RowDeletedName="SoftwareFlagsRowDeleted" msprop:Generator_UserTableName="SoftwareFlags" msprop:Generator_RowChangedName="SoftwareFlagsRowChanged" msprop:Generator_RowEvArgName="SoftwareFlagsRowChangeEvent" msprop:Generator_RowClassName="SoftwareFlagsRow">
+        <xs:element name="SoftwareFlags" msprop:Generator_TableClassName="SoftwareFlagsDataTable" msprop:Generator_TableVarName="tableSoftwareFlags" msprop:Generator_RowChangedName="SoftwareFlagsRowChanged" msprop:Generator_TablePropName="SoftwareFlags" msprop:Generator_RowDeletingName="SoftwareFlagsRowDeleting" msprop:Generator_RowChangingName="SoftwareFlagsRowChanging" msprop:Generator_RowEvHandlerName="SoftwareFlagsRowChangeEventHandler" msprop:Generator_RowDeletedName="SoftwareFlagsRowDeleted" msprop:Generator_RowClassName="SoftwareFlagsRow" msprop:Generator_UserTableName="SoftwareFlags" msprop:Generator_RowEvArgName="SoftwareFlagsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="softwareFlagId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnsoftwareFlagId" msprop:Generator_ColumnPropNameInRow="softwareFlagId" msprop:Generator_ColumnPropNameInTable="softwareFlagIdColumn" msprop:Generator_UserColumnName="softwareFlagId" type="xs:long" />
@@ -66,7 +66,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Files" msprop:Generator_TableClassName="FilesDataTable" msprop:Generator_TableVarName="tableFiles" msprop:Generator_TablePropName="Files" msprop:Generator_RowDeletingName="FilesRowDeleting" msprop:Generator_RowChangingName="FilesRowChanging" msprop:Generator_RowEvHandlerName="FilesRowChangeEventHandler" msprop:Generator_RowDeletedName="FilesRowDeleted" msprop:Generator_UserTableName="Files" msprop:Generator_RowChangedName="FilesRowChanged" msprop:Generator_RowEvArgName="FilesRowChangeEvent" msprop:Generator_RowClassName="FilesRow">
+        <xs:element name="Files" msprop:Generator_TableClassName="FilesDataTable" msprop:Generator_TableVarName="tableFiles" msprop:Generator_RowChangedName="FilesRowChanged" msprop:Generator_TablePropName="Files" msprop:Generator_RowDeletingName="FilesRowDeleting" msprop:Generator_RowChangingName="FilesRowChanging" msprop:Generator_RowEvHandlerName="FilesRowChangeEventHandler" msprop:Generator_RowDeletedName="FilesRowDeleted" msprop:Generator_RowClassName="FilesRow" msprop:Generator_UserTableName="Files" msprop:Generator_RowEvArgName="FilesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="fileId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnfileId" msprop:Generator_ColumnPropNameInRow="fileId" msprop:Generator_ColumnPropNameInTable="fileIdColumn" msprop:Generator_UserColumnName="fileId" type="xs:long" />
@@ -77,7 +77,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Formats" msprop:Generator_TableClassName="FormatsDataTable" msprop:Generator_TableVarName="tableFormats" msprop:Generator_TablePropName="Formats" msprop:Generator_RowDeletingName="FormatsRowDeleting" msprop:Generator_RowChangingName="FormatsRowChanging" msprop:Generator_RowEvHandlerName="FormatsRowChangeEventHandler" msprop:Generator_RowDeletedName="FormatsRowDeleted" msprop:Generator_UserTableName="Formats" msprop:Generator_RowChangedName="FormatsRowChanged" msprop:Generator_RowEvArgName="FormatsRowChangeEvent" msprop:Generator_RowClassName="FormatsRow">
+        <xs:element name="Formats" msprop:Generator_TableClassName="FormatsDataTable" msprop:Generator_TableVarName="tableFormats" msprop:Generator_RowChangedName="FormatsRowChanged" msprop:Generator_TablePropName="Formats" msprop:Generator_RowDeletingName="FormatsRowDeleting" msprop:Generator_RowChangingName="FormatsRowChanging" msprop:Generator_RowEvHandlerName="FormatsRowChangeEventHandler" msprop:Generator_RowDeletedName="FormatsRowDeleted" msprop:Generator_RowClassName="FormatsRow" msprop:Generator_UserTableName="Formats" msprop:Generator_RowEvArgName="FormatsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="formatId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnformatId" msprop:Generator_ColumnPropNameInRow="formatId" msprop:Generator_ColumnPropNameInTable="formatIdColumn" msprop:Generator_UserColumnName="formatId" type="xs:long" />
@@ -85,7 +85,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Romsets" msprop:Generator_TableClassName="RomsetsDataTable" msprop:Generator_TableVarName="tableRomsets" msprop:Generator_TablePropName="Romsets" msprop:Generator_RowDeletingName="RomsetsRowDeleting" msprop:Generator_RowChangingName="RomsetsRowChanging" msprop:Generator_RowEvHandlerName="RomsetsRowChangeEventHandler" msprop:Generator_RowDeletedName="RomsetsRowDeleted" msprop:Generator_UserTableName="Romsets" msprop:Generator_RowChangedName="RomsetsRowChanged" msprop:Generator_RowEvArgName="RomsetsRowChangeEvent" msprop:Generator_RowClassName="RomsetsRow">
+        <xs:element name="Romsets" msprop:Generator_TableClassName="RomsetsDataTable" msprop:Generator_TableVarName="tableRomsets" msprop:Generator_RowChangedName="RomsetsRowChanged" msprop:Generator_TablePropName="Romsets" msprop:Generator_RowDeletingName="RomsetsRowDeleting" msprop:Generator_RowChangingName="RomsetsRowChanging" msprop:Generator_RowEvHandlerName="RomsetsRowChangeEventHandler" msprop:Generator_RowDeletedName="RomsetsRowDeleted" msprop:Generator_RowClassName="RomsetsRow" msprop:Generator_UserTableName="Romsets" msprop:Generator_RowEvArgName="RomsetsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="romsetId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnromsetId" msprop:Generator_ColumnPropNameInRow="romsetId" msprop:Generator_ColumnPropNameInTable="romsetIdColumn" msprop:Generator_UserColumnName="romsetId" type="xs:long" />
@@ -93,7 +93,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="FileFlags" msprop:Generator_TableClassName="FileFlagsDataTable" msprop:Generator_TableVarName="tableFileFlags" msprop:Generator_TablePropName="FileFlags" msprop:Generator_RowDeletingName="FileFlagsRowDeleting" msprop:Generator_RowChangingName="FileFlagsRowChanging" msprop:Generator_RowEvHandlerName="FileFlagsRowChangeEventHandler" msprop:Generator_RowDeletedName="FileFlagsRowDeleted" msprop:Generator_UserTableName="FileFlags" msprop:Generator_RowChangedName="FileFlagsRowChanged" msprop:Generator_RowEvArgName="FileFlagsRowChangeEvent" msprop:Generator_RowClassName="FileFlagsRow">
+        <xs:element name="FileFlags" msprop:Generator_TableClassName="FileFlagsDataTable" msprop:Generator_TableVarName="tableFileFlags" msprop:Generator_RowChangedName="FileFlagsRowChanged" msprop:Generator_TablePropName="FileFlags" msprop:Generator_RowDeletingName="FileFlagsRowDeleting" msprop:Generator_RowChangingName="FileFlagsRowChanging" msprop:Generator_RowEvHandlerName="FileFlagsRowChangeEventHandler" msprop:Generator_RowDeletedName="FileFlagsRowDeleted" msprop:Generator_RowClassName="FileFlagsRow" msprop:Generator_UserTableName="FileFlags" msprop:Generator_RowEvArgName="FileFlagsRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="fileFlagId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnfileFlagId" msprop:Generator_ColumnPropNameInRow="fileFlagId" msprop:Generator_ColumnPropNameInTable="fileFlagIdColumn" msprop:Generator_UserColumnName="fileFlagId" type="xs:long" />
@@ -103,7 +103,7 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="ArchiveFiles" msprop:Generator_TableClassName="ArchiveFilesDataTable" msprop:Generator_TableVarName="tableArchiveFiles" msprop:Generator_TablePropName="ArchiveFiles" msprop:Generator_RowDeletingName="ArchiveFilesRowDeleting" msprop:Generator_RowChangingName="ArchiveFilesRowChanging" msprop:Generator_RowEvHandlerName="ArchiveFilesRowChangeEventHandler" msprop:Generator_RowDeletedName="ArchiveFilesRowDeleted" msprop:Generator_UserTableName="ArchiveFiles" msprop:Generator_RowChangedName="ArchiveFilesRowChanged" msprop:Generator_RowEvArgName="ArchiveFilesRowChangeEvent" msprop:Generator_RowClassName="ArchiveFilesRow">
+        <xs:element name="ArchiveFiles" msprop:Generator_TableClassName="ArchiveFilesDataTable" msprop:Generator_TableVarName="tableArchiveFiles" msprop:Generator_RowChangedName="ArchiveFilesRowChanged" msprop:Generator_TablePropName="ArchiveFiles" msprop:Generator_RowDeletingName="ArchiveFilesRowDeleting" msprop:Generator_RowChangingName="ArchiveFilesRowChanging" msprop:Generator_RowEvHandlerName="ArchiveFilesRowChangeEventHandler" msprop:Generator_RowDeletedName="ArchiveFilesRowDeleted" msprop:Generator_RowClassName="ArchiveFilesRow" msprop:Generator_UserTableName="ArchiveFiles" msprop:Generator_RowEvArgName="ArchiveFilesRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="archiveFileId" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnarchiveFileId" msprop:Generator_ColumnPropNameInRow="archiveFileId" msprop:Generator_ColumnPropNameInTable="archiveFileIdColumn" msprop:Generator_UserColumnName="archiveFileId" type="xs:long" />
@@ -159,49 +159,49 @@
       <xs:selector xpath=".//ArchiveFiles" />
       <xs:field xpath="archiveFileId" />
     </xs:unique>
-    <xs:keyref name="fileArchive" refer="Files_Constraint1" msprop:rel_Generator_UserChildTable="ArchiveFiles" msprop:rel_Generator_ChildPropName="GetArchiveFilesRows" msprop:rel_Generator_UserRelationName="fileArchive" msprop:rel_Generator_ParentPropName="FilesRow" msprop:rel_Generator_RelationVarName="relationfileArchive" msprop:rel_Generator_UserParentTable="Files">
+    <xs:keyref name="fileArchive" refer="Files_Constraint1" msprop:rel_Generator_UserChildTable="ArchiveFiles" msprop:rel_Generator_ChildPropName="GetArchiveFilesRows" msprop:rel_Generator_UserRelationName="fileArchive" msprop:rel_Generator_RelationVarName="relationfileArchive" msprop:rel_Generator_UserParentTable="Files" msprop:rel_Generator_ParentPropName="FilesRow">
       <xs:selector xpath=".//ArchiveFiles" />
       <xs:field xpath="fileId" />
     </xs:keyref>
-    <xs:keyref name="FK_Flags_FileFlags" refer="Flags_Constraint1" msprop:rel_Generator_UserChildTable="FileFlags" msprop:rel_Generator_ChildPropName="GetFileFlagsRows" msprop:rel_Generator_UserRelationName="FK_Flags_FileFlags" msprop:rel_Generator_ParentPropName="FlagsRow" msprop:rel_Generator_RelationVarName="relationFK_Flags_FileFlags" msprop:rel_Generator_UserParentTable="Flags">
-      <xs:selector xpath=".//FileFlags" />
-      <xs:field xpath="flagId" />
-    </xs:keyref>
-    <xs:keyref name="fileFlag" refer="Files_Constraint1" msprop:rel_Generator_UserChildTable="FileFlags" msprop:rel_Generator_ChildPropName="GetFileFlagsRows" msprop:rel_Generator_UserRelationName="fileFlag" msprop:rel_Generator_ParentPropName="FilesRow" msprop:rel_Generator_RelationVarName="relationfileFlag" msprop:rel_Generator_UserParentTable="Files">
+    <xs:keyref name="fileFlag" refer="Files_Constraint1" msprop:rel_Generator_UserChildTable="FileFlags" msprop:rel_Generator_ChildPropName="GetFileFlagsRows" msprop:rel_Generator_UserRelationName="fileFlag" msprop:rel_Generator_RelationVarName="relationfileFlag" msprop:rel_Generator_UserParentTable="Files" msprop:rel_Generator_ParentPropName="FilesRow">
       <xs:selector xpath=".//FileFlags" />
       <xs:field xpath="fileId" />
     </xs:keyref>
-    <xs:keyref name="romsetFile" refer="Romsets_Constraint1" msprop:rel_Generator_UserChildTable="Files" msprop:rel_Generator_ChildPropName="GetFilesRows" msprop:rel_Generator_UserRelationName="romsetFile" msprop:rel_Generator_RelationVarName="relationromsetFile" msprop:rel_Generator_UserParentTable="Romsets" msprop:rel_Generator_ParentPropName="RomsetsRow">
-      <xs:selector xpath=".//Files" />
-      <xs:field xpath="romsetId" />
+    <xs:keyref name="FK_Flags_FileFlags" refer="Flags_Constraint1" msprop:rel_Generator_UserChildTable="FileFlags" msprop:rel_Generator_ChildPropName="GetFileFlagsRows" msprop:rel_Generator_UserRelationName="FK_Flags_FileFlags" msprop:rel_Generator_RelationVarName="relationFK_Flags_FileFlags" msprop:rel_Generator_UserParentTable="Flags" msprop:rel_Generator_ParentPropName="FlagsRow">
+      <xs:selector xpath=".//FileFlags" />
+      <xs:field xpath="flagId" />
     </xs:keyref>
-    <xs:keyref name="formatFile" refer="Formats_Constraint1" msprop:rel_Generator_UserChildTable="Files" msprop:rel_Generator_ChildPropName="GetFilesRows" msprop:rel_Generator_UserRelationName="formatFile" msprop:rel_Generator_RelationVarName="relationformatFile" msprop:rel_Generator_UserParentTable="Formats" msprop:rel_Generator_ParentPropName="FormatsRow">
+    <xs:keyref name="softwareFile" refer="Constraint1" msprop:rel_Generator_UserChildTable="Files" msprop:rel_Generator_ChildPropName="GetFilesRows" msprop:rel_Generator_UserRelationName="softwareFile" msprop:rel_Generator_RelationVarName="relationsoftwareFile" msprop:rel_Generator_UserParentTable="Softwares" msprop:rel_Generator_ParentPropName="SoftwaresRow">
+      <xs:selector xpath=".//Files" />
+      <xs:field xpath="softwareId" />
+    </xs:keyref>
+    <xs:keyref name="formatFile" refer="Formats_Constraint1" msprop:rel_Generator_UserChildTable="Files" msprop:rel_Generator_ChildPropName="GetFilesRows" msprop:rel_Generator_UserRelationName="formatFile" msprop:rel_Generator_ParentPropName="FormatsRow" msprop:rel_Generator_RelationVarName="relationformatFile" msprop:rel_Generator_UserParentTable="Formats">
       <xs:selector xpath=".//Files" />
       <xs:field xpath="formatId" />
     </xs:keyref>
-    <xs:keyref name="softwareFile" refer="Constraint1" msprop:rel_Generator_UserChildTable="Files" msprop:rel_Generator_ChildPropName="GetFilesRows" msprop:rel_Generator_UserRelationName="softwareFile" msprop:rel_Generator_ParentPropName="SoftwaresRow" msprop:rel_Generator_RelationVarName="relationsoftwareFile" msprop:rel_Generator_UserParentTable="Softwares">
+    <xs:keyref name="romsetFile" refer="Romsets_Constraint1" msprop:rel_Generator_UserChildTable="Files" msprop:rel_Generator_ChildPropName="GetFilesRows" msprop:rel_Generator_UserRelationName="romsetFile" msprop:rel_Generator_ParentPropName="RomsetsRow" msprop:rel_Generator_RelationVarName="relationromsetFile" msprop:rel_Generator_UserParentTable="Romsets">
       <xs:selector xpath=".//Files" />
+      <xs:field xpath="romsetId" />
+    </xs:keyref>
+    <xs:keyref name="softwareFlag" refer="Constraint1" msprop:rel_Generator_UserChildTable="SoftwareFlags" msprop:rel_Generator_ChildPropName="GetSoftwareFlagsRows" msprop:rel_Generator_UserRelationName="softwareFlag" msprop:rel_Generator_RelationVarName="relationsoftwareFlag" msprop:rel_Generator_UserParentTable="Softwares" msprop:rel_Generator_ParentPropName="SoftwaresRow">
+      <xs:selector xpath=".//SoftwareFlags" />
       <xs:field xpath="softwareId" />
     </xs:keyref>
-    <xs:keyref name="flagSoftwareFlag" refer="Flags_Constraint1" msprop:rel_Generator_UserChildTable="SoftwareFlags" msprop:rel_Generator_ChildPropName="GetSoftwareFlagsRows" msprop:rel_Generator_UserRelationName="flagSoftwareFlag" msprop:rel_Generator_ParentPropName="FlagsRow" msprop:rel_Generator_RelationVarName="relationflagSoftwareFlag" msprop:rel_Generator_UserParentTable="Flags">
+    <xs:keyref name="flagSoftwareFlag" refer="Flags_Constraint1" msprop:rel_Generator_UserChildTable="SoftwareFlags" msprop:rel_Generator_ChildPropName="GetSoftwareFlagsRows" msprop:rel_Generator_UserRelationName="flagSoftwareFlag" msprop:rel_Generator_RelationVarName="relationflagSoftwareFlag" msprop:rel_Generator_UserParentTable="Flags" msprop:rel_Generator_ParentPropName="FlagsRow">
       <xs:selector xpath=".//SoftwareFlags" />
       <xs:field xpath="flagId" />
     </xs:keyref>
-    <xs:keyref name="softwareFlag" refer="Constraint1" msprop:rel_Generator_UserChildTable="SoftwareFlags" msprop:rel_Generator_ChildPropName="GetSoftwareFlagsRows" msprop:rel_Generator_UserRelationName="softwareFlag" msprop:rel_Generator_ParentPropName="SoftwaresRow" msprop:rel_Generator_RelationVarName="relationsoftwareFlag" msprop:rel_Generator_UserParentTable="Softwares">
-      <xs:selector xpath=".//SoftwareFlags" />
-      <xs:field xpath="softwareId" />
+    <xs:keyref name="manufacturerSystem" refer="Manufacturers_Constraint1" msprop:rel_Generator_UserChildTable="Systems" msprop:rel_Generator_ChildPropName="GetSystemsRows" msprop:rel_Generator_UserRelationName="manufacturerSystem" msprop:rel_Generator_ParentPropName="ManufacturersRow" msprop:rel_Generator_RelationVarName="relationmanufacturerSystem" msprop:rel_Generator_UserParentTable="Manufacturers">
+      <xs:selector xpath=".//Systems" />
+      <xs:field xpath="manufacturerId" />
     </xs:keyref>
-    <xs:keyref name="typeSoftware" refer="Types_Constraint1" msprop:rel_Generator_UserChildTable="Softwares" msprop:rel_Generator_ChildPropName="GetSoftwaresRows" msprop:rel_Generator_UserRelationName="typeSoftware" msprop:rel_Generator_RelationVarName="relationtypeSoftware" msprop:rel_Generator_UserParentTable="Types" msprop:rel_Generator_ParentPropName="TypesRow">
-      <xs:selector xpath=".//Softwares" />
-      <xs:field xpath="typeId" />
-    </xs:keyref>
-    <xs:keyref name="systemSoftware" refer="Systems_Constraint1" msprop:rel_Generator_UserChildTable="Softwares" msprop:rel_Generator_ChildPropName="GetSoftwaresRows" msprop:rel_Generator_UserRelationName="systemSoftware" msprop:rel_Generator_RelationVarName="relationsystemSoftware" msprop:rel_Generator_UserParentTable="Systems" msprop:rel_Generator_ParentPropName="SystemsRow">
+    <xs:keyref name="systemSoftware" refer="Systems_Constraint1" msprop:rel_Generator_UserChildTable="Softwares" msprop:rel_Generator_ChildPropName="GetSoftwaresRows" msprop:rel_Generator_UserRelationName="systemSoftware" msprop:rel_Generator_ParentPropName="SystemsRow" msprop:rel_Generator_RelationVarName="relationsystemSoftware" msprop:rel_Generator_UserParentTable="Systems">
       <xs:selector xpath=".//Softwares" />
       <xs:field xpath="systemId" />
     </xs:keyref>
-    <xs:keyref name="manufacturerSoftware" refer="Manufacturers_Constraint1" msprop:rel_Generator_UserChildTable="Softwares" msprop:rel_Generator_ChildPropName="GetSoftwaresRows" msprop:rel_Generator_UserRelationName="manufacturerSoftware" msprop:rel_Generator_RelationVarName="relationmanufacturerSoftware" msprop:rel_Generator_UserParentTable="Manufacturers" msprop:rel_Generator_ParentPropName="ManufacturersRow">
+    <xs:keyref name="typeSoftware" refer="Types_Constraint1" msprop:rel_Generator_UserChildTable="Softwares" msprop:rel_Generator_ChildPropName="GetSoftwaresRows" msprop:rel_Generator_UserRelationName="typeSoftware" msprop:rel_Generator_ParentPropName="TypesRow" msprop:rel_Generator_RelationVarName="relationtypeSoftware" msprop:rel_Generator_UserParentTable="Types">
       <xs:selector xpath=".//Softwares" />
-      <xs:field xpath="manufacturerId" />
+      <xs:field xpath="typeId" />
     </xs:keyref>
   </xs:element>
 </xs:schema>
