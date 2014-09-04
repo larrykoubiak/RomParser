@@ -7,6 +7,7 @@ Public Class frmMain
 #Region "Variables"
     Dim WithEvents scraper As GameFAQScraper
     Dim WithEvents parser As Generic
+    Dim datreader As New DatReader("F:\\DATRoot\\No-Intro\\Commodore - Amiga.dat")
     Dim previousId As Integer
 #End Region
 #Region "Events"

@@ -34,7 +34,11 @@ Public MustInherit Class FileParser
         systemsDA.Update(ds.Systems)
         typesDA.Update(ds.Types)
         flagsDA.Update(ds.Flags)
-        nbSoftwares = ds.Softwares.GetChanges.Rows.Count
+        If IsNothing(ds.Softwares.GetChanges) Then
+            nbSoftwares = 0
+        Else
+            nbSoftwares = ds.Softwares.GetChanges.Rows.Count()
+        End If
         currentId = 0
         softwareDA.Update(ds.Softwares)
         softwareFlagsDA.Update(ds.SoftwareFlags)

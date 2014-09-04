@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ArrayOfRegexEntry xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <RegexEntry>
+    <Name>Type</Name>
+    <Pattern>(\[BIOS\])</Pattern>
+    <Group>1</Group>
+    <Type>Simple</Type>
+    <Separator />
+	<Items />
+  </RegexEntry>
+  <RegexEntry>
+    <Name>Name</Name>
+    <Pattern>^(?:\[.*?\])?(.*?)\(</Pattern>
+    <Group>1</Group>
+    <Type>Simple</Type>
+    <Separator />
+	<Items />
+	</RegexEntry>
+  <RegexEntry>
+    <Name>Type</Name>
+    <Pattern>\(((?:Addon|Coverdisk|Diskmag|Program)+)(?:.*)?\)</Pattern>
+    <Group>1</Group>
+    <Type>Simple</Type>
+    <Separator />
+	<Items />
+  </RegexEntry>
+  <RegexEntry>
+    <Name>FileFlags</Name>
+    <Pattern />
+    <Group>0</Group>
+    <Type>Multiple</Type>
+    <Separator />
+	<Items>
+		<RegexEntry>
+			<Name>Compilation</Name>
+			<Pattern>\((?:[^\)]*?)?\s?(Compilation)(?: - )?(?:[^\)]*?)?\)</Pattern>
+			<Group>1</Group>
+			<Type>Simple</Type>
+			<Separator />
+			<Items />
+		</RegexEntry>
+		<RegexEntry>
+			<Name>Demo</Name>
+			<Pattern>\(((?:Demo|Promo|Budget|, )+)(?:.*?)\)</Pattern>
+			<Group>1</Group>
+			<Type>List</Type>
+			<Separator>,</Separator>
+			<Items />
+		</RegexEntry>
+		<RegexEntry>
+			<Name>Region</Name>
+			<Pattern>\(((?:Australia|Brazil|Canada|China|France|Germany|Hong Kong|Italy|Japan|Korea|Netherlands|Spain|Sweden|USA|Asia|Europe|World|, )+)\)</Pattern>
+			<Group>1</Group>
+			<Type>List</Type>
+			<Separator>,</Separator>
+			<Items />
+		</RegexEntry>
+		<RegexEntry>
+			<Name>Language</Name>
+			<Pattern>\(((?:En|Ja|Fr|De|Es|It|Nl|Pt|Sv|No|Da|Fi|Zh|Ko|Pl|,)+)\)</Pattern>
+			<Group>1</Group>
+			<Type>List</Type>
+			<Separator>,</Separator>
+			<Items />
+		</RegexEntry>
+		<RegexEntry>
+			<Name>Version</Name>
+			<Pattern>\(.*?(v[\d|\.]+\w?)\s?(?:[^\)]*)\)</Pattern>
+			<Group>1</Group>
+			<Type>Simple</Type>
+			<Separator />
+			<Items />
+		</RegexEntry>
+		<RegexEntry>
+			<Name>Version</Name>
+			<Pattern>\(.*?(Rev [\d|\w|\.]+)(?:[^\)]*)?\)</Pattern>
+			<Group>1</Group>
+			<Type>Simple</Type>
+			<Separator />
+			<Items />
+		</RegexEntry>
+		<RegexEntry>
+			<Name>DevStatus</Name>
+			<Pattern>\((Beta|Proto|Sample)\d?\)</Pattern>
+			<Group>1</Group>
+			<Type>Simple</Type>
+			<Separator />
+			<Items />
+		</RegexEntry>
+		<RegexEntry>
+			<Name>License</Name>
+			<Pattern>\((Unl)\)</Pattern>
+			<Group>1</Group>
+			<Type>Simple</Type>
+			<Separator />
+			<Items />
+		</RegexEntry>
+		<RegexEntry>
+			<Name>BadDump</Name>
+			<Pattern>\[(b)\]</Pattern>
+			<Group>1</Group>
+			<Type>Simple</Type>
+			<Separator />
+			<Items />
+		</RegexEntry>
+	</Items>
+  </RegexEntry>
+</ArrayOfRegexEntry>

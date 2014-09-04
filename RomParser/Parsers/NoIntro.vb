@@ -3,23 +3,12 @@ Imports System.ComponentModel
 Imports System.Text.RegularExpressions
 Imports System.IO.Compression
 Imports System.Data.SQLite
-
+Imports RegexParser
 Public Class NoIntro
     Inherits FileParser
     Const patternManufacturer As String = "^(.+?) - "
     Const patternSystem As String = "^(?:.+?) - (.+?)(?:\(.+?\))?$"
-    Const patternName As String = "(?:\[.*?\])?(.*?)\("
-    Const patternBIOS As String = "\[BIOS\]"
-    Const patternType As String = "\((Addon|Coverdisk|Diskmag|Program)(?: - )?([^\)]*?)?\)"
-    Const patternCompilation As String = "\(([^\)]*?)?\s?(Compilation)(?: - )?([^\)]*?)?\)"
-    Const patternDemo As String = "\(([^\)]*?)?\s?(Budget|Demo|Promo)(?: - )?([^\)]*?)?\)"
-    Const patternRegion As String = "\((Australia|Brazil|Canada|China|France|Germany|Hong Kong|Italy|Japan|Korea|Netherlands|Spain|Sweden|USA|Asia|Europe|World)\)"
-    Const patternLanguage As String = "\((En|Ja|Fr|De|Es|It|Nl|Pt|Sv|No|Da|Fi|Zh|Ko|Pl)\)"
-    Const patternVersion As String = "\(.*?(v[\d|\.]+\w?)\s?(?:[^\)]*)\)"
-    Const patternRevision As String = "\(.*?(Rev [\d|\w|\.]+)(?:[^\)]*)?\)"
-    Const patternDevStatus As String = "\((Beta|Proto|Sample)\d?\)"
-    Const patternLicense As String = "\((Unl)\)"
-    Const patternBadDump As String = "\[b\]"
+    Dim rgxlist As New RegexList("Parsers\\NoIntro.xml")
     Public Overrides Sub ParsePath(dir As DirectoryInfo, ByRef ds As Parser)
         Dim systemdir As DirectoryInfo
         Dim files As FileInfo()
@@ -39,21 +28,8 @@ Public Class NoIntro
         Dim archiverow As Parser.ArchiveFilesRow
         Dim rgxManufacturer As New Regex(patternManufacturer)
         Dim rgxSystem As New Regex(patternSystem)
-        Dim rgxName As New Regex(patternName)
-        Dim rgxBIOS As New Regex(patternBIOS)
-        Dim rgxType As New Regex(patternType)
-        Dim rgxCompilation As New Regex(patternCompilation)
-        Dim rgxDemo As New Regex(patternDemo)
-        Dim rgxRegion As New Regex(patternRegion)
-        Dim rgxLanguage As New Regex(patternLanguage)
-        Dim rgxVersion As New Regex(patternVersion)
-        Dim rgxRevision As New Regex(patternRevision)
-        Dim rgxDevStatus As New Regex(patternDevStatus)
-        Dim rgxLicense As New Regex(patternLicense)
-        Dim rgxBadDump As New Regex(patternBadDump)
         Dim archive As ZipArchive
         Dim entry As ZipArchiveEntry
-        Dim match As Match
         Dim fileid, gameid, count As Integer
         For Each systemdir In dir.GetDirectories()
             'get manufacturer
@@ -72,20 +48,23 @@ Public Class NoIntro
             fileid = 0
             gameid = 0
             For Each file In files
-                '1. get software name
-                If rgxName.IsMatch(file.Name) Then
-                    strSoftwareName = rgxName.Match(file.Name).Groups(1).Value.Trim
-                Else
-                    strSoftwareName = "UNK"
-                End If
-                '2. get software type
-                If rgxBIOS.IsMatch(file.Name) Then
-                    strType = "BIOS"
-                ElseIf rgxType.IsMatch(file.Name) Then
-                    strType = rgxType.Match(file.Name).Groups(1).Value
-                Else
-                    strType = "Game"
-                End If
+                Dim rgxresults As New List(Of RegexResult)
+                Dim fileflagsresults As List(Of RegexResult)
+                rgxresults = rgxlist.ParseString(file.Name)
+                strType = ""
+                strSoftwareName = ""
+                fileflagsresults = Nothing
+                For Each result As RegexResult In rgxresults
+                    Select Case result.Name
+                        Case "Name"
+                            strSoftwareName = result.Value
+                        Case "Type"
+                            strType = result.Value
+                        Case "FileFlags"
+                            fileflagsresults = result.Items
+                    End Select
+                Next
+                If strType = "" Then strType = "Game"
                 type = GetSoftwareType(strType, ds)
                 '3. get software
                 software = GetSoftware(system, type, strSoftwareName, ds)
@@ -119,48 +98,10 @@ Public Class NoIntro
                     fileArchiveHT.Add(archiverow.archiveFileName, archiverow)
                 Next
                 '9. get file flags
-                If rgxCompilation.IsMatch(file.Name) Then
-                    flag = GetFlag("Compilation", "File", ds)
-                    fileFlag = GetFileFlag(filerow, flag, "True", ds)
-                End If
-                If rgxDemo.IsMatch(file.Name.Replace(",", ")(")) Then
-                    flag = GetFlag("Demo", "File", ds)
-                    For Each match In rgxDemo.Matches(file.Name.Replace(",", ")("))
-                        fileFlag = GetFileFlag(filerow, flag, match.Groups(2).Value, ds)
-                    Next
-                End If
-                If rgxRegion.IsMatch(file.Name.Replace(",", ")(")) Then
-                    flag = GetFlag("Region", "File", ds)
-                    For Each match In rgxRegion.Matches(file.Name.Replace(",", ")("))
-                        fileFlag = GetFileFlag(filerow, flag, match.Groups(1).Value, ds)
-                    Next
-                End If
-                If rgxLanguage.IsMatch(file.Name.Replace(",", ")(")) Then
-                    flag = GetFlag("Language", "File", ds)
-                    For Each match In rgxLanguage.Matches(file.Name.Replace(",", ")("))
-                        fileFlag = GetFileFlag(filerow, flag, match.Groups(1).Value.ToLower, ds)
-                    Next
-                End If
-                If rgxVersion.IsMatch(file.Name) Then
-                    flag = GetFlag("Version", "File", ds)
-                    fileFlag = GetFileFlag(filerow, flag, rgxVersion.Match(file.Name).Groups(1).Value, ds)
-                End If
-                If rgxRevision.IsMatch(file.Name) Then
-                    flag = GetFlag("Version", "File", ds)
-                    fileFlag = GetFileFlag(filerow, flag, rgxRevision.Match(file.Name).Groups(1).Value, ds)
-                End If
-                If rgxDevStatus.IsMatch(file.Name) Then
-                    flag = GetFlag("DevStatus", "File", ds)
-                    fileFlag = GetFileFlag(filerow, flag, rgxDevStatus.Match(file.Name).Groups(1).Value, ds)
-                End If
-                If rgxLicense.IsMatch(file.Name) Then
-                    flag = GetFlag("License", "File", ds)
-                    fileFlag = GetFileFlag(filerow, flag, rgxLicense.Match(file.Name).Groups(1).Value, ds)
-                End If
-                If rgxBadDump.IsMatch(file.Name) Then
-                    flag = GetFlag("BadDump", "File", ds)
-                    fileFlag = GetFileFlag(filerow, flag, "True", ds)
-                End If
+                For Each result As RegexResult In fileflagsresults
+                    flag = GetFlag(result.Name, "File", ds)
+                    fileFlag = GetFileFlag(filerow, flag, result.Value, ds)
+                Next
                 '10. get file archives
                 If strFormat = "Archive" Then
                     For Each entry In archive.Entries
